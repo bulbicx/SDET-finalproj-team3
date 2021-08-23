@@ -25,6 +25,7 @@ public class Artist {
     @Column(unique = true)
     private String name;
 
+    
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
     private List<Album> albums;
 
