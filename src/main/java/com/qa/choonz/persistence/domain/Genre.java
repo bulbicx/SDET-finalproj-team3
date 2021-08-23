@@ -47,7 +47,7 @@ public class Genre {
 		this.albums = albums;
 	}
 
-	public long getId() {
+    public long getId() {
 		return id;
 	}
 
@@ -87,22 +87,22 @@ public class Genre {
 		return builder.toString();
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(albums, description, id, name);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(albums, description, id, name);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Genre)) {
-			return false;
-		}
-		Genre other = (Genre) obj;
-		return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
-				&& Objects.equals(name, other.name);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Genre)) {
+            return false;
+        }
+        Genre other = (Genre) obj;
+        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
+                && Objects.equals(name, other.name);
+    }
 
 }
