@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Playlist {
 
@@ -36,12 +38,13 @@ public class Playlist {
     @Column(unique = true)
     private String artwork;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
     private List<Track> tracks;
     
     @ManyToOne
     private User user;
-
+    
     public Playlist() {
         super();
         // TODO Auto-generated constructor stub
