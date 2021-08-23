@@ -13,30 +13,35 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Genre {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
 
-	@NotNull
-	@Size(max = 100)
-	@Column(unique = true)
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	@NotNull
-	@Size(max = 250)
-	@Column(unique = true)
-	private String description;
+    @NotNull
+    @Size(max = 100)
+    @Column(unique = true)
+    private String name;
 
-	@OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
-	private List<Album> albums;
+    @NotNull
+    @Size(max = 250)
+    @Column(unique = true)
+    private String description;
 
-	public Genre() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @JsonIgnore
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
+    private List<Album> albums;
+
+    public Genre() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
 
 	public Genre(long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
 			List<Album> albums) {
