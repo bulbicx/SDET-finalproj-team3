@@ -25,10 +25,12 @@ public class PlaylistService {
 	private TrackRepository trackRepo;
 	private ModelMapper mapper;
 
+
 	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, ModelMapper mapper, UserRepository userRepo) {
 		super();
 		this.playlistRepo = playlistRepo;
 		this.trackRepo = trackRepo;
+		this.userRepo = userRepo;
 		this.mapper = mapper;
 	}
 
@@ -37,8 +39,8 @@ public class PlaylistService {
 	}
 
 	public PlaylistDTO create(Playlist playlist, Long userId) {
-		User user = this.userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
-		playlist.setUser(user);
+		User userFound = this.userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
+		playlist.setUser(userFound);
 		Playlist created = this.playlistRepo.save(playlist);
 		return this.mapToDTO(created);
 	}

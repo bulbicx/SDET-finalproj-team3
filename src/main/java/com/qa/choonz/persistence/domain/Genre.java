@@ -18,30 +18,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Genre {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@NotNull
+	@Size(max = 100)
+	@Column(unique = true)
+	private String name;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(unique = true)
-    private String name;
+	@NotNull
+	@Size(max = 250)
+	@Column(unique = true)
+	private String description;
 
-    @NotNull
-    @Size(max = 250)
-    @Column(unique = true)
-    private String description;
+	@JsonIgnore
+	@OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
+	private List<Album> albums;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
-    private List<Album> albums;
-
-    public Genre() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	public Genre() {
+		super();
+	}
 
 	public Genre(Long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
 			List<Album> albums) {
@@ -52,7 +49,20 @@ public class Genre {
 		this.albums = albums;
 	}
 
-    public long getId() {
+	public Genre(Long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+
+	public Genre(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -92,22 +102,22 @@ public class Genre {
 		return builder.toString();
 	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(albums, description, id, name);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(albums, description, id, name);
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Genre)) {
-            return false;
-        }
-        Genre other = (Genre) obj;
-        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
-                && Objects.equals(name, other.name);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Genre)) {
+			return false;
+		}
+		Genre other = (Genre) obj;
+		return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
+				&& Objects.equals(name, other.name);
+	}
 
 }
