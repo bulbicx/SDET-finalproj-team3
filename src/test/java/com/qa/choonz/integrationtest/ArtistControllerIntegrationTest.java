@@ -1,8 +1,12 @@
 package com.qa.choonz.integrationtest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Artist;
 
@@ -61,4 +66,45 @@ public class ArtistControllerIntegrationTest {
 		//Build the request and assert it is what we have created
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
+	
+	@Test
+	void testReadAllArtists() throws Exception {
+		//Build mock request
+		RequestBuilder mockRequest = get("/artists/read");
+		
+		//Create artist object that should resemble the existing one on database
+		Artist artist = new Artist(1L, "Jack Montano");
+		
+		//Create a list and add the object
+		List<Artist> artistsOnDb = new ArrayList<>();
+		artistsOnDb.add(artist);
+		
+		//Convert list into JSON format
+		String artistsOnDbAsJSON = this.mapper.writeValueAsString(artistsOnDb);
+		
+		//Get status code OK(200)
+		ResultMatcher matchStatus = status().isOk();
+		
+		//Get body
+		ResultMatcher matchBody = content().json(artistsOnDbAsJSON);
+		
+		//Perform the request and assert the list displays the artists present on db
+		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
+	}
+	
+	@Test
+	void testReadOneArtist() {
+		
+	}
+	
+	@Test
+	void testUpdateArtist() {
+		
+	}
+	
+	@Test
+	void testDeleteArtist() {
+		
+	}
+	
 }
