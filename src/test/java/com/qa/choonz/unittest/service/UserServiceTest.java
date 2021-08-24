@@ -1,6 +1,6 @@
 package com.qa.choonz.unittest.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -25,18 +25,18 @@ public class UserServiceTest {
 	@Autowired
 	private UserService service;
 	
-	private User user = new User(0, "username", "real name", "password", new ArrayList<>());
-	private UserDTO userDTO = new UserDTO(0, "username", "real name", new ArrayList<>());
-	private Optional<User> optionalUser = Optional.of(new User(0, "username", "real name", "password", new ArrayList<>()));
-	private User newUser = new User(0, "username2", "real name2", "password123", new ArrayList<>());
-	private UserDTO newUserDTO = new UserDTO(0, "username2", "real name2", new ArrayList<>());
+	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
+	private UserDTO userDTO = new UserDTO(0L, "username", "real name", new ArrayList<>());
+	private Optional<User> optionalUser = Optional.of(new User(0L, "username", "real name", "password", new ArrayList<>()));
+	private User newUser = new User(0L, "username2", "real name2", "password123", new ArrayList<>());
+	private UserDTO newUserDTO = new UserDTO(0L, "username2", "real name2", new ArrayList<>());
 	
 	@Test
 	public void UserCreateTest() {
 		
 		Mockito.when(this.repo.save(user)).thenReturn(user);
 		
-		assertEquals(userDTO,this.service.create(user));
+		assertThat(userDTO).isEqualTo(this.service.create(user));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).save(user);
 	}
@@ -46,7 +46,7 @@ public class UserServiceTest {
 		
 		Mockito.when(this.repo.findAll()).thenReturn(new ArrayList<>());
 		
-		assertEquals(new ArrayList<>(), this.service.read());
+		assertThat(new ArrayList<>()).isEqualTo(this.service.read());
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
@@ -55,7 +55,7 @@ public class UserServiceTest {
 	public void UserReadByIdTest() {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalUser);
 		
-		assertEquals(userDTO, this.service.read(0L));
+		assertThat(userDTO).isEqualTo(this.service.read(0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 	}
@@ -65,7 +65,7 @@ public class UserServiceTest {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalUser);
 		Mockito.when(this.repo.save(newUser)).thenReturn(newUser);
 		
-		assertEquals(newUserDTO, this.service.update(newUser, 0));
+		assertThat(newUserDTO).isEqualTo(this.service.update(newUser, 0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 		Mockito.verify(this.repo, Mockito.times(1)).save(newUser);
@@ -73,7 +73,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void UserDeleteTest() {
-		assertEquals(true,this.service.delete(0L));
+		assertThat(true).isEqualTo(this.service.delete(0L));
 	}
 
 }

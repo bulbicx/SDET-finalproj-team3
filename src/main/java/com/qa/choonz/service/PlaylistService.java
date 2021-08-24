@@ -21,11 +21,12 @@ import com.qa.choonz.rest.dto.PlaylistDTO;
 public class PlaylistService {
 
 	private PlaylistRepository playlistRepo;
-	private TrackRepository trackRepo;
 	private UserRepository userRepo;
+	private TrackRepository trackRepo;
 	private ModelMapper mapper;
 
-	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, UserRepository userRepo, ModelMapper mapper) {
+
+	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, ModelMapper mapper, UserRepository userRepo) {
 		super();
 		this.playlistRepo = playlistRepo;
 		this.trackRepo = trackRepo;
@@ -58,7 +59,6 @@ public class PlaylistService {
 		toUpdate.setName(playlist.getName());
 		toUpdate.setDescription(playlist.getDescription());
 		toUpdate.setArtwork(playlist.getArtwork());
-		toUpdate.setTracks(playlist.getTracks());
 		Playlist updated = this.playlistRepo.save(toUpdate);
 		return this.mapToDTO(updated);
 	}
@@ -67,13 +67,8 @@ public class PlaylistService {
 		Track track = this.trackRepo.findById(trackId).orElseThrow(TrackNotFoundException::new);
 		Playlist playlist = this.playlistRepo.findById(playlistId).orElseThrow(PlaylistNotFoundException::new);
 		List<Track> tracks = playlist.getTracks();
-//    	List<Playlist> playlistTracks = track.getPlaylist();
-
 		tracks.add(track);
-//    	playlistTracks.add(playlist);
 		playlist.setTracks(tracks);
-//    	track.setPlaylist(playlistTracks);
-
 		Playlist trackAdded = this.playlistRepo.save(playlist);
 		return this.mapToDTO(trackAdded);
 	}
