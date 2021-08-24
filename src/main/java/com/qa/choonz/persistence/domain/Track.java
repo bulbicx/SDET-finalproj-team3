@@ -3,14 +3,13 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,7 +20,7 @@ public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull
     @Size(max = 100)
@@ -32,8 +31,8 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
-	private List<PlaylistTrack> playlists;
+    @ManyToMany(mappedBy = "tracks")
+	private List<Playlist> playlists;
 
     // in seconds
     private int duration;
@@ -45,7 +44,7 @@ public class Track {
         // TODO Auto-generated constructor stub
     }
 
-    public Track(long id, @NotNull @Size(max = 100) String name, Album album, List<PlaylistTrack> playlists, int duration,
+    public Track(long id, @NotNull @Size(max = 100) String name, Album album, List<Playlist> playlists, int duration,
             String lyrics) {
         super();
         this.id = id;
@@ -80,11 +79,11 @@ public class Track {
         this.album = album;
     }
 
-    public List<PlaylistTrack> getPlaylist() {
+    public List<Playlist> getPlaylist() {
         return playlists;
     }
 
-    public void setPlaylist(List<PlaylistTrack> playlists) {
+    public void setPlaylist(List<Playlist> playlists) {
         this.playlists = playlists;
     }
 
