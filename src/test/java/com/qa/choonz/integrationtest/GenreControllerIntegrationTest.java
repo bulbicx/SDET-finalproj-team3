@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +24,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -37,7 +39,7 @@ public class GenreControllerIntegrationTest {
 	private ObjectMapper mapper;//Convert to JSON
 	
 	@Test
-	void testCreateArtist() throws Exception {
+	void testCreateGenre() throws Exception {
 		//Create Genre object
 		Genre genre = new Genre("hip hop", "hip hop genre");
 		
@@ -67,12 +69,12 @@ public class GenreControllerIntegrationTest {
 	}
 	
 	@Test
-	void testReadAllArtists() throws Exception {
+	void testReadAllGenres() throws Exception {
 		//Build mock request
-		RequestBuilder mockRequest = get("/artists/read");
+		RequestBuilder mockRequest = get("/genres/read");
 		
 		//Create genre object that should resemble the existing one on database
-		Genre genre2 = new Genre(1L, 'Jazz', 'dd');
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre");
 		
 		//Create a list and add the object
 		List<Genre> genresOnDb = new ArrayList<>();
@@ -92,60 +94,60 @@ public class GenreControllerIntegrationTest {
 	}
 	
 	@Test
-	void testReadOneArtist() throws Exception {
+	void testReadOneGenre() throws Exception {
 		//Build mock request
-		RequestBuilder mockRequest = get("/artists/read/1");
+		RequestBuilder mockRequest = get("/genres/read/1");
 		
-		//Create the artist resembling the one existing on db
-		Artist artistOnDb = new Artist(1L, "Jack Montano");
+		//Create the genre object resembling the one existing on db
+		Genre genreOnDb = new Genre(1L, "Jazz", "Jazz genre");
 		
 		//Convert the object into JSON format
-		String artistOnDbAsJSON = this.mapper.writeValueAsString(artistOnDb);
+		String genreOnDbAsJSON = this.mapper.writeValueAsString(genreOnDb);
 		
 		//Get status code
 		ResultMatcher matchStatus = status().isOk();
 		
 		//Get body
-		ResultMatcher matchBody = content().json(artistOnDbAsJSON);
+		ResultMatcher matchBody = content().json(genreOnDbAsJSON);
 		
 		//Perform the request and assert that the artist read is the one we request
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
 	
 	@Test
-	void testUpdateArtist() throws Exception {
-		//Create artist with updated data
-		Artist updatedArtist = new Artist("Jack Borderson");
+	void testUpdateGenre() throws Exception {
+		//Create genre object with updated data
+		Genre updatedGenre = new Genre("New Jazz", "New Jazz genre");
 		
-		//Convert artist into JSON format
-		String updatedArtistAsJSON = this.mapper.writeValueAsString(updatedArtist);
+		//Convert genre into JSON format
+		String updatedGenreAsJSON = this.mapper.writeValueAsString(updatedGenre);
 		
 		//Build mock request
 		RequestBuilder mockRequest =
-								put("/artists/update/1")
+								put("/genres/update/1")
 								.contentType(MediaType.APPLICATION_JSON)
-								.content(updatedArtistAsJSON);
+								.content(updatedGenreAsJSON);
 		
-		//Create artist object which resemble the updated one on db
-		Artist updatedArtistOnDb = new Artist(1L, "Jack Borderson");
+		//Create genre object which resemble the updated one on db
+		Genre updatedGenreOnDb = new Genre(1L, "New Jazz", "New Jazz genre");
 		
-		//Convert artist as JSON format
-		String updatedArtistOnDbAsJSON = this.mapper.writeValueAsString(updatedArtistOnDb); 
+		//Convert genre as JSON format
+		String updatedGenreOnDbAsJSON = this.mapper.writeValueAsString(updatedGenreOnDb); 
 		
 		//Get status code(202)
 		ResultMatcher matchStatus = status().isAccepted();
 		
 		//Get content
-		ResultMatcher matchBody = content().json(updatedArtistOnDbAsJSON);
+		ResultMatcher matchBody = content().json(updatedGenreOnDbAsJSON);
 		
 		//Perform the request and assert that the update has been successful
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
 	
 	@Test
-	void testDeleteArtist() throws Exception {
+	void testDeleteGenre() throws Exception {
 		//Build mock request
-		RequestBuilder mockRequest = delete("/artists/delete/1");
+		RequestBuilder mockRequest = delete("/genres/delete/1");
 		
 		//Check status code(204)
 		ResultMatcher matchStatus = status().isNoContent();
