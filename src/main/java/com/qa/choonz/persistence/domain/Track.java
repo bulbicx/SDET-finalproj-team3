@@ -41,10 +41,9 @@ public class Track {
 
     public Track() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public Track(long id, @NotNull @Size(max = 100) String name, Album album, List<Playlist> playlists, int duration,
+    public Track(Long id, @NotNull @Size(max = 100) String name, Album album, List<Playlist> playlists, int duration,
             String lyrics) {
         super();
         this.id = id;
@@ -54,12 +53,29 @@ public class Track {
         this.duration = duration;
         this.lyrics = lyrics;
     }
+    
+    public Track(Long id, @NotNull @Size(max = 100) String name, Album album, int duration, String lyrics) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.lyrics = lyrics;
+    }
+    
+    public Track(@NotNull @Size(max = 100) String name, Album album, int duration, String lyrics) {
+        super();
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.lyrics = lyrics;
+    }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
