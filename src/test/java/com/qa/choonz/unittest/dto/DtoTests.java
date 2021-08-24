@@ -23,7 +23,7 @@ import com.qa.choonz.rest.dto.UserDTO;
 public class DtoTests {
 	
 	private Genre genre = new Genre(0, "genre name", "genre desc", new ArrayList<>());
-	private Artist artist = new Artist(0, "artist name", new ArrayList<>());
+	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
 	private User user = new User(0, "username", "real name", "password", new ArrayList<>());
 	private Album album = new Album(0, "album name",  new ArrayList<>(), artist, genre, "cover");
 	private Playlist playlist = new Playlist(0, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
