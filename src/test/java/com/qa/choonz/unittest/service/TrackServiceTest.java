@@ -27,21 +27,24 @@ public class TrackServiceTest {
 	@MockBean
 	private TrackRepository repo;
 	
+	
 	@Autowired
 	private TrackService service;
 	
 	
 	private Genre genre = new Genre(0, "genre name", "genre desc", new ArrayList<>());
-	private Artist artist = new Artist(0, "artist name", new ArrayList<>());
+	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
 	private User user = new User(0, "username", "real name", "password", new ArrayList<>());
 	private Album album = new Album(0, "album name",  new ArrayList<>(), artist, genre, "cover");
 	private Playlist playlist = new Playlist(0, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
-	private Track track = new Track(0, "track name", album, playlist, 120, "lyrics");
+	private Track track = new Track(0, "track name", album, new ArrayList<>(), 120, "lyrics");
 	private TrackDTO trackDTO = new TrackDTO(0, "track name", album, playlist, 120, "lyrics");
-	private Optional<Track> optionalTrack = Optional.of(new Track(0, "track name", album, playlist, 120, "lyrics"));
-	private Track newTrack = new Track(0, "new track name", album, playlist, 120, "new lyrics");
+	private Optional<Track> optionalTrack = Optional.of(new Track(0, "track name", album, new ArrayList<>(), 120, "lyrics"));
+	private Track newTrack = new Track(0, "new track name", album, new ArrayList<>(), 120, "new lyrics");
 	private TrackDTO newTrackDTO = new TrackDTO(0, "new track name", album, playlist, 120, "new lyrics");
 	
+	
+	//fails due to unupdated DTO object
 	@Test
 	public void TrackCreateTest() {
 		
@@ -65,7 +68,7 @@ public class TrackServiceTest {
 	@Test
 	public void TrackReadByIdTest() {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalTrack);
-		
+
 		assertEquals(trackDTO, this.service.read(0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);

@@ -25,10 +25,10 @@ public class ArtistServiceTest {
 	@Autowired
 	private ArtistService service;
 	
-	private Artist artist = new Artist(0, "artist name", new ArrayList<>());
+	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
 	private ArtistDTO artistDTO = new ArtistDTO(0, "artist name", new ArrayList<>());
-	private Optional<Artist> optionalArtist = Optional.of(new Artist(0, "artist name", new ArrayList<>()));
-	private Artist newArtist = new Artist(0, "new artist name", new ArrayList<>());
+	private Optional<Artist> optionalArtist = Optional.of(new Artist(0L, "artist name", new ArrayList<>()));
+	private Artist newArtist = new Artist(0L, "new artist name", new ArrayList<>());
 	private ArtistDTO newArtistDTO = new ArtistDTO(0, "new artist name", new ArrayList<>());
 	
 	@Test
