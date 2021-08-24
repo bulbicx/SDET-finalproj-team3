@@ -21,7 +21,7 @@ public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull
     @Size(max = 100)
@@ -43,7 +43,7 @@ public class Genre {
     }
 
 
-	public Genre(long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
+	public Genre(Long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
 			List<Album> albums) {
 		super();
 		this.id = id;
@@ -56,7 +56,7 @@ public class Genre {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

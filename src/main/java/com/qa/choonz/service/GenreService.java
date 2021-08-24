@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.GenreNotFoundException;
@@ -17,6 +18,7 @@ public class GenreService {
     private GenreRepository repo;
     private ModelMapper mapper;
 
+    @Autowired
     public GenreService(GenreRepository repo, ModelMapper mapper) {
         super();
         this.repo = repo;
@@ -36,12 +38,12 @@ public class GenreService {
         return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
-    public GenreDTO read(long id) {
+    public GenreDTO read(Long id) {
         Genre found = this.repo.findById(id).orElseThrow(GenreNotFoundException::new);
         return this.mapToDTO(found);
     }
 
-    public GenreDTO update(Genre genre, long id) {
+    public GenreDTO update(Genre genre, Long id) {
         Genre toUpdate = this.repo.findById(id).orElseThrow(GenreNotFoundException::new);
         toUpdate.setName(genre.getName());
         toUpdate.setDescription(genre.getDescription());
@@ -49,7 +51,7 @@ public class GenreService {
         return this.mapToDTO(updated);
     }
 
-    public boolean delete(long id) {
+    public boolean delete(Long id) {
         this.repo.deleteById(id);
         return !this.repo.existsById(id);
     }

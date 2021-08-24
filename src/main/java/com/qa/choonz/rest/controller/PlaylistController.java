@@ -23,37 +23,47 @@ import com.qa.choonz.service.PlaylistService;
 @CrossOrigin
 public class PlaylistController {
 
-    private PlaylistService service;
+	private PlaylistService service;
 
-    public PlaylistController(PlaylistService service) {
-        super();
-        this.service = service;
-    }
+	public PlaylistController(PlaylistService service) {
+		super();
+		this.service = service;
+	}
 
-    @PostMapping("/create")
-    public ResponseEntity<PlaylistDTO> create(@RequestBody Playlist playlist) {
-        return new ResponseEntity<PlaylistDTO>(this.service.create(playlist), HttpStatus.CREATED);
-    }
+	@PostMapping("/create")
+	public ResponseEntity<PlaylistDTO> create(@RequestBody Playlist playlist) {
+		return new ResponseEntity<PlaylistDTO>(this.service.create(playlist), HttpStatus.CREATED);
+	}
 
-    @GetMapping("/read")
-    public ResponseEntity<List<PlaylistDTO>> read() {
-        return new ResponseEntity<List<PlaylistDTO>>(this.service.read(), HttpStatus.OK);
-    }
+	@GetMapping("/read")
+	public ResponseEntity<List<PlaylistDTO>> read() {
+		return new ResponseEntity<List<PlaylistDTO>>(this.service.read(), HttpStatus.OK);
+	}
 
-    @GetMapping("/read/{id}")
-    public ResponseEntity<PlaylistDTO> read(@PathVariable long id) {
-        return new ResponseEntity<PlaylistDTO>(this.service.read(id), HttpStatus.OK);
-    }
+	@GetMapping("/read/{id}")
+	public ResponseEntity<PlaylistDTO> read(@PathVariable Long id) {
+		return new ResponseEntity<PlaylistDTO>(this.service.read(id), HttpStatus.OK);
+	}
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<PlaylistDTO> update(@RequestBody Playlist playlist, @PathVariable long id) {
-        return new ResponseEntity<PlaylistDTO>(this.service.update(playlist, id), HttpStatus.ACCEPTED);
-    }
+	@PutMapping("/update/{id}")
+	public ResponseEntity<PlaylistDTO> update(@RequestBody Playlist playlist, @PathVariable Long id) {
+		return new ResponseEntity<PlaylistDTO>(this.service.update(playlist, id), HttpStatus.ACCEPTED);
+	}
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<PlaylistDTO> delete(@PathVariable long id) {
-        return this.service.delete(id) ? new ResponseEntity<PlaylistDTO>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<PlaylistDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+	@PutMapping("/{playlistId}/addTrack/{trackId}")
+	public ResponseEntity<PlaylistDTO> addTrack(@PathVariable Long playlistId, @PathVariable Long trackId) {
+		return new ResponseEntity<PlaylistDTO>(this.service.addTrack(playlistId, trackId), HttpStatus.ACCEPTED);
+	}
+
+	@PutMapping("/{playlistId}/removeTrack/{trackId}")
+	public ResponseEntity<PlaylistDTO> removeTrack(@PathVariable Long playlistId, @PathVariable Long trackId) {
+		return new ResponseEntity<PlaylistDTO>(this.service.removeTrack(playlistId, trackId), HttpStatus.ACCEPTED);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<PlaylistDTO> delete(@PathVariable Long id) {
+		return this.service.delete(id) ? new ResponseEntity<PlaylistDTO>(HttpStatus.NO_CONTENT)
+				: new ResponseEntity<PlaylistDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 }
