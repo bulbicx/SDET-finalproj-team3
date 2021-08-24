@@ -7,19 +7,24 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.TrackNotFoundException;
+import com.qa.choonz.exception.AlbumNotFoundException;
+import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.TrackDTO;
 
 @Service
 public class TrackService {
 
-    private TrackRepository repo;
+    private TrackRepository trackRepo;
+    private AlbumRepository albumRepo;
     private ModelMapper mapper;
 
-    public TrackService(TrackRepository repo, ModelMapper mapper) {
+    public TrackService(TrackRepository trackRepo, AlbumRepository albumRepo, ModelMapper mapper) {
         super();
-        this.repo = repo;
+        this.trackRepo = trackRepo;
+        this.albumRepo = albumRepo;
         this.mapper = mapper;
     }
 
@@ -27,34 +32,35 @@ public class TrackService {
         return this.mapper.map(track, TrackDTO.class);
     }
 
-    public TrackDTO create(Track track) {
-        Track created = this.repo.save(track);
+    public TrackDTO create(Track track, Long albumId) {
+    	Album album = this.albumRepo.findById(albumId).orElseThrow(AlbumNotFoundException::new);
+    	track.setAlbum(album);
+        Track created = this.trackRepo.saveAndFlush(track);
         return this.mapToDTO(created);
     }
 
     public List<TrackDTO> read() {
-        return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
+        return this.trackRepo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
-    public TrackDTO read(long id) {
-        Track found = this.repo.findById(id).orElseThrow(TrackNotFoundException::new);
+    public TrackDTO read(Long id) {
+        Track found = this.trackRepo.findById(id).orElseThrow(TrackNotFoundException::new);
         return this.mapToDTO(found);
     }
 
-    public TrackDTO update(Track track, long id) {
-        Track toUpdate = this.repo.findById(id).orElseThrow(TrackNotFoundException::new);
+    public TrackDTO update(Track track, Long id, Long albumId) {
+        Track toUpdate = this.trackRepo.findById(id).orElseThrow(TrackNotFoundException::new);
+        Album albumToUpdate = this.albumRepo.findById(albumId).orElseThrow(AlbumNotFoundException::new);
         toUpdate.setName(track.getName());
-        toUpdate.setAlbum(track.getAlbum());
+        toUpdate.setAlbum(albumToUpdate);
         toUpdate.setDuration(track.getDuration());
         toUpdate.setLyrics(track.getLyrics());
-        toUpdate.setPlaylist(track.getPlaylist());
-        Track updated = this.repo.save(toUpdate);
+        Track updated = this.trackRepo.save(toUpdate);
         return this.mapToDTO(updated);
     }
 
-    public boolean delete(long id) {
-        this.repo.deleteById(id);
-        return !this.repo.existsById(id);
+    public boolean delete(Long id) {
+        this.trackRepo.deleteById(id);
+        return !this.trackRepo.existsById(id);
     }
-
 }
