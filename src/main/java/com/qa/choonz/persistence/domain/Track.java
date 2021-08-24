@@ -1,16 +1,13 @@
 package com.qa.choonz.persistence.domain;
 
-import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,8 +29,8 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
-	private List<PlaylistTrack> playlists;
+    @ManyToOne
+    private Playlist playlist;
 
     // in seconds
     private int duration;
@@ -45,13 +42,13 @@ public class Track {
         // TODO Auto-generated constructor stub
     }
 
-    public Track(long id, @NotNull @Size(max = 100) String name, Album album, List<PlaylistTrack> playlists, int duration,
+    public Track(long id, @NotNull @Size(max = 100) String name, Album album, Playlist playlist, int duration,
             String lyrics) {
         super();
         this.id = id;
         this.name = name;
         this.album = album;
-        this.playlists = playlists;
+        this.playlist = playlist;
         this.duration = duration;
         this.lyrics = lyrics;
     }
@@ -80,12 +77,12 @@ public class Track {
         this.album = album;
     }
 
-    public List<PlaylistTrack> getPlaylist() {
-        return playlists;
+    public Playlist getPlaylist() {
+        return playlist;
     }
 
-    public void setPlaylist(List<PlaylistTrack> playlists) {
-        this.playlists = playlists;
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
     }
 
     public int getDuration() {
@@ -108,14 +105,14 @@ public class Track {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
-                .append(", playlist=").append(playlists).append(", duration=").append(duration).append(", lyrics=")
+                .append(", playlist=").append(playlist).append(", duration=").append(duration).append(", lyrics=")
                 .append(lyrics).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(album, duration, id, lyrics, name, playlists);
+        return Objects.hash(album, duration, id, lyrics, name, playlist);
     }
 
     @Override
@@ -129,7 +126,7 @@ public class Track {
         Track other = (Track) obj;
         return Objects.equals(album, other.album) && duration == other.duration && id == other.id
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-                && Objects.equals(playlists, other.playlists);
+                && Objects.equals(playlist, other.playlist);
     }
 
 }
