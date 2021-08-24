@@ -18,11 +18,11 @@ import com.qa.choonz.persistence.domain.User;
 public class DomainTests {
 	
 	private Genre genre = new Genre(0, "genre name", "genre desc", new ArrayList<>());
-	private Artist artist = new Artist(0, "artist name", new ArrayList<>());
+	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
 	private User user = new User(0, "username", "real name", "password", new ArrayList<>());
 	private Album album = new Album(0, "album name",  new ArrayList<>(), artist, genre, "cover");
 	private Playlist playlist = new Playlist(0, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
-	private Track track = new Track(0, "track name", album, playlist, 120, "lyrics");
+	private Track track = new Track(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
 	
 	//the only non standard elements in the domain are the ToStrings so we only need to test those
 	
@@ -59,7 +59,7 @@ public class DomainTests {
 	
 	@Test
 	public void TrackTest() {
-		assertEquals("Track [id=0, name=track name, album="+album.toString()+", playlist="+playlist.toString()+", duration=120, lyrics=lyrics]",track.toString());
+		assertEquals("Track [id=0, name=track name, album="+album.toString()+", playlist=[], duration=120, lyrics=lyrics]",track.toString());
 		
 	}
 
