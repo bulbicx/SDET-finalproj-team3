@@ -80,7 +80,7 @@ public class TrackDTO {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
+        builder.append("TrackDTO [id=").append(id).append(", name=").append(name).append(", album=").append(album)
                 .append(", playlist=").append(playlist).append(", duration=").append(duration).append(", lyrics=")
                 .append(lyrics).append("]");
         return builder.toString();

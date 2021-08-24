@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.User;
 
 public class PlaylistDTO {
 
@@ -12,19 +13,21 @@ public class PlaylistDTO {
     private String description;
     private String artwork;
     private List<Track> tracks;
+    private User user;
 
     public PlaylistDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public PlaylistDTO(long id, String name, String description, String artwork, List<Track> tracks) {
+    public PlaylistDTO(long id, String name, String description, String artwork, List<Track> tracks, User user) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
         this.artwork = artwork;
         this.tracks = tracks;
+        this.user = user;
     }
 
     /**
@@ -96,13 +99,21 @@ public class PlaylistDTO {
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
+    
+    public User getUser() {
+    	return user;
+    }
+    
+    public void setUser(User user) {
+    	this.user=user;
+    }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("PlaylistDTO [id=").append(id).append(", name=").append(name).append(", description=")
                 .append(description).append(", artwork=").append(artwork).append(", tracks=").append(tracks)
-                .append("]");
+                .append(", user=").append(user).append("]");
         return builder.toString();
     }
 
