@@ -1,9 +1,10 @@
-DROP TABLE IF EXISTS `artist`;
-DROP TABLE IF EXISTS `genre`;
-DROP TABLE IF EXISTS `album`;
-DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `playlist`;
+DROP TABLE IF EXISTS `playlist_track`;
 DROP TABLE IF EXISTS `track`;
+DROP TABLE IF EXISTS `playlist`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `album`;
+DROP TABLE IF EXISTS `genre`;
+DROP TABLE IF EXISTS `artist`;
 
 CREATE TABLE IF NOT EXISTS `artist` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -57,4 +58,13 @@ CREATE TABLE IF NOT EXISTS `track` (
     PRIMARY KEY (`id`),
 	CONSTRAINT fk_track_album FOREIGN KEY (album_id) REFERENCES album(id),
 	CONSTRAINT fk_track_playlist FOREIGN KEY (playlist_id) REFERENCES playlist(id)
+);
+
+CREATE TABLE IF NOT EXISTS `playlist_track` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+	`playlist_id` BIGINT NOT NULL,
+	`track_id` BIGINT NOT NULL,
+    PRIMARY KEY (`id`),
+	CONSTRAINT fk_playlist_track_playlist FOREIGN KEY (playlist_id) REFERENCES playlist(id),
+	CONSTRAINT fk_playlist_track_track FOREIGN KEY (track_id) REFERENCES track(id)
 );

@@ -35,7 +35,7 @@ public class ArtistControllerIntegrationTest {
 	@Test
 	void testCreateArtist() throws Exception {
 		//Create Artist object
-		Artist artist = new Artist("Jack Montano", null);
+		Artist artist = new Artist("Jack Montano");
 		
 		//Convert it to a JSON String
 		String artistAsJSON = this.mapper.writeValueAsString(artist);
@@ -47,7 +47,7 @@ public class ArtistControllerIntegrationTest {
 								.content(artistAsJSON);
 		
 		//Create an artist object resembling the one created in database
-		Artist artistInDb = new Artist(1L, "Jack Montano", null);
+		Artist artistInDb = new Artist(2L, "Jack Montano");
 		
 		//Convert the artist in database as JSON
 		String artistInDbAsJSON = this.mapper.writeValueAsString(artistInDb);

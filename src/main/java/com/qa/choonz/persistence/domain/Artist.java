@@ -18,85 +18,89 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Artist {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(unique = true)
-    private String name;
+	@NotNull
+	@Size(max = 100)
+	@Column(unique = true)
+	private String name;
 
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
-    private List<Album> albums;
+	@JsonIgnore
+	@OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+	private List<Album> albums;
 
-    public Artist() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    public Artist(@NotNull @Size(max = 100) String name, List<Album> albums) {
-        super();
-        this.name = name;
-        this.albums = albums;
-    }
+	public Artist() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public Artist(long id, @NotNull @Size(max = 100) String name, List<Album> albums) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.albums = albums;
-    }
+	public Artist(Long id, @NotNull @Size(max = 100) String name, List<Album> albums) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.albums = albums;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public Artist(Long id, @NotNull @Size(max = 100) String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public Artist(@NotNull @Size(max = 100) String name) {
+		super();
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public List<Album> getAlbums() {
-        return albums;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Artist [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
-                .append("]");
-        return builder.toString();
-    }
+	public List<Album> getAlbums() {
+		return albums;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(albums, id, name);
-    }
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Artist)) {
-            return false;
-        }
-        Artist other = (Artist) obj;
-        return Objects.equals(albums, other.albums) && id == other.id && Objects.equals(name, other.name);
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Artist [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
+				.append("]");
+		return builder.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(albums, id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Artist)) {
+			return false;
+		}
+		Artist other = (Artist) obj;
+		return Objects.equals(albums, other.albums) && id == other.id && Objects.equals(name, other.name);
+	}
 
 }
