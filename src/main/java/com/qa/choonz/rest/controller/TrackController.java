@@ -30,9 +30,9 @@ public class TrackController {
         this.service = service;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<TrackDTO> create(@RequestBody Track track) {
-        return new ResponseEntity<TrackDTO>(this.service.create(track), HttpStatus.CREATED);
+    @PostMapping("/create/album/{albumId}")
+    public ResponseEntity<TrackDTO> create(@RequestBody Track track, @PathVariable Long albumId) {
+        return new ResponseEntity<TrackDTO>(this.service.create(track, albumId), HttpStatus.CREATED);
     }
 
     @GetMapping("/read")
@@ -41,17 +41,17 @@ public class TrackController {
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<TrackDTO> read(@PathVariable long id) {
+    public ResponseEntity<TrackDTO> read(@PathVariable Long id) {
         return new ResponseEntity<TrackDTO>(this.service.read(id), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<TrackDTO> update(@RequestBody Track track, @PathVariable long id) {
-        return new ResponseEntity<TrackDTO>(this.service.update(track, id), HttpStatus.ACCEPTED);
+    @PutMapping("/update/{id}/album/{albumId}")
+    public ResponseEntity<TrackDTO> update(@RequestBody Track track, @PathVariable Long id, @PathVariable Long albumId) {
+        return new ResponseEntity<TrackDTO>(this.service.update(track, id, albumId), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<TrackDTO> delete(@PathVariable long id) {
+    public ResponseEntity<TrackDTO> delete(@PathVariable Long id) {
         return this.service.delete(id) ? new ResponseEntity<TrackDTO>(HttpStatus.NO_CONTENT)
                 : new ResponseEntity<TrackDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
