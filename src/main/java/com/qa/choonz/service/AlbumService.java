@@ -1,59 +1,80 @@
 package com.qa.choonz.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.AlbumNotFoundException;
+import com.qa.choonz.exception.ArtistNotFoundException;
+import com.qa.choonz.exception.GenreNotFoundException;
 import com.qa.choonz.persistence.domain.Album;
+import com.qa.choonz.persistence.domain.Artist;
+import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.repository.AlbumRepository;
+import com.qa.choonz.persistence.repository.ArtistRepository;
+import com.qa.choonz.persistence.repository.GenreRepository;
 import com.qa.choonz.rest.dto.AlbumDTO;
 
 @Service
 public class AlbumService {
 
-    private AlbumRepository repo;
-    private ModelMapper mapper;
+	private AlbumRepository albumRepo;
+	private ArtistRepository artistRepo;
+	private GenreRepository genreRepo;
+	private ModelMapper mapper;
 
-    public AlbumService(AlbumRepository repo, ModelMapper mapper) {
-        super();
-        this.repo = repo;
-        this.mapper = mapper;
-    }
+	public AlbumService(AlbumRepository albumRepo, ModelMapper mapper, ArtistRepository artistRepo,
+			GenreRepository genreRepo) {
+		super();
+		this.albumRepo = albumRepo;
+		this.artistRepo = artistRepo;
+		this.genreRepo = genreRepo;
+		this.mapper = mapper;
+	}
 
-    private AlbumDTO mapToDTO(Album album) {
-        return this.mapper.map(album, AlbumDTO.class);
-    }
+	private AlbumDTO mapToDTO(Album album) {
+		return this.mapper.map(album, AlbumDTO.class);
+	}
 
-    public AlbumDTO create(Album album) {
-        Album created = this.repo.save(album);
-        return this.mapToDTO(created);
-    }
+	public AlbumDTO create(Album album, Long artistId, Long genreId) {
+		Optional<Artist> artistOpt = this.artistRepo.findById(artistId);
+		artistOpt.orElseThrow(() -> new ArtistNotFoundException());
+		Optional<Genre> genreOpt = this.genreRepo.findById(genreId);
+		genreOpt.orElseThrow(() -> new GenreNotFoundException());
+		album.setArtist(artistOpt.get());
+		album.setGenre(genreOpt.get());
+		Album created = this.albumRepo.save(album);
+		return this.mapToDTO(created);
+	}
 
-    public List<AlbumDTO> read() {
-        return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
-    }
+	public List<AlbumDTO> read() {
+		return this.albumRepo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
+	}
 
-    public AlbumDTO read(long id) {
-        Album found = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);
-        return this.mapToDTO(found);
-    }
+	public AlbumDTO read(long id) {
+		Album found = this.albumRepo.findById(id).orElseThrow(AlbumNotFoundException::new);
+		return this.mapToDTO(found);
+	}
 
-    public AlbumDTO update(Album album, long id) {
-        Album toUpdate = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);
-        toUpdate.setName(album.getName());
-        toUpdate.setTracks(album.getTracks());
-        toUpdate.setArtist(album.getArtist());
-        toUpdate.setCover(album.getCover());
-        Album updated = this.repo.save(toUpdate);
-        return this.mapToDTO(updated);
-    }
+	public AlbumDTO update(Album album, long id, Long artistId, Long genreId) {
+		Album toUpdate = this.albumRepo.findById(id).orElseThrow(AlbumNotFoundException::new);
+		Artist artistToUpdate = this.artistRepo.findById(artistId).orElseThrow(ArtistNotFoundException::new);
+		Genre genreToUpdate = this.genreRepo.findById(genreId).orElseThrow(GenreNotFoundException::new);
+		toUpdate.setName(album.getName());
+		toUpdate.setTracks(album.getTracks());
+		toUpdate.setArtist(artistToUpdate);
+		toUpdate.setGenre(genreToUpdate);
+		toUpdate.setCover(album.getCover());
+		Album updated = this.albumRepo.save(toUpdate);
+		return this.mapToDTO(updated);
+	}
 
-    public boolean delete(long id) {
-        this.repo.deleteById(id);
-        return !this.repo.existsById(id);
-    }
+	public boolean delete(long id) {
+		this.albumRepo.deleteById(id);
+		return !this.albumRepo.existsById(id);
+	}
 
 }

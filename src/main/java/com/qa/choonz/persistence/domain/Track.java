@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Track {
 
@@ -22,7 +24,8 @@ public class Track {
     @Size(max = 100)
     @Column(unique = true)
     private String name;
-
+    
+    @JsonIgnore
     @ManyToOne
     private Album album;
 
