@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.PlaylistNotFoundException;
 import com.qa.choonz.exception.TrackNotFoundException;
+import com.qa.choonz.exception.UserNotFoundException;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.User;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
+import com.qa.choonz.persistence.repository.UserRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 
 @Service
@@ -19,12 +22,14 @@ public class PlaylistService {
 
 	private PlaylistRepository playlistRepo;
 	private TrackRepository trackRepo;
+	private UserRepository userRepo;
 	private ModelMapper mapper;
 
-	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, ModelMapper mapper) {
+	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, UserRepository userRepo, ModelMapper mapper) {
 		super();
 		this.playlistRepo = playlistRepo;
 		this.trackRepo = trackRepo;
+		this.userRepo = userRepo;
 		this.mapper = mapper;
 	}
 
@@ -32,7 +37,9 @@ public class PlaylistService {
 		return this.mapper.map(playlist, PlaylistDTO.class);
 	}
 
-	public PlaylistDTO create(Playlist playlist) {
+	public PlaylistDTO create(Playlist playlist, Long userId) {
+		User userFound = this.userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
+		playlist.setUser(userFound);
 		Playlist created = this.playlistRepo.save(playlist);
 		return this.mapToDTO(created);
 	}
