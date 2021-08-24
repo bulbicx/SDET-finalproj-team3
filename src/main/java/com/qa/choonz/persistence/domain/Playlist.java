@@ -40,7 +40,7 @@ public class Playlist {
 
     @JsonIgnore
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
-    private List<PlaylistTrack> tracks;
+    private List<Track> tracks;
     
     @ManyToOne
     private User user;
@@ -51,7 +51,7 @@ public class Playlist {
     }
 
     public Playlist(long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 1000) String artwork, List<PlaylistTrack> tracks, User user) {
+            @NotNull @Size(max = 1000) String artwork, List<Track> tracks, User user) {
         super();
         this.id = id;
         this.name = name;
@@ -93,11 +93,11 @@ public class Playlist {
         this.artwork = artwork;
     }
 
-    public List<PlaylistTrack> getTracks() {
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<PlaylistTrack> tracks) {
+    public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
     
