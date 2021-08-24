@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.GenreNotFoundException;
@@ -17,6 +18,7 @@ public class GenreService {
     private GenreRepository repo;
     private ModelMapper mapper;
 
+    @Autowired
     public GenreService(GenreRepository repo, ModelMapper mapper) {
         super();
         this.repo = repo;
