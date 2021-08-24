@@ -30,9 +30,10 @@ public class AlbumController {
         this.service = service;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<AlbumDTO> create(@RequestBody Album album) {
-        return new ResponseEntity<AlbumDTO>(this.service.create(album), HttpStatus.CREATED);
+    @PostMapping("/create/{artistId}/{genreId}")
+    public ResponseEntity<AlbumDTO> create(@RequestBody Album album, @PathVariable (value="artistId") Long artistId,
+    		@PathVariable (value="genreId") Long genreId) {
+        return new ResponseEntity<AlbumDTO>(this.service.create(album, artistId, genreId), HttpStatus.CREATED);
     }
 
     @GetMapping("/read")
@@ -45,9 +46,10 @@ public class AlbumController {
         return new ResponseEntity<AlbumDTO>(this.service.read(id), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<AlbumDTO> update(@RequestBody Album album, @PathVariable long id) {
-        return new ResponseEntity<AlbumDTO>(this.service.update(album, id), HttpStatus.ACCEPTED);
+    @PutMapping("/update/{id}/{artistId}/{genreId}")
+    public ResponseEntity<AlbumDTO> update(@RequestBody Album album, @PathVariable long id, @PathVariable (value="artistId") Long artistId,
+    		@PathVariable (value="genreId") Long genreId) {
+        return new ResponseEntity<AlbumDTO>(this.service.update(album, id, artistId, genreId), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("delete/{id}")

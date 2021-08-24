@@ -3,14 +3,15 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,7 +22,7 @@ public class Playlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull
     @Size(max = 100)
@@ -39,7 +40,12 @@ public class Playlist {
     private String artwork;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+    		name = "playlist_track",
+    		joinColumns = @JoinColumn(name = "playlist_id"),
+    		inverseJoinColumns = @JoinColumn(name = "track_id")
+    )
     private List<Track> tracks;
     
     @ManyToOne
