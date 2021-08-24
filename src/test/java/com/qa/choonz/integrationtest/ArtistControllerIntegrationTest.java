@@ -1,7 +1,9 @@
 package com.qa.choonz.integrationtest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,7 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Artist;
 
@@ -114,13 +115,45 @@ public class ArtistControllerIntegrationTest {
 	}
 	
 	@Test
-	void testUpdateArtist() {
+	void testUpdateArtist() throws Exception {
+		//Create artist with updated data
+		Artist updatedArtist = new Artist("Jack Borderson");
 		
+		//Convert artist into JSON format
+		String updatedArtistAsJSON = this.mapper.writeValueAsString(updatedArtist);
+		
+		//Build mock request
+		RequestBuilder mockRequest =
+								put("/artists/update/1")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(updatedArtistAsJSON);
+		
+		//Create artist object which resemble the updated one on db
+		Artist updatedArtistOnDb = new Artist(1L, "Jack Borderson");
+		
+		//Convert artist as JSON format
+		String updatedArtistOnDbAsJSON = this.mapper.writeValueAsString(updatedArtistOnDb); 
+		
+		//Get status code(202)
+		ResultMatcher matchStatus = status().isAccepted();
+		
+		//Get content
+		ResultMatcher matchBody = content().json(updatedArtistOnDbAsJSON);
+		
+		//Perform the request and assert that the update has been successful
+		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
 	
 	@Test
-	void testDeleteArtist() {
+	void testDeleteArtist() throws Exception {
+		//Build mock request
+		RequestBuilder mockRequest = delete("/artists/delete/1");
 		
+		//Check status code(204)
+		ResultMatcher matchStatus = status().isNoContent();
+		
+		//Build the mock request
+		this.mock.perform(mockRequest).andExpect(matchStatus);
 	}
 	
 }
