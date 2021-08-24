@@ -1,6 +1,6 @@
 package com.qa.choonz.unittest.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -34,15 +34,15 @@ public class AlbumServiceTest {
 	@Autowired
 	private AlbumService service;
 	
-	private Genre genre = new Genre(0, "genre name", "genre desc", new ArrayList<>());
-	private Optional<Genre> optionalGenre = Optional.of(new Genre(0, "genre name", "genre desc", new ArrayList<>()));
+	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>());
+	private Optional<Genre> optionalGenre = Optional.of(new Genre(0L, "genre name", "genre desc", new ArrayList<>()));
 	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
 	private Optional<Artist> optionalArtist = Optional.of(new Artist(0L, "artist name", new ArrayList<>()));
-	private Album album = new Album(0, "album name",  new ArrayList<>(), artist, genre, "cover");
-	private AlbumDTO albumDTO = new AlbumDTO(0, "album name",  new ArrayList<>(), artist, genre, "cover");
-	private Optional<Album> optionalAlbum = Optional.of(new Album(0, "album name",  new ArrayList<>(), artist, genre, "cover"));
-	private Album newAlbum = new Album(0, "new album name",  new ArrayList<>(), artist, genre, "new cover");
-	private AlbumDTO newAlbumDTO = new AlbumDTO(0, "new album name",  new ArrayList<>(), artist, genre, "new cover");
+	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
+	private AlbumDTO albumDTO = new AlbumDTO(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
+	private Optional<Album> optionalAlbum = Optional.of(new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover"));
+	private Album newAlbum = new Album(0L, "new album name",  new ArrayList<>(), artist, genre, "new cover");
+	private AlbumDTO newAlbumDTO = new AlbumDTO(0L, "new album name",  new ArrayList<>(), artist, genre, "new cover");
 	
 	@Test
 	public void AlbumCreateTest() {
@@ -51,7 +51,7 @@ public class AlbumServiceTest {
 		Mockito.when(this.artistRepo.findById(0L)).thenReturn(optionalArtist);
 		Mockito.when(this.genreRepo.findById(0L)).thenReturn(optionalGenre);
 		
-		assertEquals(albumDTO,this.service.create(album, 0L, 0L));
+		assertThat(albumDTO).isEqualTo(this.service.create(album, 0L, 0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).save(album);
 		Mockito.verify(this.artistRepo, Mockito.times(1)).findById(0L);
@@ -63,7 +63,7 @@ public class AlbumServiceTest {
 		
 		Mockito.when(this.repo.findAll()).thenReturn(new ArrayList<>());
 		
-		assertEquals(new ArrayList<>(), this.service.read());
+		assertThat(new ArrayList<>()).isEqualTo(this.service.read());
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
@@ -72,7 +72,7 @@ public class AlbumServiceTest {
 	public void AlbumReadByIdTest() {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalAlbum);
 		
-		assertEquals(albumDTO, this.service.read(0L));
+		assertThat(albumDTO).isEqualTo(this.service.read(0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 	}
@@ -84,7 +84,7 @@ public class AlbumServiceTest {
 		Mockito.when(this.artistRepo.findById(0L)).thenReturn(optionalArtist);
 		Mockito.when(this.genreRepo.findById(0L)).thenReturn(optionalGenre);
 		
-		assertEquals(newAlbumDTO, this.service.update(newAlbum, 0L, 0L, 0L));
+		assertThat(newAlbumDTO).isEqualTo(this.service.update(newAlbum, 0L, 0L, 0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 		Mockito.verify(this.repo, Mockito.times(1)).save(newAlbum);
@@ -94,6 +94,6 @@ public class AlbumServiceTest {
 	
 	@Test
 	public void AlbumDeleteTest() {
-		assertEquals(true,this.service.delete(0L));
+		assertThat(true).isEqualTo(this.service.delete(0L));
 	}
 }

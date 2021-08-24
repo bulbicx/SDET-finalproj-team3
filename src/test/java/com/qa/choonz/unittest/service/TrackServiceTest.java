@@ -1,6 +1,6 @@
 package com.qa.choonz.unittest.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -17,6 +17,7 @@ import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.TrackDTO;
 import com.qa.choonz.service.TrackService;
@@ -27,32 +28,37 @@ public class TrackServiceTest {
 	@MockBean
 	private TrackRepository repo;
 	
+	@MockBean
+	private AlbumRepository albumRepo;
+	
 	
 	@Autowired
 	private TrackService service;
 	
 	
-	private Genre genre = new Genre(0, "genre name", "genre desc", new ArrayList<>());
+	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>());
 	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
-	private User user = new User(0, "username", "real name", "password", new ArrayList<>());
-	private Album album = new Album(0, "album name",  new ArrayList<>(), artist, genre, "cover");
-	private Playlist playlist = new Playlist(0, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
-	private Track track = new Track(0, "track name", album, new ArrayList<>(), 120, "lyrics");
-	private TrackDTO trackDTO = new TrackDTO(0, "track name", album, playlist, 120, "lyrics");
-	private Optional<Track> optionalTrack = Optional.of(new Track(0, "track name", album, new ArrayList<>(), 120, "lyrics"));
-	private Track newTrack = new Track(0, "new track name", album, new ArrayList<>(), 120, "new lyrics");
-	private TrackDTO newTrackDTO = new TrackDTO(0, "new track name", album, playlist, 120, "new lyrics");
+	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
+	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
+	private Optional<Album> optionalAlbum = Optional.of(new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover"));
+	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
+	private Track track = new Track(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
+	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, playlist, 120, "lyrics");
+	private Optional<Track> optionalTrack = Optional.of(new Track(0L, "track name", album, new ArrayList<>(), 120, "lyrics"));
+	private Track newTrack = new Track(0L, "new track name", album, new ArrayList<>(), 120, "new lyrics");
+	private TrackDTO newTrackDTO = new TrackDTO(0L, "new track name", album, playlist, 120, "new lyrics");
 	
-	
-	//fails due to unupdated DTO object
+	//there's inconsistency between usage of save and saveAndFlush. If it's supposed to be that way, cool but make sure you know which it's supposed to be
 	@Test
 	public void TrackCreateTest() {
 		
-		Mockito.when(this.repo.save(track)).thenReturn(track);
+		Mockito.when(this.albumRepo.findById(0L)).thenReturn(optionalAlbum);
+		Mockito.when(this.repo.saveAndFlush(track)).thenReturn(track);
 		
-		assertEquals(trackDTO,this.service.create(track));
+		assertThat(trackDTO).isEqualTo(this.service.create(track,0L));
 		
-		Mockito.verify(this.repo, Mockito.times(1)).save(track);
+		Mockito.verify(this.repo, Mockito.times(1)).saveAndFlush(track);
+		Mockito.verify(this.albumRepo, Mockito.times(1)).findById(0L);
 	}
 	
 	@Test
@@ -60,7 +66,7 @@ public class TrackServiceTest {
 		
 		Mockito.when(this.repo.findAll()).thenReturn(new ArrayList<>());
 		
-		assertEquals(new ArrayList<>(), this.service.read());
+		assertThat(new ArrayList<>()).isEqualTo(this.service.read());
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
@@ -69,24 +75,27 @@ public class TrackServiceTest {
 	public void TrackReadByIdTest() {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalTrack);
 
-		assertEquals(trackDTO, this.service.read(0L));
+		assertThat(trackDTO).isEqualTo(this.service.read(0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 	}
 	
 	@Test
 	public void TrackUpdateTest() {
+		
+		Mockito.when(this.albumRepo.findById(0L)).thenReturn(optionalAlbum);
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalTrack);
 		Mockito.when(this.repo.save(newTrack)).thenReturn(newTrack);
 		
-		assertEquals(newTrackDTO, this.service.update(newTrack, 0));
+		assertThat(newTrackDTO).isEqualTo(this.service.update(newTrack, 0L, 0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 		Mockito.verify(this.repo, Mockito.times(1)).save(newTrack);
+		Mockito.verify(this.albumRepo, Mockito.times(1)).findById(0L);
 	}
 	
 	@Test
 	public void TrackDeleteTest() {
-		assertEquals(true,this.service.delete(0L));
+		assertThat(true).isEqualTo(this.service.delete(0L));
 	}
 }
