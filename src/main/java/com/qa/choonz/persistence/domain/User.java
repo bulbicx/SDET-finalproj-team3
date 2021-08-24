@@ -117,8 +117,15 @@ public class User {
 	@Override
 	public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("User [id=").append(id).append(", username=").append(username).append(", name=")
-        		.append(name).append(", playlists=").append(playlists).append("]");
+        builder.append("User [id=")
+        		.append(id)
+        		.append(", username=")
+        		.append(username)
+        		.append(", name=")
+        		.append(name)
+        		.append(", playlists=")
+        		.append(playlists)
+        		.append("]");
         return builder.toString();
 	}
 

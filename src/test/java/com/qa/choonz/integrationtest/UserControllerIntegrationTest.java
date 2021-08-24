@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.User;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -117,29 +116,29 @@ public class UserControllerIntegrationTest {
 	
 	@Test
 	void testUpdateUser() throws Exception {
-		//Create genre object with updated data
-		Genre updatedGenre = new Genre("New Jazz", "New Jazz genre");
+		//Create user object with updated data
+		User updatedUser = new User("MichealNew", "password123New", "polkadotNew");
 		
-		//Convert genre into JSON format
-		String updatedGenreAsJSON = this.mapper.writeValueAsString(updatedGenre);
+		//Convert user into JSON format
+		String updatedUserAsJSON = this.mapper.writeValueAsString(updatedUser);
 		
 		//Build mock request
 		RequestBuilder mockRequest =
-								put("/genres/update/1")
+								put("/users/update/1")
 								.contentType(MediaType.APPLICATION_JSON)
-								.content(updatedGenreAsJSON);
+								.content(updatedUserAsJSON);
 		
-		//Create genre object which resemble the updated one on db
-		Genre updatedGenreOnDb = new Genre(1L, "New Jazz", "New Jazz genre");
+		//Create user object which resemble the updated one on db
+		User updatedUserOnDb = new User(1L, "MichealNew", "password123New", "polkadotNew");
 		
-		//Convert genre as JSON format
-		String updatedGenreOnDbAsJSON = this.mapper.writeValueAsString(updatedGenreOnDb); 
+		//Convert user as JSON format
+		String updatedUserOnDbAsJSON = this.mapper.writeValueAsString(updatedUserOnDb); 
 		
 		//Get status code(202)
 		ResultMatcher matchStatus = status().isAccepted();
 		
 		//Get content
-		ResultMatcher matchBody = content().json(updatedGenreOnDbAsJSON);
+		ResultMatcher matchBody = content().json(updatedUserOnDbAsJSON);
 		
 		//Perform the request and assert that the update has been successful
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
@@ -148,7 +147,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	void testDeleteUser() throws Exception {
 		//Build mock request
-		RequestBuilder mockRequest = delete("/genres/delete/1");
+		RequestBuilder mockRequest = delete("/users/delete/1");
 		
 		//Check status code(204)
 		ResultMatcher matchStatus = status().isNoContent();
