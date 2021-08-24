@@ -38,12 +38,12 @@ public class GenreService {
         return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
-    public GenreDTO read(long id) {
+    public GenreDTO read(Long id) {
         Genre found = this.repo.findById(id).orElseThrow(GenreNotFoundException::new);
         return this.mapToDTO(found);
     }
 
-    public GenreDTO update(Genre genre, long id) {
+    public GenreDTO update(Genre genre, Long id) {
         Genre toUpdate = this.repo.findById(id).orElseThrow(GenreNotFoundException::new);
         toUpdate.setName(genre.getName());
         toUpdate.setDescription(genre.getDescription());
@@ -51,7 +51,7 @@ public class GenreService {
         return this.mapToDTO(updated);
     }
 
-    public boolean delete(long id) {
+    public boolean delete(Long id) {
         this.repo.deleteById(id);
         return !this.repo.existsById(id);
     }
