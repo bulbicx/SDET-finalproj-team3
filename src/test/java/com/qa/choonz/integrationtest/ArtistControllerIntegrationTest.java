@@ -93,8 +93,24 @@ public class ArtistControllerIntegrationTest {
 	}
 	
 	@Test
-	void testReadOneArtist() {
+	void testReadOneArtist() throws Exception {
+		//Build mock request
+		RequestBuilder mockRequest = get("/artists/read/1");
 		
+		//Create the artist resembling the one existing on db
+		Artist artistOnDb = new Artist(1L, "Jack Montano");
+		
+		//Convert the object into JSON format
+		String artistOnDbAsJSON = this.mapper.writeValueAsString(artistOnDb);
+		
+		//Get status code
+		ResultMatcher matchStatus = status().isOk();
+		
+		//Get body
+		ResultMatcher matchBody = content().json(artistOnDbAsJSON);
+		
+		//Perform the request and assert that the artist read is the one we request
+		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
 	
 	@Test
