@@ -8,23 +8,29 @@ import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.PlaylistNotFoundException;
 import com.qa.choonz.exception.TrackNotFoundException;
+import com.qa.choonz.exception.UserNotFoundException;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.User;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
+import com.qa.choonz.persistence.repository.UserRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 
 @Service
 public class PlaylistService {
 
 	private PlaylistRepository playlistRepo;
+	private UserRepository userRepo;
 	private TrackRepository trackRepo;
 	private ModelMapper mapper;
 
-	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, ModelMapper mapper) {
+
+	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, ModelMapper mapper, UserRepository userRepo) {
 		super();
 		this.playlistRepo = playlistRepo;
 		this.trackRepo = trackRepo;
+		this.userRepo = userRepo;
 		this.mapper = mapper;
 	}
 
@@ -32,7 +38,9 @@ public class PlaylistService {
 		return this.mapper.map(playlist, PlaylistDTO.class);
 	}
 
-	public PlaylistDTO create(Playlist playlist) {
+	public PlaylistDTO create(Playlist playlist, Long userId) {
+		User userFound = this.userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
+		playlist.setUser(userFound);
 		Playlist created = this.playlistRepo.save(playlist);
 		return this.mapToDTO(created);
 	}
@@ -51,7 +59,6 @@ public class PlaylistService {
 		toUpdate.setName(playlist.getName());
 		toUpdate.setDescription(playlist.getDescription());
 		toUpdate.setArtwork(playlist.getArtwork());
-		toUpdate.setTracks(playlist.getTracks());
 		Playlist updated = this.playlistRepo.save(toUpdate);
 		return this.mapToDTO(updated);
 	}
@@ -60,13 +67,8 @@ public class PlaylistService {
 		Track track = this.trackRepo.findById(trackId).orElseThrow(TrackNotFoundException::new);
 		Playlist playlist = this.playlistRepo.findById(playlistId).orElseThrow(PlaylistNotFoundException::new);
 		List<Track> tracks = playlist.getTracks();
-//    	List<Playlist> playlistTracks = track.getPlaylist();
-
 		tracks.add(track);
-//    	playlistTracks.add(playlist);
 		playlist.setTracks(tracks);
-//    	track.setPlaylist(playlistTracks);
-
 		Playlist trackAdded = this.playlistRepo.save(playlist);
 		return this.mapToDTO(trackAdded);
 	}

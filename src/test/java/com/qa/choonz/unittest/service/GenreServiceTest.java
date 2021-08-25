@@ -1,6 +1,6 @@
 package com.qa.choonz.unittest.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -25,11 +25,11 @@ public class GenreServiceTest {
 	@Autowired
 	private GenreService service;
 	
-	private Genre genre = new Genre(0, "genre name", "genre desc", new ArrayList<>());
-	private GenreDTO genreDTO = new GenreDTO(0, "genre name", "genre desc", new ArrayList<>());
-	private Optional<Genre> optionalGenre = Optional.of(new Genre(0, "genre name", "genre desc", new ArrayList<>()));
-	private Genre newGenre = new Genre(0, "new genre name", "new genre desc", new ArrayList<>());
-	private GenreDTO newGenreDTO = new GenreDTO(0, "new genre name", "new genre desc", new ArrayList<>());
+	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>());
+	private GenreDTO genreDTO = new GenreDTO(0L, "genre name", "genre desc", new ArrayList<>());
+	private Optional<Genre> optionalGenre = Optional.of(new Genre(0L, "genre name", "genre desc", new ArrayList<>()));
+	private Genre newGenre = new Genre(0L, "new genre name", "new genre desc", new ArrayList<>());
+	private GenreDTO newGenreDTO = new GenreDTO(0L, "new genre name", "new genre desc", new ArrayList<>());
 	
 	
 	@Test
@@ -37,7 +37,7 @@ public class GenreServiceTest {
 		
 		Mockito.when(this.repo.save(genre)).thenReturn(genre);
 		
-		assertEquals(genreDTO,this.service.create(genre));
+		assertThat(genreDTO).isEqualTo(this.service.create(genre));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).save(genre);
 	}
@@ -47,7 +47,7 @@ public class GenreServiceTest {
 		
 		Mockito.when(this.repo.findAll()).thenReturn(new ArrayList<>());
 		
-		assertEquals(new ArrayList<>(), this.service.read());
+		assertThat(new ArrayList<>()).isEqualTo(this.service.read());
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
@@ -56,7 +56,7 @@ public class GenreServiceTest {
 	public void GenreReadByIdTest() {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalGenre);
 		
-		assertEquals(genreDTO, this.service.read(0L));
+		assertThat(genreDTO).isEqualTo(this.service.read(0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 	}
@@ -66,7 +66,7 @@ public class GenreServiceTest {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalGenre);
 		Mockito.when(this.repo.save(newGenre)).thenReturn(newGenre);
 		
-		assertEquals(newGenreDTO, this.service.update(newGenre, 0));
+		assertThat(newGenreDTO).isEqualTo(this.service.update(newGenre, 0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 		Mockito.verify(this.repo, Mockito.times(1)).save(newGenre);
@@ -74,7 +74,7 @@ public class GenreServiceTest {
 	
 	@Test
 	public void GenreDeleteTest() {
-		assertEquals(true,this.service.delete(0L));
+		assertThat(true).isEqualTo(this.service.delete(0L));
 	}
 
 }
