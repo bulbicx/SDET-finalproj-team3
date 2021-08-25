@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.rest.dto.AlbumDTO;
+import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.service.AlbumService;
 
 @RestController
@@ -45,6 +46,16 @@ public class AlbumController {
     public ResponseEntity<AlbumDTO> read(@PathVariable long id) {
         return new ResponseEntity<AlbumDTO>(this.service.read(id), HttpStatus.OK);
     }
+    
+    @PutMapping("/{albumId}/addTrack/{trackId}")
+	public ResponseEntity<AlbumDTO> addTrack(@PathVariable Long albumId, @PathVariable Long trackId) {
+		return new ResponseEntity<AlbumDTO>(this.service.addTrack(albumId, trackId), HttpStatus.ACCEPTED);
+	}
+
+	@PutMapping("/{albumId}/removeTrack/{trackId}")
+	public ResponseEntity<AlbumDTO> removeTrack(@PathVariable Long albumId, @PathVariable Long trackId) {
+		return new ResponseEntity<AlbumDTO>(this.service.removeTrack(albumId, trackId), HttpStatus.ACCEPTED);
+	}
 
     @PutMapping("/update/{id}/{artistId}/{genreId}")
     public ResponseEntity<AlbumDTO> update(@RequestBody Album album, @PathVariable long id, @PathVariable (value="artistId") Long artistId,
