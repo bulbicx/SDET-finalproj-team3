@@ -14,17 +14,35 @@
 
 <body>
 
+    <!-- Search -->
+
     <div class="container">
-        <div class="row">
-            <h1>Albums</h1>
-        </div>
-        <div class="row">
-            <div id="card-group" class="card-columns">
-                
+        <div id="header" class="row">
+            <div id="album-col" class="column">
+
+            </div>
+            <div id="artist-col" class="column">
+
             </div>
         </div>
+        <div id="main" class="row">
+            <div id="album-div" class="display-none row"></div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Album Cover</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Genre</th>
+                    </tr>
+                </thead>
+                <tbody id="album-table-body">
+                </tbody>
+            </table>
+        </div>
     </div>
     </div>
+    <!-- /Search -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -35,7 +53,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <script src="./js/albums.js"></script>
+    <script src="./js/artistsingle.js"></script>
 </body>
 
 </html>

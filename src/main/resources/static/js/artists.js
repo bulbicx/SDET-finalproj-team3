@@ -1,40 +1,42 @@
-
 (() => {
-    function getAlbumSinglePage(albumId) {
-        console.log(albumId);
-        fetch(`http://localhost:8082/albumsingle`)
+    function getArtistSinglePage(artistId) {
+        console.log(artistId);
+        fetch(`http://localhost:8082/artistsingle`)
                 .then(response => response.text())
-                .then(data => goToAlbumSinglePage(data, albumId));
+                .then(data => goToArtistSinglePage(data, artistId));
     }
 
-    function goToAlbumSinglePage(data, albumId) {
-        window.location = `${data}?id=${albumId}`;
+    function goToArtistSinglePage(data, artistId) {
+        console.log(artistId);
+        window.location = `${data}?id=${artistId}`;
     }
 
-    fetch(`http://localhost:8082/albums/read`)
+    fetch(`http://localhost:8082/artists/read`)
         .then((response) => {
             if (response.status !== 200) {
                 console.error(`status: ${reponse.status}`);
                 return;
             }
             response.json() // 3
-                .then(data => createAlbums(data))
+                .then(data => createArtists(data))
         }).catch((err) => console.error(`${err}`));
 
-    function createAlbums(albums) {
-        for (album in albums) {
-            console.log(albums[0]);
-            createAlbumCard(albums[album]);
+    function createArtists(artists) {
+        console.log("create artists")
+        for (artist in artists) {
+            console.log(artists[0]);
+            createArtistCard(artists[artist]);
         }
     }
-    function createAlbumCard(album) {
+    function createArtistCard(artist) {
+        console.log("in here alvbum card")
         let cardGroup = document.querySelector("#card-group");
 
         let card = document.createElement("div");
         card.setAttribute("class", "card mb-3");
         card.setAttribute("style", "width:12rem");
         card.onclick = () => {
-            getAlbumSinglePage(album.id);
+            getArtistSinglePage(artist.id);
         }
         cardGroup.appendChild(card);
 
@@ -50,9 +52,8 @@
 
         let cardBodyText = document.createElement("div");
         cardBodyText.setAttribute("class", "text-playlist-card");
-        cardBodyText.textContent = album.name;
+        cardBodyText.textContent = artist.name;
         cardBody.appendChild(cardBodyText);
     }
 }
 )();
-
