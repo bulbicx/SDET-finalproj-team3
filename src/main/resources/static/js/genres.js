@@ -1,47 +1,50 @@
-
 (() => {
-    function getAlbumSinglePage(albumId) {
-        console.log(albumId);
-        fetch(`http://localhost:8082/albumsingle`)
+    function getGenreSinglePage(genreId) {
+        console.log(genreId);
+        fetch(`http://localhost:8082/genresingle`)
                 .then(response => response.text())
-                .then(data => goToAlbumSinglePage(data, albumId));
+                .then(data => goToGenreSinglePage(data, genreId));
     }
 
-    function goToAlbumSinglePage(data, albumId) {
-        window.location = `${data}?id=${albumId}`;
+    function goToGenreSinglePage(data, genreId) {
+        console.log(genreId);
+        window.location = `${data}?id=${genreId}`;
     }
 
-    fetch(`http://localhost:8082/albums/read`)
+    fetch(`http://localhost:8082/genres/read`)
         .then((response) => {
             if (response.status !== 200) {
                 console.error(`status: ${reponse.status}`);
                 return;
             }
             response.json() // 3
-                .then(data => createAlbums(data))
+                .then(data => createGenres(data))
         }).catch((err) => console.error(`${err}`));
 
-    function createAlbums(albums) {
-        for (album in albums) {
-            console.log(albums[0]);
-            createAlbumCard(albums[album]);
+    function createGenres(genres) {
+        console.log("create genres")
+        for (genre in genres) {
+            console.log(genres[0]);
+            createGenreCard(genres[genre]);
         }
     }
-    function createAlbumCard(album) {
+
+    function createGenreCard(genre) {
+        console.log("in here lies the genre card");
         let cardGroup = document.querySelector("#card-group");
 
         let card = document.createElement("div");
         card.setAttribute("class", "card mb-3");
         card.setAttribute("style", "width:12rem");
         card.onclick = () => {
-            getAlbumSinglePage(album.id);
+            getGenreSinglePage(genre.id);
         }
         cardGroup.appendChild(card);
 
         let cardImage = document.createElement("img");
         cardImage.setAttribute("class", "card-img-top");
-        cardImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
-        cardImage.setAttribute("alt", "Card image cap");
+        cardImage.setAttribute("src", "https://www.superiorwallpapers.com/download/a-guitar-in-flames-rock-music-guitar-1920x1080.jpg");
+        cardImage.setAttribute("alt", "Rock image cap");
         card.appendChild(cardImage);
 
         let cardBody = document.createElement("div");
@@ -50,9 +53,8 @@
 
         let cardBodyText = document.createElement("div");
         cardBodyText.setAttribute("class", "text-playlist-card");
-        cardBodyText.textContent = album.name;
+        cardBodyText.textContent = genre.name;
         cardBody.appendChild(cardBodyText);
     }
 }
 )();
-

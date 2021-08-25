@@ -32,7 +32,7 @@ public class DtoTests {
 	private UserDTO userDTO = new UserDTO(0L, "username", "real name", new ArrayList<>());
 	private AlbumDTO albumDTO = new AlbumDTO(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
 	private PlaylistDTO playlistDTO = new PlaylistDTO(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
-	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, playlist, 120, "lyrics");
+	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
 	
 	//the only non standard elements in the domain are the ToStrings so we only need to test those
 	
@@ -69,7 +69,7 @@ public class DtoTests {
 	
 	@Test
 	public void TrackTest() {
-		assertThat("TrackDTO [id=0, name=track name, album="+album.toString()+", playlist="+playlist.toString()+", duration=120, lyrics=lyrics]").isEqualTo(trackDTO.toString());
+		assertThat("TrackDTO [id=0, name=track name, album="+album.toString()+", playlist=[], duration=120, lyrics=lyrics]").isEqualTo(trackDTO.toString());
 		
 	}
 
