@@ -1,6 +1,5 @@
 package com.qa.choonz.rest.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +29,39 @@ public class RouteContoller {
     public String albumSingle() {
         return "albumsingle.html";
     }
+    
+    @GetMapping(value = "/artists")
+    public String artists() {
+    	return "artists.html";
+    }
+    
+    @GetMapping(value = "/artistsingle")
+    public String artistSingle() {
+    	return "artistsingle.html";
+    }
+    
+    @GetMapping(value = "/genres")
+    public String genres() {
+    	return "genres.html";
+    }
+    
+    @GetMapping(value = "/genresingle")
+    public String genreSingle() {
+    	return "genresingle.html";
+    }
+    
+    @GetMapping(value = "/playlists")
+    public String playlists() {
+    	return "playlists.html";
+    }
+    
+    @GetMapping(value = "/playlistsingle")
+    public String playlistSingle() {
+    	return "playlistsingle.html";
+    }
 
+    @GetMapping(value = "/track")
+    public String track() {
+        return "track.html";
+    }
 }
