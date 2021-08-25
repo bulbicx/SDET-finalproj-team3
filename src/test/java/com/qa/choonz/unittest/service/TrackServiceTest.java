@@ -14,9 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
-import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
-import com.qa.choonz.persistence.domain.User;
 import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.TrackDTO;
@@ -38,17 +36,15 @@ public class TrackServiceTest {
 	
 	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>());
 	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
-	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
 	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
 	private Optional<Album> optionalAlbum = Optional.of(new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover"));
-	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	private Track track = new Track(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
-	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, playlist, 120, "lyrics");
+	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
 	private Optional<Track> optionalTrack = Optional.of(new Track(0L, "track name", album, new ArrayList<>(), 120, "lyrics"));
 	private Track newTrack = new Track(0L, "new track name", album, new ArrayList<>(), 120, "new lyrics");
-	private TrackDTO newTrackDTO = new TrackDTO(0L, "new track name", album, playlist, 120, "new lyrics");
+	private TrackDTO newTrackDTO = new TrackDTO(0L, "new track name", album, new ArrayList<>(), 120, "new lyrics");
 	
-	//there's inconsistency between usage of save and saveAndFlush. If it's supposed to be that way, cool but make sure you know which it's supposed to be
+	
 	@Test
 	public void TrackCreateTest() {
 		
