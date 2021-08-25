@@ -10,17 +10,21 @@
   }
 
   const displayPlaylist = (data) => {
-    for (let i = 0; i < data.length; i++) {
-      console.log(data[i]);
-      let card = `
-        <div class="card" style="width: 18rem;">
-          <img src="../img/playlist_card_img.PNG" class="card-img-top card-background" alt="">
-          <p class="card-text text">Playlist name</p>
-        </div>
-      `;
-  
-      main.innerHTML = card;
-    }
+    if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+        let card = `
+          <div class="card" style="width: 18rem;">
+            <img src="../img/playlist_card_img.PNG" class="card-img-top card-background" alt="">
+            <p class="card-text text">${data[i].name}</p>
+          </div>
+        `;
+    
+        main.innerHTML += card;
+      }
+    } else {
+      let textToDisplay = `<p id="text-no-playlist">:( There are no playlist. But you can start adding new ones now!</p>`;
+      main.innerHTML = textToDisplay;
+    } 
   }
 
   getAllPlaylists();

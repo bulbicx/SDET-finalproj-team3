@@ -46,3 +46,8 @@ main {
   mix-blend-mode: difference;
   color: rgb(255, 255, 255);
 }
+
+#text-no-playlist {
+  color: white;
+  font-size: 2rem;
+}
