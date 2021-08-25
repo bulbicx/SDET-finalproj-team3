@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.User;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
+import com.qa.choonz.persistence.repository.UserRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.service.PlaylistService;
 
@@ -24,10 +25,14 @@ public class PlaylistServiceTest {
 	@MockBean
 	private PlaylistRepository repo;
 	
+	@MockBean
+	private UserRepository userRepo;
+	
 	@Autowired
 	private PlaylistService service;
 	
 	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
+	private Optional<User> optionalUser = Optional.of(new User(0L, "username", "real name", "password"));
 	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	private PlaylistDTO playlistDTO = new PlaylistDTO(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	private Optional<Playlist> optionalPlaylist = Optional.of(new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user));
@@ -37,9 +42,10 @@ public class PlaylistServiceTest {
 	@Test
 	public void PlaylistCreateTest() {
 		
+		Mockito.when(this.userRepo.findById(0L)).thenReturn(optionalUser);
 		Mockito.when(this.repo.save(playlist)).thenReturn(playlist);
 		
-		assertThat(playlistDTO).isEqualTo(this.service.create(playlist));
+		assertThat(playlistDTO).isEqualTo(this.service.create(playlist, 0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).save(playlist);
 	}
