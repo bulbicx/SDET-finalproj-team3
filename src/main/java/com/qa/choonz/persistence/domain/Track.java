@@ -31,6 +31,7 @@ public class Track {
     @ManyToOne
     private Album album;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tracks")
 	private List<Playlist> playlists;
 

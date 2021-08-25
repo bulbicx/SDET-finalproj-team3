@@ -1,4 +1,4 @@
-package com.qa.choonz.cucumber;
+package com.qa.choonz.uat.stepdefs;
 
 public class CucumberDummy {
 	
