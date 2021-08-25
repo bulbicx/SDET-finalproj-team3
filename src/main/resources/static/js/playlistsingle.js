@@ -15,6 +15,17 @@
       .then(data => buildPage(data))
       .catch((err) => console.error(`${ err }`));
   }
+  fetchPlaylistSingle();
+
+  const goToTrackSinglePage = (data, trackId) => {
+    window.location = `${data}?id=${trackId}`;
+  }
+
+  const getTrackSinglePage = (trackId) => {
+    fetch(`http://localhost:8082/tracksingle`)
+            .then(response => response.text())
+            .then(data => goToTrackSinglePage(data, trackId));
+  }
 
   const buildHeaderPage = (name, description) => {
     let header = `
@@ -67,5 +78,4 @@
     buildTracksList(data.tracks);
   }
 
-  fetchPlaylistSingle();
 })();
