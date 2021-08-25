@@ -2,6 +2,21 @@
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('id');
 
+    function getGenrePage(genreId) {
+        fetch(`http://localhost:8082/genresingle`)
+                .then(response => response.text())
+                .then(pagelink => goToDynamicPage(pagelink, genreId));
+    }
+    function getAlbumPage(albumId){
+        fetch(`http://localhost:8082/albumsingle`)
+                .then(response => response.text())
+                .then(pagelink => goToDynamicPage(pagelink, albumId));
+    }
+
+    function goToDynamicPage(pagelink, id) {
+        window.location = `${pagelink}?id=${id}`;
+    }
+
     console.log(myParam);
     fetch(`http://localhost:8082/artists/read/${myParam}`)
         .then((response) => {
@@ -52,14 +67,23 @@
                 albumCover.setAttribute("height", 100);
                 albumCoverTableData.append(albumCover);
                 albumTableRow.appendChild(albumCoverTableData);
+                albumCover.onclick=() => {
+                    getAlbumPage(album.id);
+                }
 
                 let albumNameTableData = document.createElement("td");
                 albumNameTableData.textContent = album.name;
                 albumTableRow.appendChild(albumNameTableData);
+                albumNameTableData.onclick=() => {
+                    getAlbumPage(album.id);
+                }
 
                 let albumGenreTableData = document.createElement("td");
                 albumGenreTableData.textContent = album.genre.name;
                 albumTableRow.appendChild(albumGenreTableData);
+                albumGenreTableData.onclick=() => {
+                    getGenrePage(album.genre.id);
+                }
         }
 
         function createArtistHeader(artist) {
