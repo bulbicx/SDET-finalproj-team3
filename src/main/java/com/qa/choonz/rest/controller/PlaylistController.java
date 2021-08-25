@@ -30,9 +30,10 @@ public class PlaylistController {
 		this.service = service;
 	}
 
-	@PostMapping("/create")
-	public ResponseEntity<PlaylistDTO> create(@RequestBody Playlist playlist) {
-		return new ResponseEntity<PlaylistDTO>(this.service.create(playlist), HttpStatus.CREATED);
+	@PostMapping("/create/user/{userId}")
+	public ResponseEntity<PlaylistDTO> create(@RequestBody Playlist playlist, @PathVariable Long userId) {
+
+		return new ResponseEntity<PlaylistDTO>(this.service.create(playlist, userId), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/read")

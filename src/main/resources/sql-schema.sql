@@ -61,10 +61,9 @@ CREATE TABLE IF NOT EXISTS `track` (
 );
 
 CREATE TABLE IF NOT EXISTS `playlist_track` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT,
 	`playlist_id` BIGINT NOT NULL,
 	`track_id` BIGINT NOT NULL,
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`playlist_id`, `track_id`),
 	CONSTRAINT fk_playlist_track_playlist FOREIGN KEY (playlist_id) REFERENCES playlist(id),
 	CONSTRAINT fk_playlist_track_track FOREIGN KEY (track_id) REFERENCES track(id)
 );

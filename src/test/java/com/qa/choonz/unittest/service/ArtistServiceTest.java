@@ -1,6 +1,6 @@
 package com.qa.choonz.unittest.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -26,17 +26,17 @@ public class ArtistServiceTest {
 	private ArtistService service;
 	
 	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
-	private ArtistDTO artistDTO = new ArtistDTO(0, "artist name", new ArrayList<>());
+	private ArtistDTO artistDTO = new ArtistDTO(0L, "artist name", new ArrayList<>());
 	private Optional<Artist> optionalArtist = Optional.of(new Artist(0L, "artist name", new ArrayList<>()));
 	private Artist newArtist = new Artist(0L, "new artist name", new ArrayList<>());
-	private ArtistDTO newArtistDTO = new ArtistDTO(0, "new artist name", new ArrayList<>());
+	private ArtistDTO newArtistDTO = new ArtistDTO(0L, "new artist name", new ArrayList<>());
 	
 	@Test
 	public void ArtistCreateTest() {
 		
 		Mockito.when(this.repo.save(artist)).thenReturn(artist);
 		
-		assertEquals(artistDTO,this.service.create(artist));
+		assertThat(artistDTO).isEqualTo(this.service.create(artist));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).save(artist);
 	}
@@ -46,7 +46,7 @@ public class ArtistServiceTest {
 		
 		Mockito.when(this.repo.findAll()).thenReturn(new ArrayList<>());
 		
-		assertEquals(new ArrayList<>(), this.service.read());
+		assertThat(new ArrayList<>()).isEqualTo(this.service.read());
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
@@ -55,7 +55,7 @@ public class ArtistServiceTest {
 	public void ArtistReadByIdTest() {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalArtist);
 		
-		assertEquals(artistDTO, this.service.read(0L));
+		assertThat(artistDTO).isEqualTo(this.service.read(0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 	}
@@ -65,7 +65,7 @@ public class ArtistServiceTest {
 		Mockito.when(this.repo.findById(0L)).thenReturn(optionalArtist);
 		Mockito.when(this.repo.save(newArtist)).thenReturn(newArtist);
 		
-		assertEquals(newArtistDTO, this.service.update(newArtist, 0));
+		assertThat(newArtistDTO).isEqualTo(this.service.update(newArtist, 0L));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).findById(0L);
 		Mockito.verify(this.repo, Mockito.times(1)).save(newArtist);
@@ -73,7 +73,7 @@ public class ArtistServiceTest {
 	
 	@Test
 	public void ArtistDeleteTest() {
-		assertEquals(true,this.service.delete(0L));
+		assertThat(true).isEqualTo(this.service.delete(0L));
 	}
 
 }

@@ -18,6 +18,18 @@ body {
 
 }
 
+.display-none{
+  display: none;
+}
+
+/*
+Page Headers
+*/
+.img-header{
+    width:12rem; 
+    height:12rem;
+}
+
 #Search {
   background-color: white;
   color: black;

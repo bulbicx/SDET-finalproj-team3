@@ -10,13 +10,19 @@ import org.springframework.stereotype.Service;
 import com.qa.choonz.exception.AlbumNotFoundException;
 import com.qa.choonz.exception.ArtistNotFoundException;
 import com.qa.choonz.exception.GenreNotFoundException;
+import com.qa.choonz.exception.PlaylistNotFoundException;
+import com.qa.choonz.exception.TrackNotFoundException;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.persistence.repository.GenreRepository;
+import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.AlbumDTO;
+import com.qa.choonz.rest.dto.PlaylistDTO;
 
 @Service
 public class AlbumService {
@@ -24,14 +30,16 @@ public class AlbumService {
 	private AlbumRepository albumRepo;
 	private ArtistRepository artistRepo;
 	private GenreRepository genreRepo;
+	private TrackRepository trackRepo;
 	private ModelMapper mapper;
 
 	public AlbumService(AlbumRepository albumRepo, ModelMapper mapper, ArtistRepository artistRepo,
-			GenreRepository genreRepo) {
+			GenreRepository genreRepo, TrackRepository trackRepo) {
 		super();
 		this.albumRepo = albumRepo;
 		this.artistRepo = artistRepo;
 		this.genreRepo = genreRepo;
+		this.trackRepo = trackRepo;
 		this.mapper = mapper;
 	}
 
@@ -70,6 +78,31 @@ public class AlbumService {
 		toUpdate.setCover(album.getCover());
 		Album updated = this.albumRepo.save(toUpdate);
 		return this.mapToDTO(updated);
+	}
+	
+	public AlbumDTO addTrack(Long albumId, Long trackId) {
+		Track track = this.trackRepo.findById(trackId).orElseThrow(TrackNotFoundException::new);
+		Album album = this.albumRepo.findById(albumId).orElseThrow(AlbumNotFoundException::new);
+		List<Track> tracks = album.getTracks();
+		tracks.add(track);
+		album.setTracks(tracks);
+		Album trackAdded = this.albumRepo.save(album);
+		return this.mapToDTO(trackAdded);
+	}
+
+	public AlbumDTO removeTrack(Long albumId, Long trackId) {
+		Track track = this.trackRepo.findById(trackId).orElseThrow(TrackNotFoundException::new);
+		Album album = this.albumRepo.findById(albumId).orElseThrow(AlbumNotFoundException::new);
+		List<Track> tracks = album.getTracks();
+
+		if (tracks.contains(track)) {
+			tracks.remove(track);
+		}
+
+		album.setTracks(tracks);
+
+		Album trackRemoved = this.albumRepo.save(album);
+		return this.mapToDTO(trackRemoved);
 	}
 
 	public boolean delete(long id) {
