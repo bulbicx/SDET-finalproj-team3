@@ -17,7 +17,6 @@ public class TrackDTO {
 
     public TrackDTO() {
         super();
-        // TODO Auto-generated constructor stub
     }
     public TrackDTO(Long id, String name, Album album, List<Playlist> playlist, Integer duration,
             String lyrics) {
