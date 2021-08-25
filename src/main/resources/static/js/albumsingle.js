@@ -2,6 +2,16 @@
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('id');
 
+    function getTrackPage(trackId) {
+        fetch(`http://localhost:8082/track`)
+                .then(response => response.text())
+                .then(pagelink => gotToTrackPage(pagelink, trackId));
+    }
+
+    function gotToTrackPage(pagelink, trackId) {
+        window.location = `${pagelink}?id=${trackId}`;
+    }
+
     console.log(myParam);
     fetch(`http://localhost:8082/albums/read/${myParam}`)
         .then((response) => {
@@ -22,21 +32,18 @@
                 let tracksTableBody = document.querySelector("#track-table-body");
                 let i = 1; 
                 for(track in album.tracks){
-                    createAlbumBodyTrack(album.tracks[track], tracksTableBody, i++);
+                    createTrackRow(album.tracks[track], tracksTableBody, i++);
                 }
             } 
         }
 
-    //     <tr>
-    //     <th scope="row">3</th>
-    //     <td>Larry</td>
-    //     <td>the Bird</td>
-    //     <td>@twitter</td>
-    //   </tr>
-        function createAlbumBodyTrack(track, tracksTableBody, rowNumber){
+        function createTrackRow(track, tracksTableBody, rowNumber){
                 console.log(track);
                 console.log(tracksTableBody);
                 let trackTableRow = document.createElement("tr");
+                trackTableRow.onclick = () => {
+                    getTrackPage(track.id);
+                }
                 tracksTableBody.appendChild(trackTableRow);
                 
                 let trackTableHead = document.createElement("th");

@@ -8,7 +8,6 @@
     }
 
     function goToAlbumSinglePage(data, albumId) {
-        console.log(albumId);
         window.location = `${data}?id=${albumId}`;
     }
 
@@ -23,14 +22,12 @@
         }).catch((err) => console.error(`${err}`));
 
     function createAlbums(albums) {
-        console.log("create albums")
         for (album in albums) {
             console.log(albums[0]);
             createAlbumCard(albums[album]);
         }
     }
     function createAlbumCard(album) {
-        console.log("in here alvbum card")
         let cardGroup = document.querySelector("#card-group");
 
         let card = document.createElement("div");
