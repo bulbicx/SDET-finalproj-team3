@@ -25,16 +25,31 @@
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
         console.log(data[i]);
-        let card = `
-          <div class="card" style="width: 18rem;">
-            <img src="../img/playlist_card_img.PNG" class="card-img-top card-background" alt="">
-            <p class="card-text text">${data[i].name}</p>
-          </div>
-          `;
+        let card = document.createElement("div");
+        card.setAttribute("class", "card");
+        card.setAttribute("style", "width: 18rem");
+        main.appendChild(card);
+
+        let img = document.createElement("img");
+        img.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
+        img.setAttribute("class", "card-img-top card-background");
+        img.setAttribute("alt", data[i].name);
+        card.appendChild(img);
+
+        let p = document.createElement("p");
+        p.setAttribute("class", "card-text text");
+        p.innerText = data[i].name;
+        card.appendChild(p);
+        // let card = `
+        //   <div class="card" style="width: 18rem;">
+        //     <img src="../img/playlist_card_img.PNG" class="card-img-top card-background" alt="">
+        //     <p class="card-text text">${data[i].name}</p>
+        //   </div>
+        //   `;
           
-          main.innerHTML += card;
-        let cardEl = document.querySelector(".card");
-        cardEl.addEventListener("click", () => getAlbumSinglePage(data[i].id));
+          // main.innerHTML += card;
+        // let cardEl = document.querySelector(".card");
+        card.addEventListener("click", () => getAlbumSinglePage(data[i].id));
         }
     } else {
       let textToDisplay = `<p id="text-no-playlist">:( There are no playlist. But you can start adding new ones now!</p>`;
