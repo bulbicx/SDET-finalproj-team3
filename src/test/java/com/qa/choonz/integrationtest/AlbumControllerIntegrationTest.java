@@ -77,7 +77,7 @@ public class AlbumControllerIntegrationTest {
 	@Test
 	void testReadAllAlbums() throws Exception {
 		
-		RequestBuilder mockRequest = get("/artists/read");
+		RequestBuilder mockRequest = get("/albums/read");
 		
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());

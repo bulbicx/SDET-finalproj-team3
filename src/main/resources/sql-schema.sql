@@ -54,10 +54,8 @@ CREATE TABLE IF NOT EXISTS `track` (
 	`lyrics` VARCHAR(255) NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
     `album_id` BIGINT NOT NULL,
-	`playlist_id` BIGINT NOT NULL,
     PRIMARY KEY (`id`),
-	CONSTRAINT fk_track_album FOREIGN KEY (album_id) REFERENCES album(id),
-	CONSTRAINT fk_track_playlist FOREIGN KEY (playlist_id) REFERENCES playlist(id)
+	CONSTRAINT fk_track_album FOREIGN KEY (album_id) REFERENCES album(id)
 );
 
 CREATE TABLE IF NOT EXISTS `playlist_track` (

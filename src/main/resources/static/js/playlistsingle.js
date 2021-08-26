@@ -22,7 +22,7 @@
   }
 
   const getTrackSinglePage = (trackId) => {
-    fetch(`http://localhost:8082/tracksingle`)
+    fetch(`http://localhost:8082/track`)
             .then(response => response.text())
             .then(data => goToTrackSinglePage(data, trackId));
   }

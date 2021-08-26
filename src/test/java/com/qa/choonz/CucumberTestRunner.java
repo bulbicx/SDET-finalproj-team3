@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		features = {"classpath:features"}, //feature files
-		glue = {"classpath:com.qa.choonz"}, //step definition file location
+		glue = {"classpath:com.qa.choonz.uat"}, //step definition file location
 		snippets = SnippetType.CAMELCASE,
 		plugin = {
 				"summary",
@@ -17,7 +17,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 				"junit:target/cucumber-reports/cucumber-junit-report.xml"
 		},
 		monochrome = true
-)
+		)
 public class CucumberTestRunner {
 
 
