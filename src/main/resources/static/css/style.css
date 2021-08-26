@@ -87,7 +87,7 @@ footer {
 /* Footer */
 footer {
   color: whitesmoke;
-  padding: 3em;
+  padding: 3em 3em 0;
   margin-top: 3em!important;
 }
 
@@ -164,7 +164,9 @@ footer {
 }
 
 .nav-link,
-.social-link {
+.social-link,
+.footer-link,
+.contact {
   background: -webkit-linear-gradient(rgb(230, 118, 54), red);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
