@@ -1,5 +1,5 @@
 body {
-    padding-top: 70px;
+  padding-top: 6em;
 }
 
 /* ditch the ugle blue outline */
@@ -40,14 +40,12 @@ Image css
   background-color: white;
   color: black;
   border: 2px solid grey;
-  border-radius: 3px;  // for no radius
-
-  }
+  border-radius: 3px;  
+}
 
 #Search:hover {
   background-color: grey;
   color: white;
-
 }
 
 .text-playlist-card {
@@ -59,4 +57,131 @@ Image css
   margin-bottom: 0;
   text-transform: uppercase;
   text-align: center;
+}
+
+/* Navbar */
+.nav-link {
+  color: whitesmoke!important;
+  position: relative;
+  margin-left: .5em;
+  margin-right: .5em;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.navbar,
+footer {
+  background: #051120;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(to right, rgb(230, 118, 54), red);
+}
+
+/* Footer */
+footer {
+  color: whitesmoke;
+  padding: 3em 3em 0;
+  margin-top: 3em!important;
+}
+
+.footer {
+  padding: 1.5em;
+  text-align: center;
+}
+
+.logo {
+  padding-bottom: 2em;
+  text-align: left;
+}
+
+.logo-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#catch-phrase {
+  width: 12em;
+  margin-bottom: .3em;
+}
+
+#sub-catch-phrase {
+  font-weight: 700;
+}
+
+.pages-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: white;
+}
+
+.visit-us {
+  padding-bottom: 4.6em;
+}
+
+.contact {
+  margin: 0;
+}
+
+.footer-link,
+.contact {
+  padding: .1em .1em .1em .35em;
+}
+
+
+.nav-link-active,
+.nav-link:hover,
+.nav-link:focus,
+.footer-link:hover,
+.footer-link:focus,
+.social li a:hover,
+.social li a:focus {
+  background: -webkit-linear-gradient(rgb(230, 118, 54), white)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
+
+.social {
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.social li {
+  width: 3.4em;
+}
+
+.nav-link,
+.social-link,
+.footer-link,
+.contact {
+  background: -webkit-linear-gradient(rgb(230, 118, 54), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.social-link {
+  text-decoration: none;
+  font-size: 1.4rem;
+}
+
+#copyright {
+  margin: .1em;
+  font-size: .9rem;
+}
+
+.creator {
+  font-size: .72rem;
 }
