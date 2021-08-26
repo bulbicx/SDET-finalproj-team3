@@ -110,11 +110,11 @@ public class TrackControllerIntegrationTest {
 		tracksInDb.add(track);
 		tracksInDb.add(track2);
 		
-		String albumsOnDbAsJSON = this.mapper.writeValueAsString(tracksInDb);
+		String tracksOnDbAsJSON = this.mapper.writeValueAsString(tracksInDb);
 		
 		ResultMatcher matchStatus = status().isOk();
 		
-		ResultMatcher matchBody = content().json(albumsOnDbAsJSON);
+		ResultMatcher matchBody = content().json(tracksOnDbAsJSON);
 		
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 		
