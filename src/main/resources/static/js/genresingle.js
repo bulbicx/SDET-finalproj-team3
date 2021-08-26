@@ -2,6 +2,22 @@
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('id');
 
+    
+    function getAlbumPage(albumId){
+        fetch(`http://localhost:8082/albumsingle`)
+                .then(response => response.text())
+                .then(pagelink => goToDynamicPage(pagelink, albumId));
+    }
+    function getArtistPage(artistId) {
+        fetch(`http://localhost:8082/artistsingle`)
+                .then(response => response.text())
+                .then(pagelink => goToDynamicPage(pagelink, artistId));
+    }
+
+    function goToDynamicPage(pagelink, id) {
+        window.location = `${pagelink}?id=${id}`;
+    }
+
     console.log(myParam);
     fetch(`http://localhost:8082/genres/read/${myParam}`)
         .then((response) => {
@@ -41,23 +57,31 @@
                 let albumCoverTableData = document.createElement("td");
                 let albumCover = document.createElement("img");
                 albumCover.setAttribute("src", "https://www.superiorwallpapers.com/download/a-guitar-in-flames-rock-music-guitar-1920x1080.jpg");
-                albumCover.setAttribute("width", 10);
-                albumCover.setAttribute("height", 10);
+                albumCover.setAttribute("width", 100);
+                albumCover.setAttribute("height", 100);
                 albumCoverTableData.append(albumCover);
                 albumTableRow.appendChild(albumCoverTableData);
+                albumCover.onclick=() => {
+                    getAlbumPage(album.id);
+                }
 
                 let albumNameTableData = document.createElement("td");
                 albumNameTableData.textContent = album.name;
                 albumTableRow.appendChild(albumNameTableData);
+                albumNameTableData.onclick=() => {
+                    getAlbumPage(album.id);
+                }
 
                 let albumArtistTableData = document.createElement("td");
                 albumArtistTableData.textContent = album.artist.name;
                 albumTableRow.appendChild(albumArtistTableData);
+                albumArtistTableData.onclick=() => {
+                    getArtistPage(album.artist.id);
+                }
         }
 
         function createGenreHeader(genre) {
             let genreCol = document.querySelector("#genre-col");
-            let albumCol = document.querySelector("#album-col");
             
             let genreName = document.createElement("h1");
             genreName.textContent = genre.name;
@@ -67,18 +91,14 @@
             genreImage.setAttribute("class", "img-header");
             genreImage.setAttribute("src", "https://www.superiorwallpapers.com/download/a-guitar-in-flames-rock-music-guitar-1920x1080.jpg");
             genreImage.setAttribute("alt", "image");
+            genreImage.setAttribute("width", 100);
+            genreImage.setAttribute("height", 100);
             genreCol.appendChild(genreImage);
 
-            // let albumName = document.createElement("h1");
-            // albumName.textContent = genre.album.name;
-            // albumCol.appendChild(albumName);
-            
-            // let albumImage = document.createElement("img");
-            // albumImage.setAttribute("class", "img-header");
-            // albumImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
-            // albumImage.setAttribute("alt", "image");
-            // albumCol.appendChild(albumImage);
-
-
+            let genreDescription = document.createElement("h2");
+            genreDescription.textContent = genre.description;
+            genreDescription.setAttribute("style", "display: inline");
+            genreDescription.setAttribute("align", "right");
+            genreCol.appendChild(genreDescription);
         }
 })();
