@@ -27,12 +27,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.User;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:sql-schema.sql", "classpath:sql-data.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class AlbumControllerIntegrationTest {
+
+public class TrackControllerIntegrationTest {
 	
 	@Autowired
 	private MockMvc mock;
@@ -41,52 +45,61 @@ public class AlbumControllerIntegrationTest {
 	private ObjectMapper mapper;
 	
 	@Test
-	void testCreateAlbum() throws Exception {
+	void testCreateTrack() throws Exception {
 		
-		//Create Album object
+		//Create track object
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album("Blackpool", artist, genre, "image");
+		Album album = new Album(1L, "Blackpool", artist, genre, "image");
+		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+		List<Playlist> playlists = new ArrayList<>();
+		playlists.add(playlist);
+		Track track = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
 		
 		//Convert it to a JSON String
-		String albumAsJSON = this.mapper.writeValueAsString(album);
+		String trackAsJSON = this.mapper.writeValueAsString(track);
 		
 		//Build mock request
 		RequestBuilder mockRequest =
 								post("/albums/create/1/1")
 								.contentType(MediaType.APPLICATION_JSON)
-								.content(albumAsJSON);
+								.content(trackAsJSON);
 		
-		//Create an album object resembling the one created in database
-		Album albumInDb = new Album(2L, "Blackpool", artist, genre, "image");
+		//Create an track object resembling the one created in database
+		Track trackInDb = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
 		
-		
-		//Convert the album in database as JSON
-		String albumInDbAsJSON = this.mapper.writeValueAsString(albumInDb);
+		//Convert the track in database as JSON
+		String trackInDbAsJSON = this.mapper.writeValueAsString(trackInDb);
 		
 		//Get status created
 		ResultMatcher matchStatus = status().isCreated();
 		
 		//Get body
-		ResultMatcher matchBody = content().json(albumInDbAsJSON);
+		ResultMatcher matchBody = content().json(trackInDbAsJSON);
 		
 		//Build the request and assert it is what we have created
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
 	
 	@Test
-	void testReadAllAlbums() throws Exception {
+	void testReadAllTracks() throws Exception {
 		
-		RequestBuilder mockRequest = get("/albums/read");
+		RequestBuilder mockRequest = get("/tracks/read");
 		
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
 		Album album = new Album(1L, "Blackpool", artist, genre, "image");
+		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+		List<Playlist> playlists = new ArrayList<>();
+		playlists.add(playlist);
+		Track track = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
 		
-		List<Album> albumsOnDb = new ArrayList<>();
-		albumsOnDb.add(album);
+		List<Track> tracksInDb = new ArrayList<>();
+		tracksInDb.add(track);
 		
-		String albumsOnDbAsJSON = this.mapper.writeValueAsString(albumsOnDb);
+		String albumsOnDbAsJSON = this.mapper.writeValueAsString(tracksInDb);
 		
 		ResultMatcher matchStatus = status().isOk();
 		
@@ -97,61 +110,70 @@ public class AlbumControllerIntegrationTest {
 	}
 	
 	@Test
-	void testReadOneAlbum() throws Exception {
+	void testReadOneTrack() throws Exception {
 		
-		RequestBuilder mockRequest = get("/albums/read/1");
+		RequestBuilder mockRequest = get("/tracks/read/1");
 		
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
 		Album album = new Album(1L, "Blackpool", artist, genre, "image");
+		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+		List<Playlist> playlists = new ArrayList<>();
+		playlists.add(playlist);
+		Track track = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
 		
-		
-		String albumAsJSON = this.mapper.writeValueAsString(album);
+		String trackAsJSON = this.mapper.writeValueAsString(track);
 		
 		ResultMatcher matchStatus = status().isOk();
 		
-		ResultMatcher matchBody = content().json(albumAsJSON);
+		ResultMatcher matchBody = content().json(trackAsJSON);
 		
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 		
 	}
 	
 	@Test
-	void testUpdateAlbum() throws Exception {
-		//Create artist with updated data
+	void testUpdateTrack() throws Exception {
+		//Create track with updated data
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album updatedAlbum = new Album(1L, "Bluepool", artist, genre, "image2");
+		Album album = new Album(1L, "Blackpool", artist, genre, "image");
+		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+		List<Playlist> playlists = new ArrayList<>();
+		playlists.add(playlist);
+		Track updateTrack = new Track(1L, "Parkourrr", album, playlists, 280, "la la la laaaaaa land");
 		
-		//Convert artist into JSON format
-		String updatedAlbumAsJSON = this.mapper.writeValueAsString(updatedAlbum);
+		//Convert track into JSON format
+		String updateTrackAsJSON = this.mapper.writeValueAsString(updateTrack);
 		
 		//Build mock request
 		RequestBuilder mockRequest =
-								put("/albums/update/1/1/1")
+								put("/tracks/update/1/album/1")
 								.contentType(MediaType.APPLICATION_JSON)
-								.content(updatedAlbumAsJSON);
+								.content(updateTrackAsJSON);
 		
-		//Create artist object which resemble the updated one on db
-		Album updatedAlbumOnDb = new Album(1L, "Bluepool", artist, genre, "image2");
+		//Create track object which resemble the updated one on db
+		Track updateTrackInDb = new Track(1L, "Parkourrr", album, playlists, 280, "la la la laaaaaa land");
 		
-		//Convert artist as JSON format
-		String updatedAlbumOnDbAsJSON = this.mapper.writeValueAsString(updatedAlbumOnDb); 
+		//Convert track as JSON format
+		String updateTrackInDbAsJSON = this.mapper.writeValueAsString(updateTrackInDb); 
 		
 		//Get status code(202)
 		ResultMatcher matchStatus = status().isAccepted();
 		
 		//Get content
-		ResultMatcher matchBody = content().json(updatedAlbumOnDbAsJSON);
+		ResultMatcher matchBody = content().json(updateTrackInDbAsJSON);
 		
 		//Perform the request and assert that the update has been successful
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
 	
 	@Test
-	void testDeleteAlbum() throws Exception {
+	void testDeleteTrack() throws Exception {
 		//Build mock request
-		RequestBuilder mockRequest = delete("/albums/delete/1");
+		RequestBuilder mockRequest = delete("/tracks/delete/1");
 		
 		//Check status code(204)
 		ResultMatcher matchStatus = status().isNoContent();
@@ -159,6 +181,4 @@ public class AlbumControllerIntegrationTest {
 		//Build the mock request
 		this.mock.perform(mockRequest).andExpect(matchStatus);
 	}
-
-
 }
