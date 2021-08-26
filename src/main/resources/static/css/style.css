@@ -40,9 +40,8 @@ Image css
   background-color: white;
   color: black;
   border: 2px solid grey;
-  border-radius: 3px;  // for no radius
-
-  }
+  border-radius: 3px;  
+}
 
 #Search:hover {
   background-color: grey;
@@ -59,4 +58,98 @@ Image css
   margin-bottom: 0;
   text-transform: uppercase;
   text-align: center;
+}
+
+/* Navbar */
+.navbar {
+  /* background: #051120!important;
+  color: whitesmoke!important; */
+}
+
+/* Footer */
+footer {
+  background-color: #051120;
+  color: whitesmoke;
+  padding: 3em;
+}
+
+.footer {
+  padding: 1.5em;
+  text-align: center;
+}
+
+.logo {
+  padding-bottom: 2em;
+  text-align: left;
+}
+
+.logo-side {
+  text-align: left;
+}
+
+#catch-phrase {
+  width: 12em;
+  margin-bottom: .3em;
+}
+
+#sub-catch-phrase {
+  font-weight: 700;
+}
+
+.pages-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: white;
+}
+
+.visit-us {
+  padding-bottom: 4.6em;
+}
+
+.contact {
+  margin: 0;
+}
+
+.footer-link,
+.contact {
+  padding: .1em .1em .1em .35em;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: #B03A2E;
+}
+
+.social {
+  padding: 1em;
+  display: flex;
+  list-style-type: none;
+}
+
+.social li {
+  width: 3.4em;
+}
+
+.social li a:hover,
+.social li a:focus {
+  color: white;
+}
+
+.social-link {
+  text-decoration: none;
+  color: #B03A2E;
+  font-size: 1.4rem;
+}
+
+#copyright {
+  margin: .1em;
+  font-size: .9rem;
+}
+
+.creator {
+  font-size: .72rem;
 }
