@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="collapsingNavbar">
         <ul class="nav navbar-nav text-center">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link nav-home" href="index.html">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link nav-artist" href="artists.html">Artists</a>
@@ -46,6 +46,7 @@
   let navPlaylist = document.querySelector(".nav-playlist");
   let navGenre = document.querySelector(".nav-genre");
   let navProfile = document.querySelector(".nav-profile");
+  let navHome = document.querySelector(".nav-home");
 
     if (window.location.href.includes("artists")) {
       navArtist.setAttribute("class", "nav-link nav-artist nav-link-active");
@@ -57,5 +58,7 @@
       navGenre.setAttribute("class", "nav-link nav-genre nav-link-active");
     } else if (window.location.href.includes("profile")) {
       navProfile.setAttribute("class", "nav-link nav-profile nav-link-active");
+    } else {
+      navHome.setAttribute("class", "nav-link nav-home nav-link-active");
     }
 })();

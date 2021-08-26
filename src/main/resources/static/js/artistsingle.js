@@ -97,6 +97,8 @@
             artistImage.setAttribute("class", "img-header");
             artistImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
             artistImage.setAttribute("alt", "image");
+            artistImage.setAttribute("width", 192);
+            artistImage.setAttribute("height", 192);
             artistCol.appendChild(artistImage);
         }
 })();
