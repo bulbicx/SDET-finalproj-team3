@@ -16,22 +16,29 @@
 }
 
 .card-box {
-  height: 9.2em;
+  height: 10em;
   width: 12em;
   margin: 1em;
 }
 
 .card {
   padding: 0;
-  /* width: 100%; */
+}
+
+.card:hover,
+.card:focus {
+  cursor: pointer;
+  box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
 }
 
 .card-img-top {
   object-fit: cover;
+  height: 90%;
 }
 
 .title-section {
   text-align: center;
+  height: 10%;
 }
 
 .title-card {
