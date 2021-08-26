@@ -1,5 +1,5 @@
 body {
-    padding-top: 4em;
+  padding-top: 6em;
 }
 
 /* ditch the ugle blue outline */
@@ -71,6 +71,7 @@ footer {
   background-color: #051120;
   color: whitesmoke;
   padding: 3em;
+  margin-top: 3em!important;
 }
 
 .footer {
