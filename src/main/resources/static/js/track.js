@@ -2,15 +2,20 @@
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('id');
 
-    // function getTrackPage(trackId) {
-    //     fetch(`http://localhost:8082/track`)
-    //             .then(response => response.text())
-    //             .then(pagelink => gotToTrackPage(pagelink, trackId));
-    // }
+    function getPlaylistPage(playlistId) {
+        fetch(`http://localhost:8082/playlistsingle`)
+                .then(response => response.text())
+                .then(pagelink => goToDynamicPage(pagelink, playlistId));
+    }
+    function getAlbumPage(albumId){
+        fetch(`http://localhost:8082/albumsingle`)
+                .then(response => response.text())
+                .then(pagelink => goToDynamicPage(pagelink, albumId));
+    }
 
-    // function gotToTrackPage(pagelink, trackId) {
-    //     window.location = `${pagelink}?id=${trackId}`;
-    // }
+    function goToDynamicPage(pagelink, id) {
+        window.location = `${pagelink}?id=${id}`;
+    }
 
     fetch(`http://localhost:8082/tracks/read/${myParam}`)
         .then((response) => {
@@ -39,7 +44,7 @@
         card.setAttribute("class", "card mb-3");
         card.setAttribute("style", "width:12rem");
         card.onclick = () => {
-            getPlaylistSinglePage(playlist.id);
+            getPlaylistPage(playlist.id);
         }
         playListsDiv.appendChild(card);
 
@@ -67,6 +72,9 @@
         albumImage.setAttribute("class", "img-header");
         albumImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
         albumImage.setAttribute("alt", "image");
+        albumImage.onclick = () => {
+            getAlbumPage(track.album.id);
+        }
         albumArtistCol.appendChild(albumImage);
 
         let albumName = document.createElement("h1");
