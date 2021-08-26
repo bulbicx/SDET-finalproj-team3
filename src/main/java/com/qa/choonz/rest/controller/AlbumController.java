@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.rest.dto.AlbumDTO;
-import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.service.AlbumService;
 
 @RestController
@@ -63,7 +62,7 @@ public class AlbumController {
         return new ResponseEntity<AlbumDTO>(this.service.update(album, id, artistId, genreId), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<AlbumDTO> delete(@PathVariable long id) {
         return this.service.delete(id) ? new ResponseEntity<AlbumDTO>(HttpStatus.NO_CONTENT)
                 : new ResponseEntity<AlbumDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
