@@ -1,3 +1,4 @@
+/* Playlists page */
 main {
   background : #D5D8DC;
   padding: 2em;
@@ -26,6 +27,7 @@ main {
   border: none;
   box-shadow: 3px 3px 3px rgb(0 0 0 / 0.2);
   font-size: 2.2rem;
+  margin: 1em;
 }
 
 .card:hover,
@@ -50,4 +52,48 @@ main {
 #text-no-playlist {
   color: white;
   font-size: 2rem;
+}
+
+/* Playlist Detail page */
+.playlist-container {
+  background: linear-gradient(to right, red, orange);
+  opacity: 0.9;
+  padding: 2em;
+}
+
+#title-playlist {
+  font-size: 3.2rem;
+  text-shadow: orange 4px 0 10px;
+  margin-bottom: 0.4em;
+}
+
+#playlist-description {
+  font-size: 1.35rem;
+  background-color: rgba(255%,255%,255%,0.30);
+  padding: 0.5em;
+}
+
+.track-list {
+  background-color: rgba(255%,255%,255%,0.30);
+  margin-top: 4em;
+  padding: 2em;
+}
+
+#title-playlist,
+#playlist-description,
+.track-list {
+  color: #F2F3F4;
+}
+
+#playlist-description,
+.track-list {
+  border-radius: 0.4em;
+}
+
+#header-page {
+  text-align: center;
+}
+
+#tracks-title {
+  padding-left: 0.7em;
 }
