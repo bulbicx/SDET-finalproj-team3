@@ -46,7 +46,6 @@ Image css
 #Search:hover {
   background-color: grey;
   color: white;
-
 }
 
 .text-playlist-card {
@@ -61,14 +60,32 @@ Image css
 }
 
 /* Navbar */
-.navbar {
-  /* background: #051120!important;
-  color: whitesmoke!important; */
+.nav-link {
+  color: whitesmoke!important;
+  position: relative;
+  margin-left: .5em;
+  margin-right: .5em;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.navbar,
+footer {
+  background: #051120;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(to right, rgb(230, 118, 54), red);
 }
 
 /* Footer */
 footer {
-  background-color: #051120;
   color: whitesmoke;
   padding: 3em;
   margin-top: 3em!important;
@@ -85,7 +102,9 @@ footer {
 }
 
 .logo-side {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #catch-phrase {
@@ -120,14 +139,23 @@ footer {
   padding: .1em .1em .1em .35em;
 }
 
+
+.nav-link-active,
+.nav-link:hover,
+.nav-link:focus,
 .footer-link:hover,
-.footer-link:focus {
-  color: #B03A2E;
+.footer-link:focus,
+.social li a:hover,
+.social li a:focus {
+  background: -webkit-linear-gradient(rgb(230, 118, 54), white)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
 }
 
 .social {
   padding: 1em;
   display: flex;
+  justify-content: center;
   list-style-type: none;
 }
 
@@ -135,14 +163,15 @@ footer {
   width: 3.4em;
 }
 
-.social li a:hover,
-.social li a:focus {
-  color: white;
+.nav-link,
+.social-link {
+  background: -webkit-linear-gradient(rgb(230, 118, 54), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .social-link {
   text-decoration: none;
-  color: #B03A2E;
   font-size: 1.4rem;
 }
 
