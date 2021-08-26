@@ -55,6 +55,16 @@ public class Album {
         this.cover = cover;
     }
     
+    public Album(@NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, Genre genre,
+            String cover) {
+        super();
+        this.name = name;
+        this.tracks = tracks;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
+    
     public Album(Long id, @NotNull @Size(max = 100) String name, Artist artist, Genre genre, String cover) {
         super();
         this.id = id;
@@ -69,6 +79,19 @@ public class Album {
         this.name = name;
         this.artist = artist;
         this.genre = genre;
+        this.cover = cover;
+    }
+    
+    public Album(Long id, @NotNull @Size(max = 100) String name, String cover) {
+        super();
+        this.id =id;
+        this.name = name;
+        this.cover = cover;
+    }
+    
+    public Album(@NotNull @Size(max = 100) String name, String cover) {
+        super();
+        this.name = name;
         this.cover = cover;
     }
 
