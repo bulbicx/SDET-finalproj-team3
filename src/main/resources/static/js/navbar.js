@@ -37,9 +37,7 @@
     </nav>
     `;
   
-    
-    console.log(window.location.href)
-    containerNav.innerHTML = navbar;
+  containerNav.innerHTML = navbar;
     
   let navArtist = document.querySelector(".nav-artist");
   let navAlbum = document.querySelector(".nav-album");
@@ -48,17 +46,17 @@
   let navProfile = document.querySelector(".nav-profile");
   let navHome = document.querySelector(".nav-home");
 
-    if (window.location.href.includes("artists")) {
-      navArtist.setAttribute("class", "nav-link nav-artist nav-link-active");
-    } else if (window.location.href.includes("albums")) {
-      navAlbum.setAttribute("class", "nav-link nav-album nav-link-active");
-    } else if (window.location.href.includes("playlists")) {
-      navPlaylist.setAttribute("class", "nav-link nav-playlist nav-link-active");
-    } else if (window.location.href.includes("genres")) {
-      navGenre.setAttribute("class", "nav-link nav-genre nav-link-active");
-    } else if (window.location.href.includes("profile")) {
-      navProfile.setAttribute("class", "nav-link nav-profile nav-link-active");
-    } else {
-      navHome.setAttribute("class", "nav-link nav-home nav-link-active");
-    }
+  if (window.location.href.includes("artists")) {
+    navArtist.setAttribute("class", "nav-link nav-artist nav-link-active");
+  } else if (window.location.href.includes("albums")) {
+    navAlbum.setAttribute("class", "nav-link nav-album nav-link-active");
+  } else if (window.location.href.includes("playlists")) {
+    navPlaylist.setAttribute("class", "nav-link nav-playlist nav-link-active");
+  } else if (window.location.href.includes("genres")) {
+    navGenre.setAttribute("class", "nav-link nav-genre nav-link-active");
+  } else if (window.location.href.includes("profile")) {
+    navProfile.setAttribute("class", "nav-link nav-profile nav-link-active");
+  } else {
+    navHome.setAttribute("class", "nav-link nav-home nav-link-active");
+  }
 })();
