@@ -1,6 +1,6 @@
 (() => {
   let main = document.querySelector("main");
-  
+
   const getAllPlaylists = () => {
     fetch(`http://localhost:8082/playlists/read`)
     .then(response => response.json())
