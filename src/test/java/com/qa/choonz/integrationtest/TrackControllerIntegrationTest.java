@@ -30,6 +30,7 @@ import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.builder.TrackBuilder;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -62,7 +63,7 @@ public class TrackControllerIntegrationTest {
 		
 		//Build mock request
 		RequestBuilder mockRequest =
-								post("/albums/create/1/1")
+								post("/tracks/create/album/1")
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(trackAsJSON);
 		
@@ -94,16 +95,26 @@ public class TrackControllerIntegrationTest {
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
+		List<Playlist> playlistsEmpty = new ArrayList<>();
 		Track track = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
+		Track track2 = new TrackBuilder()
+				.id(50L)
+				.name("Parkour 2")
+				.album(album)
+				.duration(210)
+				.lyrics("la land")
+				.playlists(playlistsEmpty)
+				.build();
 		
 		List<Track> tracksInDb = new ArrayList<>();
 		tracksInDb.add(track);
+		tracksInDb.add(track2);
 		
-		String albumsOnDbAsJSON = this.mapper.writeValueAsString(tracksInDb);
+		String tracksOnDbAsJSON = this.mapper.writeValueAsString(tracksInDb);
 		
 		ResultMatcher matchStatus = status().isOk();
 		
-		ResultMatcher matchBody = content().json(albumsOnDbAsJSON);
+		ResultMatcher matchBody = content().json(tracksOnDbAsJSON);
 		
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 		
