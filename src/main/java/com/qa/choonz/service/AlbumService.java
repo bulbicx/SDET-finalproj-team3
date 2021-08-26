@@ -10,19 +10,16 @@ import org.springframework.stereotype.Service;
 import com.qa.choonz.exception.AlbumNotFoundException;
 import com.qa.choonz.exception.ArtistNotFoundException;
 import com.qa.choonz.exception.GenreNotFoundException;
-import com.qa.choonz.exception.PlaylistNotFoundException;
 import com.qa.choonz.exception.TrackNotFoundException;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
-import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.persistence.repository.GenreRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.AlbumDTO;
-import com.qa.choonz.rest.dto.PlaylistDTO;
 
 @Service
 public class AlbumService {
