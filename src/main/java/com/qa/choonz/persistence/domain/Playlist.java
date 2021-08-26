@@ -3,8 +3,10 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +42,9 @@ public class Playlist {
     private String artwork;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.LAZY,
+    			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+    					CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
     		name = "playlist_track",
     		joinColumns = @JoinColumn(name = "playlist_id"),
