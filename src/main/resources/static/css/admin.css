@@ -76,3 +76,19 @@ body {
   background: -webkit-linear-gradient(rgb(230, 118, 54), white);
   color: white;
 }
+
+.bi {
+  font-size: 1.4rem;
+  padding: 0 .4em;
+  background: -webkit-linear-gradient(rgb(230, 118, 54), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bi:hover,
+.bi:focus {
+  cursor: pointer;
+  background: -webkit-linear-gradient(rgb(230, 118, 54), white)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
