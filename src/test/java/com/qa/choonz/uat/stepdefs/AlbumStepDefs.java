@@ -2,6 +2,8 @@ package com.qa.choonz.uat.stepdefs;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -28,6 +30,7 @@ public class AlbumStepDefs {
 	@Given("I am on the albums page")
 	public void iAmOnTheAlbumsPage() {
 		this.driver.get("http://127.0.0.1:5500/albums.html");
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 
 	@When("I click on the card to the first album")
