@@ -11,8 +11,17 @@
   box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .title-home-section {
   margin-left: .6em;
+}
+
+.icon-section {
+  margin-left: 2.5em;
 }
 
 .card-box {
@@ -50,4 +59,20 @@
 .no-data-found {
   font-size: 1.3rem;
   font-weight: 500;
+}
+
+.bi {
+  font-size: 1.4rem;
+  padding: 0 .4em;
+  background: -webkit-linear-gradient(rgb(230, 118, 54), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bi:hover,
+.bi:focus {
+  cursor: pointer;
+  background: -webkit-linear-gradient(rgb(230, 118, 54), white)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
 }

@@ -124,12 +124,37 @@
         groupSection.appendChild(homeSection);
 
         let sectionHeader = document.createElement("div");
+        sectionHeader.setAttribute("class", "section-header");
         homeSection.appendChild(sectionHeader);
 
         let titleHomeSection = document.createElement("h4");
         titleHomeSection.setAttribute("class", "title-home-section");
         titleHomeSection.innerText = getSectionTitle(sectionType);
         sectionHeader.appendChild(titleHomeSection);
+
+        // <i class="bi bi-plus-circle-fill"></i>
+        // <i class="bi bi-pen-fill"></i>
+        // <i class="bi bi-trash-fill"></i>
+        // <i class="bi bi-eye-fill"></i>
+        // type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        let iconSection = document.createElement("span");
+        iconSection.setAttribute("class", "icon-section")
+        sectionHeader.appendChild(iconSection);
+        let plusIcon = document.createElement("i");
+        plusIcon.setAttribute("class", "bi bi-plus-circle-fill");
+        plusIcon.setAttribute("type", "button");
+        plusIcon.setAttribute("data-bs-toggle", "modal");
+        plusIcon.setAttribute("data-bs-target", "#staticBackdrop");
+        let editIcon = document.createElement("i");
+        editIcon.setAttribute("class", "bi bi-pen-fill");
+        let deleteIcon = document.createElement("i");
+        deleteIcon.setAttribute("class", "bi bi-trash-fill");
+        let seeMoreIcon = document.createElement("i");
+        seeMoreIcon.setAttribute("class", "bi bi-eye-fill");
+        iconSection.appendChild(plusIcon);
+        iconSection.appendChild(editIcon);
+        iconSection.appendChild(deleteIcon);
+        iconSection.appendChild(seeMoreIcon);
 
         let cardGroup = document.createElement("div");
         cardGroup.setAttribute("class", "row");
