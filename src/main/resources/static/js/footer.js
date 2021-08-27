@@ -3,7 +3,7 @@
   const footer = `
     <footer class="row">
       <div class="footer logo-side col-md-4">
-          <img src="../img/Choonz.jpg" alt="logo" class="logo" width="150px">
+          <img src="../img/Choonz.png" alt="logo" class="logo" width="150px">
           <p id="catch-phrase" class="text-muted">We have all the music you are looking for.</p>
           <p id="sub-catch-phrase">Choose us.</p>
       </div>
