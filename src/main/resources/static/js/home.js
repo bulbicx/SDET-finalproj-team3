@@ -116,6 +116,12 @@
     }
   }
 
+  const goToPlaylistsPage = () => {
+    fetch(`http://localhost:8082/playlist`)
+            .then(response => response.text())
+            .then(window.location = `playlists.html`);
+  }
+
   const displaySection = (data, sectionType) => {
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
@@ -132,37 +138,34 @@
         titleHomeSection.innerText = getSectionTitle(sectionType);
         sectionHeader.appendChild(titleHomeSection);
 
-        // <i class="bi bi-plus-circle-fill"></i>
-        // <i class="bi bi-pen-fill"></i>
-        // <i class="bi bi-trash-fill"></i>
-        // <i class="bi bi-eye-fill"></i>
-        let iconSection = document.createElement("span");
-        iconSection.setAttribute("class", "icon-section")
-        sectionHeader.appendChild(iconSection);
-        let plusIcon = document.createElement("i");
-        plusIcon.setAttribute("class", "bi bi-plus-circle-fill");
-        plusIcon.setAttribute("type", "button");
-        plusIcon.setAttribute("data-bs-toggle", "modal");
-        plusIcon.setAttribute("data-bs-target", "#staticBackdrop");
-        let editIcon = document.createElement("i");
-        editIcon.setAttribute("class", "bi bi-pen-fill");
-        editIcon.setAttribute("type", "button");
-        editIcon.setAttribute("data-bs-toggle", "modal");
-        editIcon.setAttribute("data-bs-target", "#staticBackdrop");
-        let deleteIcon = document.createElement("i");
-        deleteIcon.setAttribute("class", "bi bi-trash-fill");
-        deleteIcon.setAttribute("type", "button");
-        deleteIcon.setAttribute("data-bs-toggle", "modal");
-        deleteIcon.setAttribute("data-bs-target", "#staticBackdrop");
-        let seeMoreIcon = document.createElement("i");
-        seeMoreIcon.setAttribute("class", "bi bi-eye-fill");
-        seeMoreIcon.setAttribute("type", "button");
-        seeMoreIcon.setAttribute("data-bs-toggle", "modal");
-        seeMoreIcon.setAttribute("data-bs-target", "#staticBackdrop");
-        iconSection.appendChild(plusIcon);
-        iconSection.appendChild(editIcon);
-        iconSection.appendChild(deleteIcon);
-        iconSection.appendChild(seeMoreIcon);
+        if (sectionType.toLowerCase() === "playlist") {
+          let iconSection = document.createElement("span");
+          iconSection.setAttribute("class", "icon-section")
+          sectionHeader.appendChild(iconSection);
+          let plusIcon = document.createElement("i");
+          plusIcon.setAttribute("class", "bi bi-plus-circle-fill");
+          plusIcon.setAttribute("type", "button");
+          plusIcon.setAttribute("data-bs-toggle", "modal");
+          plusIcon.setAttribute("data-bs-target", "#add-playlist");
+          // plusIcon.addEventListener("click", () => getAddPlaylistPage());
+          let editIcon = document.createElement("i");
+          editIcon.setAttribute("class", "bi bi-pen-fill");
+          editIcon.setAttribute("type", "button");
+          editIcon.setAttribute("data-bs-toggle", "modal");
+          editIcon.setAttribute("data-bs-target", "#edit-playlist");
+          let deleteIcon = document.createElement("i");
+          deleteIcon.setAttribute("class", "bi bi-trash-fill");
+          deleteIcon.setAttribute("type", "button");
+          deleteIcon.setAttribute("data-bs-toggle", "modal");
+          deleteIcon.setAttribute("data-bs-target", "#delete-playlist");
+          let seeMoreIcon = document.createElement("i");
+          seeMoreIcon.setAttribute("class", "bi bi-eye-fill");
+          seeMoreIcon.addEventListener("click", () => goToPlaylistsPage());
+          iconSection.appendChild(plusIcon);
+          iconSection.appendChild(editIcon);
+          iconSection.appendChild(deleteIcon);
+          iconSection.appendChild(seeMoreIcon);
+        }
 
         let cardGroup = document.createElement("div");
         cardGroup.setAttribute("class", "row");
