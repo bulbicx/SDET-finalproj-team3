@@ -136,7 +136,6 @@
         // <i class="bi bi-pen-fill"></i>
         // <i class="bi bi-trash-fill"></i>
         // <i class="bi bi-eye-fill"></i>
-        // type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
         let iconSection = document.createElement("span");
         iconSection.setAttribute("class", "icon-section")
         sectionHeader.appendChild(iconSection);
@@ -147,10 +146,19 @@
         plusIcon.setAttribute("data-bs-target", "#staticBackdrop");
         let editIcon = document.createElement("i");
         editIcon.setAttribute("class", "bi bi-pen-fill");
+        editIcon.setAttribute("type", "button");
+        editIcon.setAttribute("data-bs-toggle", "modal");
+        editIcon.setAttribute("data-bs-target", "#staticBackdrop");
         let deleteIcon = document.createElement("i");
         deleteIcon.setAttribute("class", "bi bi-trash-fill");
+        deleteIcon.setAttribute("type", "button");
+        deleteIcon.setAttribute("data-bs-toggle", "modal");
+        deleteIcon.setAttribute("data-bs-target", "#staticBackdrop");
         let seeMoreIcon = document.createElement("i");
         seeMoreIcon.setAttribute("class", "bi bi-eye-fill");
+        seeMoreIcon.setAttribute("type", "button");
+        seeMoreIcon.setAttribute("data-bs-toggle", "modal");
+        seeMoreIcon.setAttribute("data-bs-target", "#staticBackdrop");
         iconSection.appendChild(plusIcon);
         iconSection.appendChild(editIcon);
         iconSection.appendChild(deleteIcon);
