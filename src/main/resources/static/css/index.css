@@ -46,3 +46,8 @@
   font-size: 1.2rem;
   font-weight: 700;
 }
+
+.no-data-found {
+  font-size: 1.3rem;
+  font-weight: 500;
+}

@@ -162,8 +162,14 @@
         card.addEventListener("click", () => getActionType(sectionType, data[i]));
         }
     } else {
-      let textToDisplay = `<p id="text-no-playlist">:( There are no playlist. But you can start adding new ones now!</p>`;
-      groupSection.innerHTML = textToDisplay;
+      let homeSection = document.createElement("div");
+      homeSection.setAttribute("class", "row home-section");
+      groupSection.appendChild(homeSection);
+      let pText = document.createElement("p");
+      pText.setAttribute("class", "no-data-found");
+      let noTextFound = `:( There are no ${ sectionType.toLowerCase() } yet, but you can start adding new ones now!`;
+      pText.innerHTML = noTextFound;
+      homeSection.appendChild(pText);
     } 
   }
 
