@@ -3,7 +3,7 @@
   let navbar = `
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
       <a class="navbar-brand mx-3" href="./">
-        <img class="logo p-0" src="../img/Choonz.jpg" width="auto" height="50">
+        <img class="logo p-0" src="../img/Choonz.png" width="auto" height="50">
       </a>
       <button class="navbar-toggler collapsed border-0" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
