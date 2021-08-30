@@ -102,6 +102,7 @@
     .then(data => console.log(data))
     .catch(error => console.error(error));
     
+    location.reload();
   }
 
   const deletePlaylist = (playlistId) => {
@@ -177,22 +178,23 @@
         card.setAttribute("style", "width: 18rem");
         main.appendChild(card);
         
+        let span = document.createElement("span");
+        span.addEventListener("click", () => getPlaylistSinglePage(data[i].id));
         let img = document.createElement("img");
         img.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
         img.setAttribute("class", "card-img-top card-background");
         img.setAttribute("alt", data[i].name);
-        let deleteIcon = document.createElement("i");
-        deleteIcon.setAttribute("class", "bi bi-trash-fill");
-        // deleteIcon.setAttribute("type", "button");
-        deleteIcon.addEventListener("click", () => deletePlaylist(data[i].id))
-        card.appendChild(img);
-        card.appendChild(deleteIcon);
+        span.appendChild(img);
         
         let p = document.createElement("p");
         p.setAttribute("class", "card-text text");
         p.innerText = data[i].name;
-        card.appendChild(p);
-        card.addEventListener("click", () => getPlaylistSinglePage(data[i].id));
+        span.appendChild(p);
+        card.appendChild(span);
+        let deleteIcon = document.createElement("i");
+        deleteIcon.setAttribute("class", "bi bi-trash-fill");
+        deleteIcon.addEventListener("click", () => deletePlaylist(data[i].id))
+        card.appendChild(deleteIcon);
       }
     } else {
       displayNoDataMsg(":( There are no playlists. But you can start adding new ones now!");
