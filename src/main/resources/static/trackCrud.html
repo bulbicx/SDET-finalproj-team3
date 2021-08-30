@@ -20,17 +20,95 @@
 
   <!-- Main Content -->
   <div class="page-container row">
-    <div class="admin-panel col-3">
-
-    </div>
+    <div class="admin-panel col-3"></div>
     <div class="body-page col-9">
-      <h1>track CRUD</h1>
-       
+      <header>
+        <h1>Tracks</h1>
+        <i class="bi bi-plus-circle-fill" type="button" data-bs-toggle="modal" data-bs-target="#add-track"></i>
+      </header>
+      <div id="alert" role="alert"></div>
+      <div class="box-pages"></div>
     </div>
   </div>
   <!-- Main content -->
 
+  <!-- Modal Add -->
+  <div class="modal fade" id="add-track" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add new track</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="new-name" class="form-label">Track Name</label>
+            <input type="text" id="new-name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="new-duration" class="form-label">Duration</label>
+            <input type="text" id="new-duration" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="new-album" class="form-label">Album</label>
+            <select class="album-list-add form-select" id="new-album">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="new-lyric" class="form-label">Lyrics</label>
+            <textarea id="new-lyric" class="form-control" row="4"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn add btn-primary" data-bs-dismiss="modal">Add</button>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Modal Add -->
+
+  <!-- Modal Update -->
+  <div class="modal fade" id="update-track" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Update track</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Track Name</label>
+            <input type="text" id="name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="duration" class="form-label">Duration</label>
+            <input type="text" id="duration" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="album" class="form-label">Album</label>
+            <select class="album-list-update form-select" id="album">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="lyric" class="form-label">Lyrics</label>
+            <textarea id="lyric" class="form-control" row="4"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn update btn-primary" data-bs-dismiss="modal">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Update -->
+
+
   <!-- Footer -->
   <div class="footer-container"></div>
   <!-- Footer -->
@@ -42,7 +120,7 @@
   <script src="./js/adminNavbar.js"></script>
   <script src="./js/footer.js"></script>
   <script src="./js/adminPanel.js"></script>
-  <script src="./js/trackCrud.js.js"></script>
+  <script src="./js/trackCrud.js"></script>
 </body>
 
 </html>
