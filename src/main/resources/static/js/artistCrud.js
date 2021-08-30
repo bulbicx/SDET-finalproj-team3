@@ -25,11 +25,7 @@
     let tbody = document.createElement("tbody");
     table.appendChild(tbody);
     if (data.length < 1) {
-      let tr = document.createElement("tr");
-      tbody.appendChild(tr);
-      let idTd = document.createElement("td");
-      idTd.innerText = "There is no artist yet"
-      tr.appendChild(idTd);
+      displayNoDataMsg("There is no data")
       return;
     }
     for (let i = 0; i < data.length; i++) {
@@ -135,6 +131,12 @@
     alert.innerText = msg;
   }
 
+  const displayNoDataMsg = (msg) => {
+    let alert = document.querySelector("#alert");
+    alert.setAttribute("class", "alert alert-warning");
+    alert.innerText = msg;
+  }
+  
   const retrieveUpdateFormDetails = () => {
     let artistUpdateName = document.querySelector("#name").value;
 
