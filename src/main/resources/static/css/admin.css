@@ -102,3 +102,7 @@ header {
 .bi-plus-circle-fill {
   margin-left: .8em;
 }
+
+.img-cover {
+  width: 3em;
+}

@@ -21,14 +21,99 @@
   <!-- Main Content -->
   <div class="page-container row">
     <div class="admin-panel col-3">
-      
+
     </div>
     <div class="body-page col-9">
-        <h1>album CRUD</h1>
-        
+      <header>
+        <h1>Albums</h1>
+        <i class="bi bi-plus-circle-fill" type="button" data-bs-toggle="modal" data-bs-target="#add-album"></i>
+      </header>
+      <div id="alert" role="alert"></div>
+      <div class="box-pages"></div>
+    </div>
+  </div>
+  <!-- Main content -->
+
+  <!-- Modal Add -->
+  <div class="modal fade" id="add-album" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add new album</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="new-name" class="form-label">Album Name</label>
+            <input type="text" id="new-name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="new-cover" class="form-label">Cover</label>
+            <input type="text" id="new-cover" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="new-genre" class="form-label">Genre</label>
+            <select class="genre-list-add form-select" id="new-genre">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="new-artist" class="form-label">Artist</label>
+            <select class="artist-list-add form-select" id="new-artist">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn add btn-primary" data-bs-dismiss="modal">Add</button>
+        </div>
       </div>
     </div>
-    <!-- Main content -->
+  </div>
+  <!-- Modal Add -->
+
+  <!-- Modal Update -->
+  <div class="modal fade" id="update-album" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Update album</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Album Name</label>
+            <input type="text" id="name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="cover" class="form-label">Cover</label>
+            <input type="text" id="cover" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="genre" class="form-label">Genre</label>
+            <select class="genre-list-update form-select" id="genre">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="artist" class="form-label">Artist</label>
+            <select class="artist-list-update form-select" id="artist">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn update btn-primary" data-bs-dismiss="modal">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Update -->
+
 
   </div>
   <!-- Footer -->
