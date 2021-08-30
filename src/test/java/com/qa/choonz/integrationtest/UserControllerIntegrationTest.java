@@ -117,7 +117,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	void testUpdateUser() throws Exception {
 		//Create user object with updated data
-		User updatedUser = new User("MichealNew", "password123New", "polkadotNew");
+		User updatedUser = new User(1L, "MichealNew", "password123New", "polkadotNew");
 		
 		//Convert user into JSON format
 		String updatedUserAsJSON = this.mapper.writeValueAsString(updatedUser);
