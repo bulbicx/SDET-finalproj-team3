@@ -92,3 +92,13 @@ body {
   -webkit-background-clip: text!important;
   -webkit-text-fill-color: transparent!important;
 }
+
+header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.bi-plus-circle-fill {
+  margin-left: .8em;
+}
