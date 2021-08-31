@@ -43,12 +43,12 @@ public class UserService {
 		return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
 
-	public UserDTO read(long id) {
+	public UserDTO read(Long id) {
 		User found = this.repo.findById(id).orElseThrow(UserNotFoundException::new);
 		return this.mapToDTO(found);
 	}
 
-	public UserDTO update(User user, long id) {
+	public UserDTO update(User user, Long id) {
 		User toUpdate = this.repo.findById(id).orElseThrow(UserNotFoundException::new);
 		toUpdate.setName(user.getName());
 		toUpdate.setUsername(user.getUsername());
@@ -61,7 +61,7 @@ public class UserService {
 
 	}
 
-	public boolean delete(long id) {
+	public boolean delete(Long id) {
 		this.repo.deleteById(id);
 		return !this.repo.existsById(id);
 	}

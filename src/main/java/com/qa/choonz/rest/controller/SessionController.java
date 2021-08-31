@@ -3,12 +3,15 @@ package com.qa.choonz.rest.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.rest.dto.SessionDTO;
 import com.qa.choonz.service.SessionService;
 
@@ -27,6 +30,12 @@ public class SessionController {
 	 @PostMapping("/authenticate")
 	 public ResponseEntity<SessionDTO> authenticate(@RequestBody User user){
 	    	return  new ResponseEntity<SessionDTO>(this.service.authenticate(user), HttpStatus.OK);
+	 }
+	 
+	 @DeleteMapping("/delete/{token}")
+	 public ResponseEntity<SessionDTO> delete(@PathVariable String token) {
+			return this.service.delete(token) ? new ResponseEntity<SessionDTO>(HttpStatus.NO_CONTENT)
+					: new ResponseEntity<SessionDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
 	 }
 
 }
