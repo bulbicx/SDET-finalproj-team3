@@ -27,9 +27,6 @@
             <a class="nav-link nav-genre" href="genres.html">Genres</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-profile" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#">Login</a>
           </li>
         </ul>
