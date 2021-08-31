@@ -89,7 +89,7 @@
       body: JSON.stringify(artist)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("New Artist added!"))
     .catch(error => console.error(error));
     
     location.reload();
