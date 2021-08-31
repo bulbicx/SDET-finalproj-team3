@@ -65,7 +65,8 @@ public class UserControllerIntegrationTest {
 		ResultMatcher matchBody = content().json(userInDbAsJSON);
 		
 		//Build the request and assert it is what we have created
-		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
+		System.out.println("HELLLOOOO");
+		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus).andReturn();
 	}
 	
 	@Test
