@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
-import com.qa.choonz.uat.pages.HomePage;
+import com.qa.choonz.uat.pages.GenresPage;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,11 +16,12 @@ import io.cucumber.java.en.When;
 public class FooterStepDefs {
 	
 	private WebDriver driver;
-	private HomePage page;
+	private GenresPage page;
 	
 	public FooterStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
-		this.page = PageFactory.initElements(driver, HomePage.class);
+		this.page = PageFactory.initElements(driver, GenresPage.class);
+		this.driver.manage().window().maximize();
 		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
