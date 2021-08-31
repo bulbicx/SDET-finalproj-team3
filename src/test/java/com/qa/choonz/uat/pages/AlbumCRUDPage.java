@@ -11,6 +11,12 @@ public class AlbumCRUDPage {
 	@FindBy(className = "bi-plus-circle-fill")
 	private WebElement plusIcon;
 	
+	@FindBy(className = "bi-pen-fill")
+	private WebElement editIcon;
+	
+	@FindBy(className = "bi-trash-fill")
+	private WebElement deleteIcon;
+	
 	@FindBy(id = "new-name")
 	private WebElement newNameField;
 	
@@ -26,8 +32,26 @@ public class AlbumCRUDPage {
 	private Select newGenreDropdown;
 	private Select newArtistDropdown;
 	
+	@FindBy(id = "name")
+	private WebElement updateNameField;
+	
+	@FindBy(id = "cover")
+	private WebElement updateCoverField;
+	
+	@FindBy(className = "genre-list-update")
+	private WebElement genreListUpdate;
+	
+	@FindBy(className = "artist-list-update")
+	private WebElement artistListUpdate;
+	
+	private Select updateGenreDropdown;
+	private Select updateArtistDropdown;
+	
 	@FindBy(className = "add")
 	private WebElement addBtn;
+	
+	@FindBy(className = "update")
+	private WebElement updateBtn;
 	
 	@FindBy(className = "artist-panel")
 	private WebElement artistPanel;
@@ -45,6 +69,10 @@ public class AlbumCRUDPage {
 		this.plusIcon.click();
 	}
 	
+	public void clickEditIcon() {
+		editIcon.click();
+	}
+	
 	public void insertData(String name, String cover, String genre, String artist) {
 		this.newGenreDropdown = new Select(genreListAdd);
 		this.newArtistDropdown = new Select(artistListAdd);
@@ -56,6 +84,10 @@ public class AlbumCRUDPage {
 	
 	public void clickAddBtn() {
 		this.addBtn.click();
+	}
+	
+	public void clickUpdateBtn() {
+		updateBtn.click();
 	}
 	
 	public void clickArtistPanel() {
@@ -83,5 +115,18 @@ public class AlbumCRUDPage {
 		newGenreDropdown.selectByVisibleText(genre);
 		newArtistDropdown.selectByVisibleText(artist);
 		this.addBtn.click();
+	}
+	
+	public void updateData(String name, String cover, String genre, String artist) {
+		this.updateGenreDropdown = new Select(genreListUpdate);
+		this.updateGenreDropdown = new Select(artistListUpdate);
+		updateNameField.sendKeys(name);
+		updateCoverField.sendKeys(cover);
+		updateGenreDropdown.selectByVisibleText(genre);
+		updateArtistDropdown.selectByVisibleText(artist);
+	}
+	
+	public void deleteAlbum() {
+		this.deleteIcon.click();
 	}
 }

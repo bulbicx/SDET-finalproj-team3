@@ -3,23 +3,14 @@ Feature: Update album
   As a logged in admin, I want to be able to update an album, 
   so that I can update the details.
 
-  @tag1
-  Scenario: Title of your scenario
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
-
-  @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
-
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+  Background: Add album
+		Given I have an available artist
+		And I have an available genre
+  	And I have an album
+  	
+	  Scenario: Update an album
+	  	When I am in the album page
+	    And I go to update an album
+	    And I update album details
+	    And I press the update album button
+	    Then the album is updated

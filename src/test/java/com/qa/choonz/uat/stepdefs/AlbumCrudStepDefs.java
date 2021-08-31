@@ -3,10 +3,10 @@ package com.qa.choonz.uat.stepdefs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.AlbumCRUDPage;
@@ -15,7 +15,6 @@ import com.qa.choonz.uat.pages.GenreCRUDPage;
 import com.qa.choonz.utils.ScreenshotUtility;
 
 import io.cucumber.java.AfterStep;
-import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -28,11 +27,6 @@ public class AlbumCrudStepDefs {
 	AlbumCRUDPage albumCrudPage;
 	ArtistCRUDPage artistCrudPage;
 	GenreCRUDPage genreCrudPage;
-	
-	@BeforeStep
-	public void waits() {
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	}
 	
 	public AlbumCrudStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
@@ -49,6 +43,8 @@ public class AlbumCrudStepDefs {
 
 	@Given("I have an available genre")
 	public void i_have_an_available_genre() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
 		this.driver.switchTo().alert().accept();
 		artistCrudPage.clickGenrePanel();
 	    genreCrudPage.addNewGenre("Rap", "Rap music");
@@ -56,6 +52,8 @@ public class AlbumCrudStepDefs {
 
 	@When("I am in the album page")
 	public void i_am_in_the_album_page() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
 		this.driver.switchTo().alert().accept();
 		genreCrudPage.clickAlbumPanel();
 	    assertEquals("Manage Albums", this.driver.getTitle());
@@ -82,13 +80,53 @@ public class AlbumCrudStepDefs {
 
 	@Then("a new album is added")
 	public void a_new_album_is_added() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("New Album added!"));
 	}
 	
+	@Given("I have an album")
+	public void i_have_an_album() {
+		String name = "Album 2";
+		String cover = "Cover 2";
+		String genre = "Genre 2";
+		String artist = "Artist 2";
+	    albumCrudPage.addNewAlbum(name, cover, genre, artist);
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+
+	@When("I go to update an album")
+	public void i_go_to_update_an_album() {
+	    albumCrudPage.clickEditIcon();
+	}
+
+	@When("I update album details")
+	public void i_update_album_details() {
+		String newName = "Updated album";
+		String newCover = "Updated cover";
+		String newGenre = "Genre 2";
+		String newArtist = "Artist 2";
+	    albumCrudPage.updateData(newName, newCover, newGenre, newArtist);
+	}
+
+	@When("I press the update album button")
+	public void i_press_the_update_album_button() {
+	    albumCrudPage.clickUpdateBtn();
+	}
+
+	@Then("the album is updated")
+	public void the_album_is_updated() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Album updated!"));
+	}
+	
 	@AfterStep
 	public void takeScreenshotAfterStep(Scenario scenario) {
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		if (scenario.isFailed()) {
 			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
 		}
