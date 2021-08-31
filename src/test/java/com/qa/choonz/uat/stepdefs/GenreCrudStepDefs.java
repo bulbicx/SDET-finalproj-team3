@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.GenreCRUDPage;
@@ -55,6 +57,43 @@ public class GenreCrudStepDefs {
 	public void a_new_genre_is_added() {
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("New Genre added!"));
+	}
+	
+	/**
+	 * Update
+	 */
+	@Given("I have a genre")
+	public void i_have_a_genre() {
+	    this.driver.get(genreCrudPage.URL);
+	    genreCrudPage.addNewGenre("Hip", "Hip music");
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+
+	@When("I go to update a genre")
+	public void i_go_to_update_a_genre() {
+	    genreCrudPage.clickEditIcon();
+	}
+
+	@When("I update genre details")
+	public void i_update_genre_details() {
+	    String newName = "New genre";
+	    String newDescription = "New description";
+	    genreCrudPage.updateData(newName, newDescription);
+	}
+
+	@When("I press the update genre button")
+	public void i_press_the_update_genre_button() {
+	    genreCrudPage.clickUpdateBtn();
+	}
+
+	@Then("the genre is updated")
+	public void the_genre_is_updated() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Genre updated!"));
 	}
 	
 	@AfterStep

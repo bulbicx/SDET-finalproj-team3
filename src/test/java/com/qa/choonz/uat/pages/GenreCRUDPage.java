@@ -10,14 +10,29 @@ public class GenreCRUDPage {
 	@FindBy(className = "bi-plus-circle-fill")
 	private WebElement plusIcon;
 	
+	@FindBy(className = "bi-pen-fill")
+	private WebElement editIcon;
+	
+	@FindBy(className = "bi-trash-fill")
+	private WebElement deleteIcon;
+	
 	@FindBy(id = "new-name")
 	private WebElement newNameField;
 	
 	@FindBy(id = "new-description")
 	private WebElement newDescriptionField;
 	
+	@FindBy(id = "name")
+	private WebElement updateNameField;
+	
+	@FindBy(id = "description")
+	private WebElement updateDescriptionField;
+	
 	@FindBy(className = "add")
 	private WebElement addBtn;
+	
+	@FindBy(className = "update")
+	private WebElement updateBtn;
 	
 	@FindBy(className = "artist-panel")
 	private WebElement artistPanel;
@@ -35,6 +50,10 @@ public class GenreCRUDPage {
 		plusIcon.click();
 	}
 	
+	public void clickEditIcon() {
+		editIcon.click();
+	}
+	
 	public void insertDataOnAddition(String name, String description) {
 		newNameField.sendKeys(name);
 		newDescriptionField.sendKeys(description);
@@ -42,6 +61,10 @@ public class GenreCRUDPage {
 	
 	public void clickAddBtn() {
 		addBtn.click();
+	}
+	
+	public void clickUpdateBtn() {
+		updateBtn.click();
 	}
 	
 	public void addNewGenre(String name, String description) {
@@ -65,5 +88,10 @@ public class GenreCRUDPage {
 	
 	public void clickTrackPanel() {
 		this.trackPanel.click();
+	}
+
+	public void updateData(String newName, String newDescription) {
+		this.updateNameField.sendKeys(newName);
+		this.updateDescriptionField.sendKeys(newDescription);
 	}
 }
