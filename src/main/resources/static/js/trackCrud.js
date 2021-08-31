@@ -132,7 +132,7 @@
       body: JSON.stringify(track)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("New Track added!"))
     .catch(error => console.error(error));
     
     location.reload();

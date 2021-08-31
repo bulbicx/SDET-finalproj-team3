@@ -171,7 +171,7 @@
       body: JSON.stringify(album)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("New Album added!"))
     .catch(error => console.error(error));
     
     location.reload();
