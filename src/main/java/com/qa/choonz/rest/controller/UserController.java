@@ -54,5 +54,6 @@ public class UserController {
         return this.service.delete(id) ? new ResponseEntity<UserDTO>(HttpStatus.NO_CONTENT)
                 : new ResponseEntity<UserDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    
 
 }
