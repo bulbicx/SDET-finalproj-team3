@@ -73,4 +73,15 @@ public class AlbumCRUDPage {
 	public void clickTrackPanel() {
 		this.trackPanel.click();
 	}
+	
+	public void addNewAlbum(String name, String cover, String genre, String artist) {
+		this.plusIcon.click();
+		this.newGenreDropdown = new Select(genreListAdd);
+		this.newArtistDropdown = new Select(artistListAdd);
+		newNameField.sendKeys(name);
+		newCoverField.sendKeys(cover);
+		newGenreDropdown.selectByVisibleText(genre);
+		newArtistDropdown.selectByVisibleText(artist);
+		this.addBtn.click();
+	}
 }
