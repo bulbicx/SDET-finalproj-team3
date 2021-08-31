@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage {
 	
-	public final String url ="http://127.0.0.1:5500/index.html";
+	public final String url = "http://localhost:8082/index.html";
 	
 	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[1]/a")
 	public WebElement headerHomeBtn;
@@ -45,6 +45,37 @@ public class HomePage {
 	
 	@FindBy(xpath="/html/body/div[7]/footer/div[4]/ul/li[3]/a")
 	public WebElement twitterBtn;
+	
+	@FindBy(className = "albums")
+	private WebElement albumTitle;
+	
+	@FindBy(className = "card-albums-1")
+	private WebElement firstAlbumCard;
+	
+	@FindBy(className = "artists")
+	private WebElement artistsTitle;
+	
+	@FindBy(className = "card-artists-1")
+	private WebElement firstArtistCard;
+	
+	@FindBy(className = "genres")
+	private WebElement genresTitle;
+	
+	@FindBy(className = "card-genres-1")
+	private WebElement firstGenreCard;
+	
+	@FindBy(className = "tracks")
+	private WebElement tracksTitle;
+	
+	@FindBy(className = "card-tracks-1")
+	private WebElement firstTrackCard;
+	
+	@FindBy(className = "playlist")
+	private WebElement playlistsTitle;
+	
+	@FindBy(className = "card-playlist-1")
+	private WebElement firstPlaylistCard;
+
 	
 	public void clickHeaderHomeBtn() {
 		headerHomeBtn.click();
@@ -98,6 +129,44 @@ public class HomePage {
 		twitterBtn.click();
 	}
 	
+	public String getAlbumSectionTitle() {
+		return this.albumTitle.getText();
+	}
 	
+	public void clickAlbumCard() {
+		this.firstAlbumCard.click();
+	}
+	
+	public String getArtistSectionTitle() {
+		return this.artistsTitle.getText();
+	}
+	
+	public WebElement getArtistCard() {
+		return firstArtistCard;
+	}
+	
+	public String getGenreSectionTitle() {
+		return this.genresTitle.getText();
+	}
+	
+	public WebElement getGenreCard() {
+		return firstGenreCard;
+	}
+	
+	public String getTrackSectionTitle() {
+		return this.tracksTitle.getText();
+	}
+	
+	public WebElement getTrackCard() {
+		return firstTrackCard;
+	}
+	
+	public String getPlaylistSectionTitle() {
+		return this.playlistsTitle.getText();
+	}
+	
+	public WebElement getPlaylistCard() {
+		return firstPlaylistCard;
+	}
 
 }

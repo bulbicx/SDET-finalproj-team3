@@ -8,12 +8,13 @@
   //Build request to just limit query result on 5
 
   // Playlist
-  const getAllPlaylists = () => {
-    fetch(`http://localhost:8082/playlists/read`)
+  const getAllPlaylists = async () => {
+    await fetch(`http://localhost:8082/playlists/read`)
     .then(response => response.json())
     .then(data => displaySection(data, "Playlist"))
     .catch(error => console.error(error));
   }
+  getAllPlaylists();
 
   //This method is used to retrieve a single playlist
   //and output it on form data to edit it
@@ -56,12 +57,13 @@
   }
 
   // Albums
-  const getAllAlbums = () => {
-    fetch(`http://localhost:8082/albums/read`)
+  const getAllAlbums = async () => {
+    await fetch(`http://localhost:8082/albums/read`)
     .then(response => response.json())
     .then(data => displaySection(data, "Albums"))
     .catch(error => console.error(error));
   }
+  getAllAlbums();
 
   const goToAlbumSinglePage = (data, albumId) => {
     window.location = `${data}?id=${albumId}`;
@@ -74,12 +76,13 @@
   }
 
   // Tracks
-  const getAllTracks = () => {
-    fetch(`http://localhost:8082/tracks/read`)
+  const getAllTracks = async () => {
+    await fetch(`http://localhost:8082/tracks/read`)
     .then(response => response.json())
     .then(data => displaySection(data, "Tracks"))
     .catch(error => console.error(error));
   }
+  getAllTracks();
 
   const goToTrackSinglePage = (data, trackId) => {
     window.location = `${data}?id=${trackId}`;
@@ -92,12 +95,13 @@
   }
 
   // Artists
-  const getAllArtists = () => {
-    fetch(`http://localhost:8082/artists/read`)
+  const getAllArtists = async () => {
+    await fetch(`http://localhost:8082/artists/read`)
     .then(response => response.json())
     .then(data => displaySection(data, "Artists"))
     .catch(error => console.error(error));
   }
+  getAllArtists();
 
   const goToArtistSinglePage = (data, artistId) => {
     window.location = `${data}?id=${artistId}`;
@@ -110,12 +114,13 @@
   }
 
   // Genres
-  const getAllGenres = () => {
-    fetch(`http://localhost:8082/genres/read`)
+  const getAllGenres = async () => {
+    await fetch(`http://localhost:8082/genres/read`)
     .then(response => response.json())
     .then(data => displaySection(data, "Genres"))
     .catch(error => console.error(error));
   }
+  getAllGenres();
 
   const goToGenreSinglePage = (data, genreId) => {
     window.location = `${data}?id=${genreId}`;
@@ -289,7 +294,7 @@
     homeSection.appendChild(sectionHeader);
 
     let titleHomeSection = document.createElement("h4");
-    titleHomeSection.setAttribute("class", "title-home-section");
+    titleHomeSection.setAttribute("class", `title-home-section ${sectionType.toLowerCase()}`);
     titleHomeSection.innerText = getSectionTitle(sectionType);
     sectionHeader.appendChild(titleHomeSection);
 
@@ -335,7 +340,7 @@
         cardGroup.appendChild(cardBox);
 
         let card = document.createElement("div");
-        card.setAttribute("class", "card");
+        card.setAttribute("class", `card card-${sectionType.toLowerCase()}-${data[i].id}`);
         cardBox.appendChild(card);
 
         let img = document.createElement("img");
@@ -368,9 +373,4 @@
   updatePlaylistBtn.addEventListener("click", () => retrieveEditFormDetails());
   deletePlaylistBtn.addEventListener("click", () => deletePlaylist(playlistId));
 
-  getAllPlaylists();
-  getAllAlbums();
-  getAllArtists();
-  getAllTracks();
-  getAllGenres()
 })();
