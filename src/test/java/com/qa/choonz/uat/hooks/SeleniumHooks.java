@@ -17,6 +17,7 @@ public class SeleniumHooks {
 	public void setup() {
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
 		this.driver = new ChromeDriver();
+		this.driver.manage().window().maximize();
 		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	

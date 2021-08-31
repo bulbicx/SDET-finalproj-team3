@@ -3,11 +3,13 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Playlist;
+
 
 public class UserDTO {
 	
-	private long id;
+	private Long id;
 	private String username;
 	private String name;
 	private List<Playlist> playlists;
@@ -16,7 +18,7 @@ public class UserDTO {
 		super();
 	}
 
-	public UserDTO(long id, String username, String name, List<Playlist> playlists) {
+	public UserDTO(Long id, String username, String name, List<Playlist> playlists) {
 		super();
 		this.id = id;
 		this.username = username;
