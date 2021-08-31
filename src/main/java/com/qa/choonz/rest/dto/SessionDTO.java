@@ -7,18 +7,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Playlist;
 
 
-public class UserDTO {
+public class SessionDTO {
 	
 	private long id;
 	private String username;
 	private String name;
 	private List<Playlist> playlists;
 	
-	public UserDTO() {
+	public SessionDTO() {
 		super();
 	}
 
-	public UserDTO(long id, String username, String name, List<Playlist> playlists) {
+	public SessionDTO(long id, String username, String name, List<Playlist> playlists) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -79,7 +79,7 @@ public class UserDTO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserDTO other = (UserDTO) obj;
+		SessionDTO other = (SessionDTO) obj;
 		return id == other.id && Objects.equals(name, other.name) && Objects.equals(playlists, other.playlists)
 				&& Objects.equals(username, other.username);
 	}

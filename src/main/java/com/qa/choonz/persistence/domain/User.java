@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class User {
@@ -31,15 +33,18 @@ public class User {
     @Size(max = 100)
     private String name;
     
-    //Make sure this is hashed or in some way protected
     @NotNull
     @Size(max = 100)
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
     
     //potentially other elements e.g. email, age that don't matter as much
-    @JsonIgnore
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Playlist> playlists;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private List<Session> sessions;
     
     public User() {
     	super();
