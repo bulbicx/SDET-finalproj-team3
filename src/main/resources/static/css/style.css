@@ -69,11 +69,6 @@ Image css
   font-weight: 600;
 }
 
-.navbar,
-footer {
-  background: #051120;
-}
-
 .nav-link-active::after {
   content: '';
   position: absolute;
@@ -83,12 +78,21 @@ footer {
   width: 100%;
   background: linear-gradient(to right, rgb(230, 118, 54), red);
 }
+.navbar {
+  box-shadow: rgb(0 0 0 / 50%) 4px 0px 10px -4px;
+}
+
+.navbar,
+footer {
+  background: whitesmoke;
+}
 
 /* Footer */
 footer {
   color: whitesmoke;
   padding: 3em 3em 0;
   margin-top: 3em!important;
+  box-shadow: rgb(0 0 0 / 50%) 10px -6px 12px -4px;
 }
 
 .footer {
@@ -105,6 +109,13 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.title-footer-section,
+#sub-catch-phrase {
+  background: -webkit-linear-gradient(rgb(230, 118, 54), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #catch-phrase {

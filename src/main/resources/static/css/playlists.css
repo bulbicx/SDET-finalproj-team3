@@ -3,13 +3,14 @@ body {
 }
 
 /* Playlists page */
-main {
-  background : #D5D8DC;
-  padding: 2em;
-  box-shadow: 5px 3px 10px rgb(0 0 0 / 0.2);
-  box-sizing: border-box;
-  border-radius: 0.5em;
-  background: linear-gradient(to right, red, orange);
+.main-section {
+  margin: 1em;
+  padding: 1em;
+  border: 2px transparent;
+  border-radius: 3em;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to left, rgb(230, 118, 54), red);
+  box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
 }
 
 #title-page {
@@ -60,21 +61,15 @@ main {
 
 /* Playlist Detail page */
 .playlist-container {
-  background: linear-gradient(to right, red, orange);
-  opacity: 0.9;
   padding: 2em;
-}
-
-#title-playlist {
-  font-size: 3.2rem;
-  text-shadow: orange 4px 0 10px;
-  margin-bottom: 0.4em;
 }
 
 #playlist-description {
   font-size: 1.35rem;
-  background-color: rgba(255%,255%,255%,0.30);
+  background: linear-gradient(to right, red, orange);
+  opacity: 0.45;
   padding: 0.5em;
+  margin: 0 3em;
 }
 
 .track-list {
@@ -86,7 +81,7 @@ main {
 #title-playlist,
 #playlist-description,
 .track-list {
-  color: #F2F3F4;
+  color: black;
 }
 
 #playlist-description,
@@ -100,4 +95,29 @@ main {
 
 #tracks-title {
   padding-left: 0.7em;
+}
+
+.bi-trash-fill {
+  /* position: absolute; 
+  right: 0; */
+  background-color: white;
+  width: 1.4em;
+  border-radius: 2em;
+  font-size: .7em;
+  margin: .35em;
+  color:red;
+}
+
+.bi-trash-fill:hover,
+.bi-trash-fill:focus {
+  background: linear-gradient(to right, red, orange);
+}
+
+.bi-track {
+  margin-left: 1em;
+}
+
+.header-tracks {
+  display: flex;
+  align-items: center;
 }

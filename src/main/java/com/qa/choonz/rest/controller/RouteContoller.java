@@ -64,4 +64,29 @@ public class RouteContoller {
     public String track() {
         return "track.html";
     }
+    
+    @GetMapping(value = "/admindashboard")
+    public String adminDashboard() {
+        return "admindashboard.html";
+    }
+    
+    @GetMapping(value = "/artistCrud")
+    public String artistCrud() {
+    	return "artistCrud.html";
+    }
+    
+    @GetMapping(value = "/albumCrud")
+    public String albumCrud() {
+        return "albumCrud.html";
+    }
+    
+    @GetMapping(value = "/genreCrud")
+    public String genreCrud() {
+        return "genreCrud.html";
+    }
+    
+    @GetMapping(value = "/trackCrud")
+    public String trackCrud() {
+        return "trackCrud.html";
+    }
 }
