@@ -30,9 +30,9 @@ public class AlbumController {
         this.service = service;
     }
 
-    @PostMapping("/create/{artistId}/{genreId}")
-    public ResponseEntity<AlbumDTO> create(@RequestBody Album album, @PathVariable (value="artistId") Long artistId,
-    		@PathVariable (value="genreId") Long genreId) {
+    @PostMapping("/create/artist/{artistId}/genre/{genreId}")
+    public ResponseEntity<AlbumDTO> create(@RequestBody Album album, @PathVariable Long artistId,
+    		@PathVariable Long genreId) {
         return new ResponseEntity<AlbumDTO>(this.service.create(album, artistId, genreId), HttpStatus.CREATED);
     }
 
