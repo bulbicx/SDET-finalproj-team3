@@ -58,7 +58,6 @@
   let navGenre = document.querySelector(".nav-genre");
   let navLogin = document.querySelector(".nav-login");
   let navHome = document.querySelector(".nav-home");
-  let navLogin = document.querySelector(".nav-login");
   let navLogout = document.querySelector(".nav-logout");
   let navLoginListItem = document.querySelector("#nav-login");
   let navLogoutListItem = document.querySelector("#nav-logout");
