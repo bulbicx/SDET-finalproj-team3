@@ -69,6 +69,12 @@ public class HomePage {
 	
 	@FindBy(className = "card-tracks-1")
 	private WebElement firstTrackCard;
+	
+	@FindBy(className = "playlist")
+	private WebElement playlistsTitle;
+	
+	@FindBy(className = "card-playlist-1")
+	private WebElement firstPlaylistCard;
 
 	
 	public void clickHeaderHomeBtn() {
@@ -153,6 +159,14 @@ public class HomePage {
 	
 	public WebElement getTrackCard() {
 		return firstTrackCard;
+	}
+	
+	public String getPlaylistSectionTitle() {
+		return this.playlistsTitle.getText();
+	}
+	
+	public WebElement getPlaylistCard() {
+		return firstPlaylistCard;
 	}
 
 }
