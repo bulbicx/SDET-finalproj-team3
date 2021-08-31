@@ -38,15 +38,6 @@ public class AlbumCRUDPage {
 	@FindBy(id = "cover")
 	private WebElement updateCoverField;
 	
-	@FindBy(className = "genre-list-update")
-	private WebElement genreListUpdate;
-	
-	@FindBy(className = "artist-list-update")
-	private WebElement artistListUpdate;
-	
-	private Select updateGenreDropdown;
-	private Select updateArtistDropdown;
-	
 	@FindBy(className = "add")
 	private WebElement addBtn;
 	
@@ -117,13 +108,9 @@ public class AlbumCRUDPage {
 		this.addBtn.click();
 	}
 	
-	public void updateData(String name, String cover, String genre, String artist) {
-		this.updateGenreDropdown = new Select(genreListUpdate);
-		this.updateGenreDropdown = new Select(artistListUpdate);
+	public void updateData(String name, String cover) {
 		updateNameField.sendKeys(name);
 		updateCoverField.sendKeys(cover);
-		updateGenreDropdown.selectByVisibleText(genre);
-		updateArtistDropdown.selectByVisibleText(artist);
 	}
 	
 	public void deleteAlbum() {

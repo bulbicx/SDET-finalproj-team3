@@ -39,22 +39,22 @@ public class AlbumCrudStepDefs {
 	public void i_have_an_available_artist() {
 	    this.driver.get(artistCrudPage.URL);
 	    artistCrudPage.addNewArtist("Tupac");
+	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
 	}
 
 	@Given("I have an available genre")
 	public void i_have_an_available_genre() {
-		WebDriverWait wait = new WebDriverWait(driver, 5);
-		wait.until(ExpectedConditions.alertIsPresent());
-		this.driver.switchTo().alert().accept();
 		artistCrudPage.clickGenrePanel();
 	    genreCrudPage.addNewGenre("Rap", "Rap music");
+	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
 	}
 
 	@When("I am in the album page")
 	public void i_am_in_the_album_page() {
-		WebDriverWait wait = new WebDriverWait(driver, 5);
-		wait.until(ExpectedConditions.alertIsPresent());
-		this.driver.switchTo().alert().accept();
 		genreCrudPage.clickAlbumPanel();
 	    assertEquals("Manage Albums", this.driver.getTitle());
 	}
@@ -84,14 +84,17 @@ public class AlbumCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("New Album added!"));
+	    this.driver.switchTo().alert().accept();
+
 	}
 	
 	@Given("I have an album")
 	public void i_have_an_album() {
+		genreCrudPage.clickAlbumPanel();
 		String name = "Album 2";
 		String cover = "Cover 2";
-		String genre = "Genre 2";
-		String artist = "Artist 2";
+		String genre = "Rap";
+		String artist = "Tupac";
 	    albumCrudPage.addNewAlbum(name, cover, genre, artist);
 		WebDriverWait wait = new WebDriverWait(driver, 5);
 		wait.until(ExpectedConditions.alertIsPresent());
@@ -107,9 +110,7 @@ public class AlbumCrudStepDefs {
 	public void i_update_album_details() {
 		String newName = "Updated album";
 		String newCover = "Updated cover";
-		String newGenre = "Genre 2";
-		String newArtist = "Artist 2";
-	    albumCrudPage.updateData(newName, newCover, newGenre, newArtist);
+	    albumCrudPage.updateData(newName, newCover);
 	}
 
 	@When("I press the update album button")
@@ -123,6 +124,23 @@ public class AlbumCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Album updated!"));
+	    this.driver.switchTo().alert().accept();
+	}
+	
+	/**
+	 * Delete
+	 */
+	@When("I delete an album")
+	public void i_delete_an_album() {
+	    albumCrudPage.deleteAlbum();
+	}
+
+	@Then("the album is deleted")
+	public void the_album_is_deleted() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Album deleted!"));
 	}
 	
 	@AfterStep
