@@ -20,6 +20,6 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 		tags = "@read_albums_home or @read_artists_home or @read_genres_home or @read_tracks_home or @read_playlists_home"
 		)
 public class CucumberTestRunner {
-
+// many of the assert cases in the stepdefs have a sleep function to wait for the page to load. Implicit wait didn't fix it
 
 }

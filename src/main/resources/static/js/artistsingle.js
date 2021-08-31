@@ -42,12 +42,6 @@
             } 
         }
 
-    //     <tr>
-    //     <th scope="row">3</th>
-    //     <td>Larry</td>
-    //     <td>the Bird</td>
-    //     <td>@twitter</td>
-    //   </tr>
         function createArtistBodyAlbum(album, albumsTableBody, rowNumber){
                 console.log(album);
                 console.log(albumsTableBody);

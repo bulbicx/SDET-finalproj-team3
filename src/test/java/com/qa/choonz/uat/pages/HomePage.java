@@ -22,28 +22,28 @@ public class HomePage {
 	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[5]/a")
 	public WebElement headerGenresBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[2]/a[1]")
+	@FindBy(xpath="/html/body/div[7]/footer/div[2]/a[1]")
 	public WebElement footerHomeBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[2]/a[2]")
+	@FindBy(xpath="/html/body/div[7]/footer/div[2]/a[2]")
 	public WebElement footerArtistsBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[2]/a[3]")
+	@FindBy(xpath="/html/body/div[7]/footer/div[2]/a[3]")
 	public WebElement footerAlbumsBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[2]/a[4]")
+	@FindBy(xpath="/html/body/div[7]/footer/div[2]/a[4]")
 	public WebElement footerPlaylistsBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[2]/a[5]")
+	@FindBy(xpath="/html/body/div[7]/footer/div[2]/a[5]")
 	public WebElement footerGenresBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[4]/ul/li[1]/a")
+	@FindBy(xpath="/html/body/div[7]/footer/div[4]/ul/li[1]/a")
 	public WebElement facebookBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[4]/ul/li[2]/a")
+	@FindBy(xpath="/html/body/div[7]/footer/div[4]/ul/li[2]/a")
 	public WebElement instagramBtn;
 	
-	@FindBy(xpath="/html/body/div[4]/footer/div[4]/ul/li[3]/a")
+	@FindBy(xpath="/html/body/div[7]/footer/div[4]/ul/li[3]/a")
 	public WebElement twitterBtn;
 	
 	@FindBy(className = "albums")
