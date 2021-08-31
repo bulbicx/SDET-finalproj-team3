@@ -56,9 +56,12 @@ public class SessionTokens {
 		return 1 << cost;
 	}
 
-	public String newSessionToken(char[] tokenChar) {
+	public String newSessionToken() {
 		byte[] salt = new byte[SIZE / 8];
 		random.nextBytes(salt);
+		UUID uuid = UUID.randomUUID();
+        String randomUUIDString = uuid.toString();
+        char[] tokenChar = randomUUIDString.toCharArray();
 		byte[] dk = pbkdf2(tokenChar, salt, 1 << cost);
 		byte[] hash = new byte[salt.length + dk.length];
 		System.arraycopy(salt, 0, hash, 0, salt.length);

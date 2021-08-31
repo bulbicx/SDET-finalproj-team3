@@ -26,20 +26,19 @@ public class Session {
     
     @NotNull
     @Size(max = 100)
-    private Date expirationTime;
-    
-    @NotNull
-    @Size(max = 100)
     @Column(unique = true)
     private String token;
-
     
-	public Session(Long id, @NotNull User user, @NotNull @Size(max = 100) Date expirationTime,
+    public Session() {
+    	super();
+    	
+    }
+    
+	public Session(Long id, @NotNull User user,
 			@NotNull @Size(max = 100) String token) {
 		super();
 		this.id = id;
 		this.user = user;
-		this.expirationTime = expirationTime;
 		this.token = token;
 	}
 
@@ -59,14 +58,6 @@ public class Session {
 		this.user = user;
 	}
 
-	public Date getExpirationTime() {
-		return expirationTime;
-	}
-
-	public void setExpirationTime(Date expirationTime) {
-		this.expirationTime = expirationTime;
-	}
-
 	public String getToken() {
 		return token;
 	}
@@ -74,10 +65,12 @@ public class Session {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(expirationTime, id, token, user);
+		return Objects.hash(id, token, user);
 	}
 
 	@Override
@@ -89,9 +82,16 @@ public class Session {
 		if (getClass() != obj.getClass())
 			return false;
 		Session other = (Session) obj;
-		return Objects.equals(expirationTime, other.expirationTime) && Objects.equals(id, other.id)
-				&& Objects.equals(token, other.token) && Objects.equals(user, other.user);
+		return Objects.equals(id, other.id) && Objects.equals(token, other.token) && Objects.equals(user, other.user);
 	}
+
+	@Override
+	public String toString() {
+		return "Session [id=" + id + ", user=" + user + ", token=" + token + "]";
+	}
+
+	
+	
     
     
 }

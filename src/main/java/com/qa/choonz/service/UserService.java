@@ -20,7 +20,7 @@ public class UserService {
 
 	private UserRepository repo;
 	private ModelMapper mapper;
-	private static final PasswordAuthentication authPass = new PasswordAuthentication(10);
+	private static final PasswordAuthentication passwordAuth = new PasswordAuthentication(10);
 
 	public UserService(UserRepository repo, ModelMapper mapper) {
 		super();
@@ -33,9 +33,8 @@ public class UserService {
 	}
 
 	public UserDTO create(User user) {
-		PasswordAuthentication hashPass = new PasswordAuthentication(10);
 		char[] pass = user.getPassword().toCharArray();
-		user.setPassword(hashPass.hash(pass));
+		user.setPassword(passwordAuth.hash(pass));
 		User created = this.repo.save(user);
 		return this.mapToDTO(created);
 	}
@@ -67,14 +66,5 @@ public class UserService {
 		return !this.repo.existsById(id);
 	}
 
-	public UserDTO authenticate(User user) {
-		User userFromDB = this.repo.findByUsername(user.getUsername()).orElseThrow(UserNotFoundException::new);
-		char[] pass = user.getPassword().toCharArray();
-		// change exception
-		if (authPass.authenticate(pass, userFromDB.getPassword())) {
-			return this.mapToDTO(userFromDB);
-		} else {
-			throw new UserNotFoundException();
-		}
-	}
+	
 }

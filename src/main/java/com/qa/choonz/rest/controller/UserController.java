@@ -55,9 +55,5 @@ public class UserController {
                 : new ResponseEntity<UserDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
-    @GetMapping("/authenticate")
-    public ResponseEntity<UserDTO> authenticate(@RequestBody User user){
-    	return  new ResponseEntity<UserDTO>(this.service.authenticate(user), HttpStatus.OK);
-    }
 
 }

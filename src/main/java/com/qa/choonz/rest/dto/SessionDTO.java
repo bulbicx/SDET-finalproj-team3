@@ -1,75 +1,86 @@
 package com.qa.choonz.rest.dto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.persistence.domain.User;
 
 
 public class SessionDTO {
 	
-	private long id;
-	private String username;
-	private String name;
-	private List<Playlist> playlists;
-	
+    private Long id;
+    private User user;
+    private String token;	
+    
 	public SessionDTO() {
 		super();
 	}
 
-	public SessionDTO(long id, String username, String name, List<Playlist> playlists) {
+	
+
+	public SessionDTO(Long id, User user, String token) {
 		super();
 		this.id = id;
-		this.username = username;
-		this.name = name;
-		this.playlists = playlists;
+		this.user = user;
+		this.token = token;
 	}
 
-	public long getId() {
+	
+
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getName() {
-		return name;
+
+
+	public String getToken() {
+		return token;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
-	public List<Playlist> getPlaylists() {
-		return playlists;
-	}
 
-	public void setPlaylists(List<Playlist> playlists) {
-		this.playlists = playlists;
-	}
-	
-	@Override
-	public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("UserDTO [id=").append(id).append(", username=").append(username).append(", name=")
-        		.append(name).append(", playlists=").append(playlists).append("]");
-        return builder.toString();
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, playlists, username);
+		return Objects.hash(id, token, user);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -80,8 +91,14 @@ public class SessionDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		SessionDTO other = (SessionDTO) obj;
-		return id == other.id && Objects.equals(name, other.name) && Objects.equals(playlists, other.playlists)
-				&& Objects.equals(username, other.username);
+		return Objects.equals(id, other.id) && Objects.equals(token, other.token) && Objects.equals(user, other.user);
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "SessionDTO [id=" + id + ", user=" + user + ", token=" + token + "]";
 	}
 	
 	
