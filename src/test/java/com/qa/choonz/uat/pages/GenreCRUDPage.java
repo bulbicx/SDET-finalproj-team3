@@ -94,4 +94,8 @@ public class GenreCRUDPage {
 		this.updateNameField.sendKeys(newName);
 		this.updateDescriptionField.sendKeys(newDescription);
 	}
+
+	public void deleteGenre() {
+		this.deleteIcon.click();
+	}
 }

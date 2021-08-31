@@ -82,7 +82,6 @@ public class ArtistCrudStepDefs {
 
 	@When("I go to update an artist")
 	public void i_go_to_update_an_artist() {
-		this.driver.get(artistCrudPage.URL);
 	    artistCrudPage.clickEditIcon();
 	}
 

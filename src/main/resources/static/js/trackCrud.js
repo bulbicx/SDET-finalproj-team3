@@ -164,6 +164,7 @@
     .then(data => alert("Track deleted!"))
     .catch(error => console.error(error));
     
+    alert("Track deleted!");
     location.reload();
   }
 

@@ -204,6 +204,7 @@
     .then(data => alert("Album deleted!"))
     .catch(error => console.error(error));
     
+    alert("Album deleted!");
     location.reload();
   }
 

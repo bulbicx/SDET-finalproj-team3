@@ -55,6 +55,8 @@ public class GenreCrudStepDefs {
 
 	@Then("a new genre is added")
 	public void a_new_genre_is_added() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("New Genre added!"));
 	}
@@ -94,6 +96,22 @@ public class GenreCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Genre updated!"));
+	}
+	
+	/**
+	 * Delete
+	 */
+	@When("I delete a genre")
+	public void i_delete_a_genre() {
+	    genreCrudPage.deleteGenre();
+	}
+
+	@Then("the genre is deleted")
+	public void the_genre_is_deleted() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Genre deleted!"));
 	}
 	
 	@AfterStep

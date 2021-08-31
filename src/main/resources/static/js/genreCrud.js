@@ -129,6 +129,7 @@
     .then(data => alert("Genre deleted!"))
     .catch(error => console.error(error));
     
+    alert("Genre deleted!");
     location.reload();
   }
 
