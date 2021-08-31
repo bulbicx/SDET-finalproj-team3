@@ -1,5 +1,15 @@
 (() => {
+  let myStorage = window.localStorage;
   let containerNav = document.querySelector("#nav-container");
+  let deleteToken = async (token) => {
+    await fetch(`http://localhost:8082/sessions/delete/${token}`, {
+      method: 'delete'
+    })
+      .then(myStorage.removeItem("session-token"))
+      .catch((error) => {
+        console.log(`Request failed ${error}`);
+      });
+  }
   let navbar = `
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
       <a class="navbar-brand mx-3" href="./">
@@ -27,21 +37,42 @@
             <a class="nav-link nav-genre" href="genres.html">Genres</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-login" href="#">Login</a>
+            <a class="nav-link nav-profile" href="#">Profile</a>
+          </li>
+          <li id="nav-login" class="nav-item">
+            <a class="nav-link nav-login" href="login.html">Login</a>
+          </li>
+          <li id="nav-logout" class="nav-item display-none">
+            <a class="nav-link nav-logout" href="#">Logout</a>
           </li>
         </ul>
       </div>
     </nav>
     `;
-  
+
   containerNav.innerHTML = navbar;
-    
+
   let navArtist = document.querySelector(".nav-artist");
   let navAlbum = document.querySelector(".nav-album");
   let navPlaylist = document.querySelector(".nav-playlist");
   let navGenre = document.querySelector(".nav-genre");
   let navLogin = document.querySelector(".nav-login");
   let navHome = document.querySelector(".nav-home");
+  let navLogout = document.querySelector(".nav-logout");
+  let navLoginListItem = document.querySelector("#nav-login");
+  let navLogoutListItem = document.querySelector("#nav-logout");
+
+  const toggleLoginLogout = () => {
+    navLoginListItem.classList.toggle("display-none");
+    navLogoutListItem.classList.toggle("display-none");
+  }
+  if (myStorage.getItem("session-token")) {
+    toggleLoginLogout();
+  }
+  navLogout.onclick = () => {
+    deleteToken(myStorage.getItem("session-token"));
+    toggleLoginLogout();
+  }
 
   if (window.location.href.includes("artists")) {
     navArtist.setAttribute("class", "nav-link nav-artist nav-link-active");
@@ -51,6 +82,8 @@
     navPlaylist.setAttribute("class", "nav-link nav-playlist nav-link-active");
   } else if (window.location.href.includes("genres")) {
     navGenre.setAttribute("class", "nav-link nav-genre nav-link-active");
+  } else if (window.location.href.includes("profile")) {
+    navProfile.setAttribute("class", "nav-link nav-profile nav-link-active");
   } else if (window.location.href.includes("login")) {
     navLogin.setAttribute("class", "nav-link nav-login nav-link-active");
   } else {
