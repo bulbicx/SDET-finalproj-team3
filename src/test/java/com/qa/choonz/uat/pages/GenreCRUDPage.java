@@ -19,6 +19,18 @@ public class GenreCRUDPage {
 	@FindBy(className = "add")
 	private WebElement addBtn;
 	
+	@FindBy(className = "artist-panel")
+	private WebElement artistPanel;
+	
+	@FindBy(className = "genre-panel")
+	private WebElement genrePanel;
+	
+	@FindBy(className = "track-panel")
+	private WebElement trackPanel;
+	
+	@FindBy(className = "album-panel")
+	private WebElement albumPanel;
+	
 	public void clickPlusIcon() {
 		plusIcon.click();
 	}
@@ -30,5 +42,28 @@ public class GenreCRUDPage {
 	
 	public void clickAddBtn() {
 		addBtn.click();
+	}
+	
+	public void addNewGenre(String name, String description) {
+		plusIcon.click();
+		newNameField.sendKeys(name);
+		newDescriptionField.sendKeys(description);
+		addBtn.click();
+	}
+	
+	public void clickArtistPanel() {
+		this.artistPanel.click();
+	}
+	
+	public void clickAlbumPanel() {
+		this.albumPanel.click();
+	}
+	
+	public void clickGenrePanel() {
+		this.genrePanel.click();
+	}
+	
+	public void clickTrackPanel() {
+		this.trackPanel.click();
 	}
 }

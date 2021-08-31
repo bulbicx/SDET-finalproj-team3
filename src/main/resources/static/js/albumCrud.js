@@ -163,7 +163,7 @@
   }
   
   const addAlbum = async (album, artistId, genreId) => {
-    await fetch(`http://localhost:8082/albums/create/${artistId}/${genreId}`, {
+    await fetch(`http://localhost:8082/albums/create/artist/${ artistId }/genre/${ genreId }`, {
       method: "POST",
       headers: {
         "Content-type": "application/json"
@@ -171,7 +171,8 @@
       body: JSON.stringify(album)
     })
     .then(response => response.json())
-    .then(data => alert("New Album added!"))
+    .then(data => console.log(data))
+    .then(alert("New Album added!"))
     .catch(error => console.error(error));
     
     location.reload();

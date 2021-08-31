@@ -2,16 +2,29 @@ package com.qa.choonz.uat.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
-public class ArtistCRUDPage {
+public class AlbumCRUDPage {
 
-	public final String URL = "http://localhost:8082/artistCrud.html";
+	public final String URL = "http://localhost:8082/albumCrud.html";
 	
 	@FindBy(className = "bi-plus-circle-fill")
 	private WebElement plusIcon;
 	
 	@FindBy(id = "new-name")
 	private WebElement newNameField;
+	
+	@FindBy(id = "new-cover")
+	private WebElement newCoverField;
+	
+	@FindBy(className = "genre-list-add")
+	private WebElement genreListAdd;
+	
+	@FindBy(className = "artist-list-add")
+	private WebElement artistListAdd;
+	
+	private Select newGenreDropdown;
+	private Select newArtistDropdown;
 	
 	@FindBy(className = "add")
 	private WebElement addBtn;
@@ -29,21 +42,20 @@ public class ArtistCRUDPage {
 	private WebElement albumPanel;
 	
 	public void clickPlusIcon() {
-		plusIcon.click();
+		this.plusIcon.click();
 	}
 	
-	public void insertDataOnNameField(String name) {
+	public void insertData(String name, String cover, String genre, String artist) {
+		this.newGenreDropdown = new Select(genreListAdd);
+		this.newArtistDropdown = new Select(artistListAdd);
 		newNameField.sendKeys(name);
+		newCoverField.sendKeys(cover);
+		newGenreDropdown.selectByVisibleText(genre);
+		newArtistDropdown.selectByVisibleText(artist);
 	}
 	
 	public void clickAddBtn() {
-		addBtn.click();
-	}
-	
-	public void addNewArtist(String name) {
-		this.plusIcon.click();
-		newNameField.sendKeys(name);
-		addBtn.click();
+		this.addBtn.click();
 	}
 	
 	public void clickArtistPanel() {
