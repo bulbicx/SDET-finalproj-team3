@@ -27,10 +27,7 @@
             <a class="nav-link nav-genre" href="genres.html">Genres</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-profile" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
+            <a class="nav-link nav-login" href="#">Login</a>
           </li>
         </ul>
       </div>
@@ -43,7 +40,7 @@
   let navAlbum = document.querySelector(".nav-album");
   let navPlaylist = document.querySelector(".nav-playlist");
   let navGenre = document.querySelector(".nav-genre");
-  let navProfile = document.querySelector(".nav-profile");
+  let navLogin = document.querySelector(".nav-login");
   let navHome = document.querySelector(".nav-home");
 
   if (window.location.href.includes("artists")) {
@@ -54,8 +51,8 @@
     navPlaylist.setAttribute("class", "nav-link nav-playlist nav-link-active");
   } else if (window.location.href.includes("genres")) {
     navGenre.setAttribute("class", "nav-link nav-genre nav-link-active");
-  } else if (window.location.href.includes("profile")) {
-    navProfile.setAttribute("class", "nav-link nav-profile nav-link-active");
+  } else if (window.location.href.includes("login")) {
+    navLogin.setAttribute("class", "nav-link nav-login nav-link-active");
   } else {
     navHome.setAttribute("class", "nav-link nav-home nav-link-active");
   }

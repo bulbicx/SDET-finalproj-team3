@@ -52,6 +52,7 @@ public class Playlist {
     )
     private List<Track> tracks;
     
+    @JsonIgnore
     @ManyToOne
     private User user;
     
