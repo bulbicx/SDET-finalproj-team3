@@ -1,5 +1,7 @@
 package com.qa.choonz.service;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +53,11 @@ public class SessionService {
 		session.setToken(token);
 		session.setUser(userFromDB);	
 		return this.sessionRepo.save(session);	
+	}
+
+	public boolean delete(String token) {
+		Session session = this.sessionRepo.findByToken(token);
+		this.sessionRepo.deleteById(session.getId());
+		return !this.sessionRepo.existsById(session.getId());
 	}
 }
