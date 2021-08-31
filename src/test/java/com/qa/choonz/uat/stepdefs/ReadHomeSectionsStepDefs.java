@@ -83,7 +83,6 @@ public class ReadHomeSectionsStepDefs {
 	/**
 	 * Genre section
 	 * From file(read_genre_home.feature)
-	 * @throws InterruptedException 
 	 */
 	@When("I see the genres section")
 	public void i_see_the_genres_section() {
@@ -107,6 +106,38 @@ public class ReadHomeSectionsStepDefs {
 	@Then("I will be redirected to the genre detail page")
 	public void i_will_be_redirected_to_the_genre_detail_page() {
 		String title = "Choonz - Genre details";
+		WebDriverWait wait = new WebDriverWait(driver, 3); 
+		wait.until(ExpectedConditions.titleContains(title));
+
+	    assertEquals(title, this.driver.getTitle());
+	}
+	
+	/**
+	 * Track section
+	 * From file(read_tracks_home.feature)
+	 */
+	@When("I see the tracks section")
+	public void i_see_the_tracks_section() {
+		WebElement element = homePage.getTrackCard();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(element).perform();
+	    String titleSection = "Tracks for you";
+		assertEquals(titleSection, homePage.getTrackSectionTitle());
+	}
+
+	@Then("I can click onto one track")
+	public void i_can_click_onto_one_track() {
+		//move to footer so element becomes visible by driver
+		WebElement footer = driver.findElement(By.id("sub-catch-phrase"));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();", footer);
+		WebElement element = homePage.getTrackCard();
+		element.click();
+	}
+
+	@Then("I will be redirected to the track detail page")
+	public void i_will_be_redirected_to_the_track_detail_page() {
+		String title = "Choonz - Track";
 		WebDriverWait wait = new WebDriverWait(driver, 3); 
 		wait.until(ExpectedConditions.titleContains(title));
 

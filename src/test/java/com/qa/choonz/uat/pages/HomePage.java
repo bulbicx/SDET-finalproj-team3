@@ -64,8 +64,11 @@ public class HomePage {
 	@FindBy(className = "card-genres-1")
 	private WebElement firstGenreCard;
 	
-//	@FindBy(className = "/html/body/div[3]/div[5]/div[2]/div/div[1]/img\"")
-//	private WebElement firstGenreCard;
+	@FindBy(className = "tracks")
+	private WebElement tracksTitle;
+	
+	@FindBy(className = "card-tracks-1")
+	private WebElement firstTrackCard;
 
 	
 	public void clickHeaderHomeBtn() {
@@ -142,6 +145,14 @@ public class HomePage {
 	
 	public WebElement getGenreCard() {
 		return firstGenreCard;
+	}
+	
+	public String getTrackSectionTitle() {
+		return this.tracksTitle.getText();
+	}
+	
+	public WebElement getTrackCard() {
+		return firstTrackCard;
 	}
 
 }
