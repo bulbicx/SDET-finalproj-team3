@@ -56,7 +56,7 @@
   let navAlbum = document.querySelector(".nav-album");
   let navPlaylist = document.querySelector(".nav-playlist");
   let navGenre = document.querySelector(".nav-genre");
-  let navProfile = document.querySelector(".nav-profile");
+  let navLogin = document.querySelector(".nav-login");
   let navHome = document.querySelector(".nav-home");
   let navLogin = document.querySelector(".nav-login");
   let navLogout = document.querySelector(".nav-logout");
