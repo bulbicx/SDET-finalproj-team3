@@ -13,6 +13,9 @@ public class ArtistCRUDPage {
 	@FindBy(className = "bi-pen-fill")
 	private WebElement editIcon;
 	
+	@FindBy(className = "bi-trash-fill")
+	private WebElement deleteIcon;
+	
 	@FindBy(id = "new-name")
 	private WebElement newNameField;
 	
@@ -81,5 +84,9 @@ public class ArtistCRUDPage {
 
 	public void updateData(String newName) {
 		this.updateNameField.sendKeys(newName);
+	}
+
+	public void deleteArtist() {
+		this.deleteIcon.click();
 	}
 }

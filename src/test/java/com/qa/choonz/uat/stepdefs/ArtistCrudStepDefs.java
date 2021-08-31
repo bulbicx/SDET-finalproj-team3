@@ -105,6 +105,22 @@ public class ArtistCrudStepDefs {
 		assertTrue(alertMsg.equals("Artist updated!"));
 	}
 	
+	/**
+	 * Delete
+	 */
+	@When("I delete an artist")
+	public void i_delete_an_artist() {
+	    artistCrudPage.deleteArtist();
+	}
+
+	@Then("the artist is deleted")
+	public void the_artist_is_deleted() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Artist deleted!"));
+	}
+	
 	@AfterStep
 	public void takeScreenshotAfterStep(Scenario scenario) {
 		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
