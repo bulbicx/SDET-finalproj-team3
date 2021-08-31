@@ -25,12 +25,14 @@ public class AlbumStepDefs {
 		this.driver = hooks.getDriver();
 		this.albumsPage = PageFactory.initElements(driver, AlbumsPage.class);
 		this.singlePage = PageFactory.initElements(driver, AlbumSinglePage.class);
+		this.driver.manage().window().maximize();
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@Given("I am on the albums page")
 	public void iAmOnTheAlbumsPage() {
 		this.driver.get("http://127.0.0.1:5500/albums.html");
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
 	}
 
 	@When("I click on the card to the first album")
@@ -39,7 +41,8 @@ public class AlbumStepDefs {
 	}
 
 	@Then("I am taken to the page for that album")
-	public void iAmTakenToThePageForThatAlbum() {
+	public void iAmTakenToThePageForThatAlbum() throws InterruptedException {
+		Thread.sleep(500);
 		assertEquals("http://127.0.0.1:5500/albumsingle.html?id=1",this.driver.getCurrentUrl());
 	}
 
@@ -54,7 +57,8 @@ public class AlbumStepDefs {
 	}
 
 	@Then("I am taken to the page for that track")
-	public void iAmTakenToThePageForThatTrack() {
+	public void iAmTakenToThePageForThatTrack() throws InterruptedException {
+		Thread.sleep(500);
 		assertEquals("http://127.0.0.1:5500/track.html?id=1",this.driver.getCurrentUrl());
 	}
 

@@ -7,10 +7,10 @@ public class GenreSinglePage {
 	
 	public final String url = "http://127.0.0.1:5500/genresingle.html?id=1";
 	
-	@FindBy(xpath="/html/body/div[2]/div[2]/div/div/img")
+	@FindBy(xpath="//*[@id=\"album-table-body\"]/tr/td[2]")
 	public WebElement firstAlbum;
 	
-	@FindBy(xpath="/html/body/div[2]/div[2]/div/div/img")
+	@FindBy(xpath="//*[@id=\"album-table-body\"]/tr/td[3]")
 	public WebElement firstArtist;
 	
 	public void clickAlbumName() {

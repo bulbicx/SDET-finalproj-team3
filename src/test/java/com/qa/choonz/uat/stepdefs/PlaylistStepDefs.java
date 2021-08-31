@@ -25,12 +25,13 @@ public class PlaylistStepDefs {
 		this.driver = hooks.getDriver();
 		this.playlistsPage = PageFactory.initElements(driver, PlaylistsPage.class);
 		this.singlePage = PageFactory.initElements(driver, PlaylistSinglePage.class);
+		this.driver.manage().window().maximize();
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@Given("I am on the playlists page")
 	public void iAmOnThePlaylistsPage() {
 		this.driver.get("http://127.0.0.1:5500/playlists.html");
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 
 	@When("I click on the card to the first playlist")
@@ -39,7 +40,8 @@ public class PlaylistStepDefs {
 	}
 
 	@Then("I am taken to the page for that playlist")
-	public void iAmTakenToThePageForThatPlaylist() {
+	public void iAmTakenToThePageForThatPlaylist() throws InterruptedException {
+		Thread.sleep(500);
 		assertEquals("http://127.0.0.1:5500/playlistsingle.html?id=1",this.driver.getCurrentUrl());
 	}
 
@@ -54,7 +56,8 @@ public class PlaylistStepDefs {
 	}
 
 	@Then("I am taken to the page for that track from the playlist page")
-	public void iAmTakenToThePageForThatTrackFromThePlaylistPage() {
+	public void iAmTakenToThePageForThatTrackFromThePlaylistPage() throws InterruptedException {
+		Thread.sleep(500);
 		assertEquals("http://127.0.0.1:5500/track.html?id=1",this.driver.getCurrentUrl());
 	}
 

@@ -167,7 +167,7 @@
       name: playlistName
     }
     
-    postArtist(playlist, userId);
+    postPlaylist(playlist, userId);
   }
 
   const retrieveEditFormDetails = () => {
@@ -182,7 +182,7 @@
       name: playlistName
     }
     
-    updateArtist(playlist, playlistId);
+    updatePlaylist(playlist, playlistId);
   }
 
   
@@ -235,7 +235,7 @@
     }
   }
 
-  const deleteArtist = async (playlistId) => {
+  const deletePlaylist = async (playlistId) => {
     
     await fetch(`http://localhost:8082/playlists/delete/${ playlistId }`, {
       method: "DELETE",
@@ -250,7 +250,7 @@
     location.reload();
   }
 
-  const postArtist = async (playlist, userId) => {
+  const postPlaylist = async (playlist, userId) => {
     await fetch(`http://localhost:8082/playlists/create/user/${ userId }`, {
       method: "POST",
       headers: {
@@ -265,7 +265,7 @@
     location.reload();
   }
 
-  const updateArtist = async (playlist, playlistId) => {
+  const updatePlaylist = async (playlist, playlistId) => {
     await fetch(`http://localhost:8082/playlists/update/${ playlistId }`, {
       method: "PUT",
       headers: {
@@ -366,7 +366,7 @@
 
   addPlaylistBtn.addEventListener("click", () => retrieveAddFormDetails());
   updatePlaylistBtn.addEventListener("click", () => retrieveEditFormDetails());
-  deletePlaylistBtn.addEventListener("click", () => deleteArtist(playlistId));
+  deletePlaylistBtn.addEventListener("click", () => deletePlaylist(playlistId));
 
   getAllPlaylists();
   getAllAlbums();
