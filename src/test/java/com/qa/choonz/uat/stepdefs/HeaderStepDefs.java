@@ -22,13 +22,14 @@ public class HeaderStepDefs {
 	public HeaderStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
 		this.page = PageFactory.initElements(driver, HomePage.class);
+		this.driver.manage().window().maximize();
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@Given("I am on the home page")
 	public void iAmOnTheHomePage() {
 		this.driver.get("http://127.0.0.1:5500/index.html");
-		this.driver.manage().window().maximize();
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
 	}
 
 	@When("I click on the header home button")
