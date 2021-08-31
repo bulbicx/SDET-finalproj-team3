@@ -12,8 +12,7 @@
     window.location = `${data}?id=${playlistId}`;
   }
 
-  const getAlbumSinglePage = (playlistId) => {
-    console.log(playlistId);
+  const getPlaylistSinglePage = (playlistId) => {
     fetch(`http://localhost:8082/playlistsingle`)
             .then(response => response.text())
             .then(data => goToPlaylistSinglePage(data, playlistId));
@@ -38,7 +37,7 @@
         p.setAttribute("class", "card-text text");
         p.innerText = data[i].name;
         card.appendChild(p);
-        card.addEventListener("click", () => getAlbumSinglePage(data[i].id));
+        card.addEventListener("click", () => getPlaylistSinglePage(data[i].id));
         }
     } else {
       let textToDisplay = `<p id="text-no-playlist">:( There are no playlist. But you can start adding new ones now!</p>`;
