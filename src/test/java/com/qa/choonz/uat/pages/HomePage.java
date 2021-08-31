@@ -5,9 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage {
 	
-//	public final String url ="http://127.0.0.1:5500/index.html";
-	
-	public final String url = "http://192.168.0.21:5500/static/index.html";
+	public final String url = "http://localhost:8082/index.html";
 	
 	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[1]/a")
 	public WebElement headerHomeBtn;
@@ -53,6 +51,22 @@ public class HomePage {
 	
 	@FindBy(className = "card-albums-1")
 	private WebElement firstAlbumCard;
+	
+	@FindBy(className = "artists")
+	private WebElement artistsTitle;
+	
+	@FindBy(className = "card-artists-1")
+	private WebElement firstArtistCard;
+	
+	@FindBy(className = "genres")
+	private WebElement genresTitle;
+	
+	@FindBy(className = "card-genres-1")
+	private WebElement firstGenreCard;
+	
+//	@FindBy(className = "/html/body/div[3]/div[5]/div[2]/div/div[1]/img\"")
+//	private WebElement firstGenreCard;
+
 	
 	public void clickHeaderHomeBtn() {
 		headerHomeBtn.click();
@@ -112,6 +126,22 @@ public class HomePage {
 	
 	public void clickAlbumCard() {
 		this.firstAlbumCard.click();
+	}
+	
+	public String getArtistSectionTitle() {
+		return this.artistsTitle.getText();
+	}
+	
+	public WebElement getArtistCard() {
+		return firstArtistCard;
+	}
+	
+	public String getGenreSectionTitle() {
+		return this.genresTitle.getText();
+	}
+	
+	public WebElement getGenreCard() {
+		return firstGenreCard;
 	}
 
 }

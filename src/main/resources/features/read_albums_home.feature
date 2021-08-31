@@ -7,4 +7,4 @@ Feature: Read albums from homepage
     Given I am in the homepage
     When I see the albums section
     Then I can click onto one album
-    And I will be redirected to its own page
+    And I will be redirected to the album detail page

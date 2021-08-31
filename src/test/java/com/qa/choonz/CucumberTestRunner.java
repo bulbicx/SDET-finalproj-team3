@@ -16,7 +16,8 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 				"html:target/cucumber-reports/cucumber-html-reports.html",
 				"junit:target/cucumber-reports/cucumber-junit-report.xml"
 		},
-		monochrome = true
+		monochrome = true,
+		tags = "@read_albums_home or @read_artists_home or @read_genres_home"
 		)
 public class CucumberTestRunner {
 
