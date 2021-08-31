@@ -147,7 +147,7 @@
       body: JSON.stringify(track)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Track updated!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -161,7 +161,7 @@
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Track deleted!"))
     .catch(error => console.error(error));
     
     location.reload();

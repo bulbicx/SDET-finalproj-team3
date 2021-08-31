@@ -3,14 +3,19 @@ package com.qa.choonz.uat.stepdefs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.ArtistCRUDPage;
 import com.qa.choonz.utils.ScreenshotUtility;
 
 import io.cucumber.java.AfterStep;
+import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -28,9 +33,14 @@ public class ArtistCrudStepDefs {
 		this.artistCrudPage = PageFactory.initElements(driver, ArtistCRUDPage.class);
 	}
 	
-	@Given("I am in the artist page")
+	@BeforeStep
+	public void waits() {
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	}
+	
+	@When("I am in the artist page")
 	public void i_am_in_the_artist_page() {
-	    this.driver.get(artistCrudPage.URL);
+		this.driver.get(artistCrudPage.URL);
 	    assertEquals("Manage Artists", this.driver.getTitle());
 	}
 	
@@ -52,12 +62,52 @@ public class ArtistCrudStepDefs {
 	
 	@Then("a new artist is added")
 	public void a_new_artist_is_added() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("New Artist added!"));
 	}
 	
+	/**
+	 * Update
+	 */
+	@Given("I have an artist")
+	public void i_have_an_artist() {
+	    this.driver.get(artistCrudPage.URL);
+	    artistCrudPage.addNewArtist("Artist name");
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+
+	@When("I go to update an artist")
+	public void i_go_to_update_an_artist() {
+		this.driver.get(artistCrudPage.URL);
+	    artistCrudPage.clickEditIcon();
+	}
+
+	@When("I update artist details")
+	public void i_update_artist_details() {
+		String newName = "Another";
+	    artistCrudPage.updateData(newName);
+	}
+
+	@When("I press the update artist button")
+	public void i_press_the_update_artist_button() {
+	    artistCrudPage.clickUpdateBtn();
+	}
+
+	@Then("the artist is updated")
+	public void the_artist_is_updated() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Artist updated!"));
+	}
+	
 	@AfterStep
 	public void takeScreenshotAfterStep(Scenario scenario) {
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		if (scenario.isFailed()) {
 			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
 		}

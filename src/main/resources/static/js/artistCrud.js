@@ -105,7 +105,7 @@
       body: JSON.stringify(artist)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Artist updated!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -119,7 +119,7 @@
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Artist deleted!"))
     .catch(error => console.error(error));
     
     location.reload();

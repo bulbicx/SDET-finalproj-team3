@@ -10,11 +10,20 @@ public class ArtistCRUDPage {
 	@FindBy(className = "bi-plus-circle-fill")
 	private WebElement plusIcon;
 	
+	@FindBy(className = "bi-pen-fill")
+	private WebElement editIcon;
+	
 	@FindBy(id = "new-name")
 	private WebElement newNameField;
 	
+	@FindBy(id = "name")
+	private WebElement updateNameField;
+	
 	@FindBy(className = "add")
 	private WebElement addBtn;
+	
+	@FindBy(className = "update")
+	private WebElement updateBtn;
 	
 	@FindBy(className = "artist-panel")
 	private WebElement artistPanel;
@@ -32,12 +41,20 @@ public class ArtistCRUDPage {
 		plusIcon.click();
 	}
 	
+	public void clickEditIcon() {
+		editIcon.click();
+	}
+	
 	public void insertDataOnNameField(String name) {
 		newNameField.sendKeys(name);
 	}
 	
 	public void clickAddBtn() {
 		addBtn.click();
+	}
+	
+	public void clickUpdateBtn() {
+		updateBtn.click();
 	}
 	
 	public void addNewArtist(String name) {
@@ -60,5 +77,9 @@ public class ArtistCRUDPage {
 	
 	public void clickTrackPanel() {
 		this.trackPanel.click();
+	}
+
+	public void updateData(String newName) {
+		this.updateNameField.sendKeys(newName);
 	}
 }
