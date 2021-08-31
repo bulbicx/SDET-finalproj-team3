@@ -5,7 +5,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage {
 	
-	public final String url ="http://127.0.0.1:5500/index.html";
+//	public final String url ="http://127.0.0.1:5500/index.html";
+	
+	public final String url = "http://192.168.0.21:5500/static/index.html";
 	
 	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[1]/a")
 	public WebElement headerHomeBtn;
@@ -45,6 +47,12 @@ public class HomePage {
 	
 	@FindBy(xpath="/html/body/div[4]/footer/div[4]/ul/li[3]/a")
 	public WebElement twitterBtn;
+	
+	@FindBy(className = "albums")
+	private WebElement albumTitle;
+	
+	@FindBy(className = "card-albums-1")
+	private WebElement firstAlbumCard;
 	
 	public void clickHeaderHomeBtn() {
 		headerHomeBtn.click();
@@ -98,6 +106,12 @@ public class HomePage {
 		twitterBtn.click();
 	}
 	
+	public String getAlbumSectionTitle() {
+		return this.albumTitle.getText();
+	}
 	
+	public void clickAlbumCard() {
+		this.firstAlbumCard.click();
+	}
 
 }
