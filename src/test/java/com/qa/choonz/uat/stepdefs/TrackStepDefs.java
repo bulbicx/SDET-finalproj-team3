@@ -2,6 +2,8 @@ package com.qa.choonz.uat.stepdefs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -20,6 +22,8 @@ public class TrackStepDefs {
 	public TrackStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
 		this.trackPage = PageFactory.initElements(driver, TrackPage.class);
+		this.driver.manage().window().maximize();
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@Given("I am on the first track page")
@@ -33,7 +37,8 @@ public class TrackStepDefs {
 	}
 
 	@Then("I go to the page of that album")
-	public void iGoToThePageOfThatAlbum() {
+	public void iGoToThePageOfThatAlbum() throws InterruptedException {
+		Thread.sleep(500);
 	    assertEquals("http://127.0.0.1:5500/albumsingle.html?id=1", this.driver.getCurrentUrl());
 	}
 
@@ -43,7 +48,8 @@ public class TrackStepDefs {
 	}
 
 	@Then("I go to the page of that artist")
-	public void iGoToThePageOfThatArtist() {
+	public void iGoToThePageOfThatArtist() throws InterruptedException {
+		Thread.sleep(500);
 	    assertEquals("http://127.0.0.1:5500/artistsingle.html?id=1", this.driver.getCurrentUrl());
 	}
 }

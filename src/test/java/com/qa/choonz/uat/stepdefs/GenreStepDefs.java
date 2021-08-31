@@ -25,12 +25,13 @@ public class GenreStepDefs {
 		this.driver = hooks.getDriver();
 		this.genresPage = PageFactory.initElements(driver, GenresPage.class);
 		this.genreSinglePage = PageFactory.initElements(driver, GenreSinglePage.class);
+		this.driver.manage().window().maximize();
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@Given("I am on the genres page")
 	public void iAmOnTheGenresPage() {
 	    this.driver.get(genresPage.url);
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 
 	@When("I click on the first genre")
@@ -56,7 +57,8 @@ public class GenreStepDefs {
 	}
 
 	@Then("I am taken to the page of that album")
-	public void iAmTakenToThePageOfThatAlbum() {
+	public void iAmTakenToThePageOfThatAlbum() throws InterruptedException {
+		Thread.sleep(500);
 	    assertEquals("http://127.0.0.1:5500/albumsingle.html?id=1", this.driver.getCurrentUrl());
 	}
 
@@ -66,7 +68,8 @@ public class GenreStepDefs {
 	}
 
 	@Then("I am taken to the page of that artist")
-	public void iAmTakenToThePageOfThatArtist() {
+	public void iAmTakenToThePageOfThatArtist() throws InterruptedException {
+		Thread.sleep(500);
 	    assertEquals("http://127.0.0.1:5500/artistsingle.html?id=1", this.driver.getCurrentUrl());
 	}
 
