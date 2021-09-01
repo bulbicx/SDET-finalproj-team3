@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.rest.dto.SessionDTO;
 import com.qa.choonz.rest.dto.UserDTO;
+import com.qa.choonz.service.SessionService;
 import com.qa.choonz.service.UserService;
 
 @RestController
@@ -24,15 +26,18 @@ import com.qa.choonz.service.UserService;
 public class UserController {
 	
 	private UserService service;
+	private SessionService sessionService;
 
-	public UserController(UserService service) {
+	public UserController(UserService service, SessionService sessionService) {
 		super();
 		this.service = service;
+		this.sessionService = sessionService;
 	}
 	
     @PostMapping("/create")
-    public ResponseEntity<UserDTO> create(@RequestBody User user) {
-        return new ResponseEntity<UserDTO>(this.service.create(user), HttpStatus.CREATED);
+    public ResponseEntity<SessionDTO> create(@RequestBody User user) {
+    	User createdUser = this.service.create(user);
+        return new ResponseEntity<SessionDTO>(this.sessionService.createSession(createdUser), HttpStatus.CREATED);
     }
 
     @GetMapping("/read")
