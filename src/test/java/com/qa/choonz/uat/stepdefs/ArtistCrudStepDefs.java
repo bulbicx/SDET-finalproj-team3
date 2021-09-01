@@ -24,8 +24,8 @@ import io.cucumber.java.en.When;
 public class ArtistCrudStepDefs {
 
 	private WebDriver driver;
-	ScreenshotUtility screenshotUtils;
-	ArtistCRUDPage artistCrudPage;
+	private ScreenshotUtility screenshotUtils;
+	private ArtistCRUDPage artistCrudPage;
 	
 	public ArtistCrudStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();

@@ -23,13 +23,14 @@ import io.cucumber.java.en.When;
 public class AlbumCrudStepDefs {
 
 	private WebDriver driver;
-	ScreenshotUtility screenshotUtils;
-	AlbumCRUDPage albumCrudPage;
-	ArtistCRUDPage artistCrudPage;
-	GenreCRUDPage genreCrudPage;
+	private ScreenshotUtility screenshotUtils;
+	private AlbumCRUDPage albumCrudPage;
+	private ArtistCRUDPage artistCrudPage;
+	private GenreCRUDPage genreCrudPage;
 	
 	public AlbumCrudStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
+		screenshotUtils = new ScreenshotUtility();
 		this.albumCrudPage = PageFactory.initElements(driver, AlbumCRUDPage.class);
 		this.artistCrudPage = PageFactory.initElements(driver, ArtistCRUDPage.class);
 		this.genreCrudPage = PageFactory.initElements(driver, GenreCRUDPage.class);

@@ -21,8 +21,8 @@ import io.cucumber.java.en.When;
 public class GenreCrudStepDefs {
 
 	private WebDriver driver;
-	ScreenshotUtility screenshotUtils;
-	GenreCRUDPage genreCrudPage;
+	private ScreenshotUtility screenshotUtils;
+	private GenreCRUDPage genreCrudPage;
 	
 	public GenreCrudStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();

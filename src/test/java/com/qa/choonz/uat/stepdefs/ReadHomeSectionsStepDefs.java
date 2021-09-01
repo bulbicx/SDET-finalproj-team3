@@ -24,7 +24,7 @@ import io.cucumber.java.en.When;
 public class ReadHomeSectionsStepDefs {
 
 	private WebDriver driver;
-	ScreenshotUtility screenshotUtils;
+	private ScreenshotUtility screenshotUtils;
 	private HomePage homePage;
 
 	public ReadHomeSectionsStepDefs(SeleniumHooks hooks) {

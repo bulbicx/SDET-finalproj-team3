@@ -1,3 +1,4 @@
+@navpages
 Feature: Footer feature
   I want to use this template for my feature file
 

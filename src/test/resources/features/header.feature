@@ -1,3 +1,4 @@
+@navpages
 Feature: Header feature
   I want to use this template for my feature file
 
