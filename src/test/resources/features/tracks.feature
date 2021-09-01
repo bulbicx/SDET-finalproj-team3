@@ -1,4 +1,4 @@
-
+@navpages
 Feature: Track page
 	As a user, I want to be able to click on different links on a track page, so that I can navigate to other pages. 
 	
