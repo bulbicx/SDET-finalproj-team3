@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 
@@ -31,19 +32,24 @@ public class SeleniumHooks {
 //	}
 //	
 	
+	private byte[] takeScreenshot() {
+		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+	}
+	
+	@AfterStep
+	public void takeScreenshotAfterStep(Scenario scenario) {
+		if (scenario.isFailed()) {
+			scenario.attach(takeScreenshot(), "image/png", scenario.getName());
+		}
+	}
+	
 	@After
-	public void teardown(Scenario scenario) {
-		
-		scenario.attach(takeScreenshot(), "image/png", scenario.getName());
+	public void teardown() {
 		this.driver.quit();
 	}
 	
 	public WebDriver getDriver() {
 		return this.driver;
-	}
-	
-	private byte[] takeScreenshot() {
-		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}
 
 }
