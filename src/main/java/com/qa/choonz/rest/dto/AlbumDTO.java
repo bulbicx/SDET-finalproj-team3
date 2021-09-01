@@ -6,6 +6,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Track;
 
 public class AlbumDTO {
@@ -15,14 +16,14 @@ public class AlbumDTO {
     private List<Track> tracks;
     private Artist artist;
     private Genre genre;
-    private String cover;
+    private Image cover;
 
     public AlbumDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public AlbumDTO(long id, String name, List<Track> tracks, Artist artist, Genre genre, String cover) {
+    public AlbumDTO(long id, String name, List<Track> tracks, Artist artist, Genre genre, Image cover) {
         super();
         this.id = id;
         this.name = name;
@@ -72,11 +73,11 @@ public class AlbumDTO {
         this.genre = genre;
     }
 
-    public String getCover() {
+    public Image getCover() {
         return cover;
     }
 
-    public void setCover(String cover) {
+    public void setCover(Image cover) {
         this.cover = cover;
     }
 

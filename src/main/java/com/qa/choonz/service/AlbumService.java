@@ -1,11 +1,14 @@
 package com.qa.choonz.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.jdbc.datasource.embedded.ConnectionProperties;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.qa.choonz.exception.AlbumNotFoundException;
 import com.qa.choonz.exception.ArtistNotFoundException;
@@ -14,10 +17,13 @@ import com.qa.choonz.exception.TrackNotFoundException;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.builder.AlbumBuilder;
 import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.persistence.repository.GenreRepository;
+import com.qa.choonz.persistence.repository.ImageRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.AlbumDTO;
 
@@ -28,15 +34,17 @@ public class AlbumService {
 	private ArtistRepository artistRepo;
 	private GenreRepository genreRepo;
 	private TrackRepository trackRepo;
+	private ImageRepository imageRepo;
 	private ModelMapper mapper;
 
 	public AlbumService(AlbumRepository albumRepo, ModelMapper mapper, ArtistRepository artistRepo,
-			GenreRepository genreRepo, TrackRepository trackRepo) {
+			GenreRepository genreRepo, TrackRepository trackRepo, ImageRepository imageRepo) {
 		super();
 		this.albumRepo = albumRepo;
 		this.artistRepo = artistRepo;
 		this.genreRepo = genreRepo;
 		this.trackRepo = trackRepo;
+		this.imageRepo = imageRepo;
 		this.mapper = mapper;
 	}
 
@@ -44,13 +52,17 @@ public class AlbumService {
 		return this.mapper.map(album, AlbumDTO.class);
 	}
 
-	public AlbumDTO create(Album album, Long artistId, Long genreId) {
+	public AlbumDTO create(Long artistId, Long genreId, MultipartFile file, String name) throws IOException {
+		Album album = new AlbumBuilder().name(name).build();
 		Optional<Artist> artistOpt = this.artistRepo.findById(artistId);
 		artistOpt.orElseThrow(() -> new ArtistNotFoundException());
 		Optional<Genre> genreOpt = this.genreRepo.findById(genreId);
 		genreOpt.orElseThrow(() -> new GenreNotFoundException());
 		album.setArtist(artistOpt.get());
 		album.setGenre(genreOpt.get());
+		Image image = new Image(file.getOriginalFilename(), file.getContentType(), file.getBytes());
+		Image savedImage = this.imageRepo.save(image);
+		album.setCover(savedImage);
 		Album created = this.albumRepo.save(album);
 		return this.mapToDTO(created);
 	}
@@ -72,7 +84,7 @@ public class AlbumService {
 		toUpdate.setTracks(album.getTracks());
 		toUpdate.setArtist(artistToUpdate);
 		toUpdate.setGenre(genreToUpdate);
-		toUpdate.setCover(album.getCover());
+//		toUpdate.setCover(album.getCover());
 		Album updated = this.albumRepo.save(toUpdate);
 		return this.mapToDTO(updated);
 	}

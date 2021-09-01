@@ -2,15 +2,16 @@ package com.qa.choonz.uat.stepdefs;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.ArtistsPage;
 import com.qa.choonz.uat.pages.ArtistsSinglePage;
+import com.qa.choonz.utils.ScreenshotUtility;
 
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,15 +20,15 @@ public class ArtistStepDef {
 	
 	
 	private WebDriver driver;
+	private ScreenshotUtility screenshotUtils;
 	private ArtistsPage artistsPage;
 	private ArtistsSinglePage singlePage;
 	
 	public ArtistStepDef(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
+		screenshotUtils = new ScreenshotUtility();
 		this.artistsPage = PageFactory.initElements(driver, ArtistsPage.class);
 		this.singlePage = PageFactory.initElements(driver, ArtistsSinglePage.class);
-		this.driver.manage().window().maximize();
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@Given("I am on the artists page")
@@ -73,4 +74,10 @@ public class ArtistStepDef {
 		assertEquals("http://127.0.0.1:5500/genresingle.html?id=1",this.driver.getCurrentUrl());
 	}
 
+	@AfterStep
+	public void takeScreenshotAfterStep(Scenario scenario) {
+		if (scenario.isFailed()) {
+			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
+		}
+	}
 }

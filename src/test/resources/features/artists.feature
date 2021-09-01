@@ -21,3 +21,5 @@ Feature: Artists page
 		Given I am on the artist page with id 1
 		When I click on the genre of the first album
 		Then I am taken to the page for that genre
+		
+		

@@ -26,9 +26,9 @@ public class UserServiceTest {
 	private UserService service;
 	
 	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
-	private UserDTO userDTO = new UserDTO(0L, "username", "real name", new ArrayList<>());
+	private UserDTO userDTO = new UserDTO(0L, "username", "real name",new ArrayList<>());
 	private Optional<User> optionalUser = Optional.of(new User(0L, "username", "real name", "password", new ArrayList<>()));
-	private User newUser = new User(0L, "username2", "real name2", "password123", new ArrayList<>());
+	private User newUser = new User(0L, "username2", "real name2","password123", new ArrayList<>());
 	private UserDTO newUserDTO = new UserDTO(0L, "username2", "real name2", new ArrayList<>());
 	
 	@Test
@@ -36,7 +36,7 @@ public class UserServiceTest {
 		
 		Mockito.when(this.repo.save(user)).thenReturn(user);
 		
-		assertThat(userDTO).isEqualTo(this.service.create(user));
+		assertThat(user).isEqualTo(this.service.create(user));
 		
 		Mockito.verify(this.repo, Mockito.times(1)).save(user);
 	}

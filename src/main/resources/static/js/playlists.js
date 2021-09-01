@@ -84,7 +84,7 @@
       body: JSON.stringify(playlist)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Playlist added!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -99,7 +99,7 @@
       body: JSON.stringify(playlist)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Playlist updated!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -116,6 +116,7 @@
     .then(data => console.log(data))
     .catch(error => console.error(error));
     
+    alert("Playlist deleted!");
     location.reload();
   }
 
