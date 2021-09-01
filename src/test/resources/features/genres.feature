@@ -1,4 +1,4 @@
-
+@navpages
 Feature: Genres page
 	As a user, I want to view a genres page, so that I can browse through all the genres
 	
