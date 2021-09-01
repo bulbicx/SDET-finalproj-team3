@@ -24,8 +24,8 @@
       <p id="subtitle-page">The place where you can see all your playlists</p>
     </header>
     <div id="alert" role="alert"></div>
-    <i class="bi bi-plus-circle-fill mb-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#add-playlist"> Add new</i>
-    <i class="bi bi bi-pen-fill mb-3" type="button" data-bs-toggle="modal" data-bs-target="#update-playlist"> Update</i>
+    <div class="buttons-add-update">
+    </div>
     <main class="row main-section">
     </main>
   </section>
@@ -54,7 +54,7 @@
           </div>
           <div class="mb-3">
             <label for="new-user" class="form-label">User</label>
-            <input type="text" id="new-user" class="form-control" required>
+            <input type="text" id="new-user" class="form-control" disabled>
           </div>
         </div>
         <div class="modal-footer">
@@ -96,7 +96,7 @@
           </div>
           <div class="mb-3">
             <label for="user" class="form-label">User</label>
-            <input type="text" id="user" class="form-control" required>
+            <input type="text" id="user" class="form-control" disabled>
           </div>
         </div>
         <div class="modal-footer">

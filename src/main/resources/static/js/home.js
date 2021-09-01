@@ -298,7 +298,7 @@
     titleHomeSection.innerText = getSectionTitle(sectionType);
     sectionHeader.appendChild(titleHomeSection);
 
-    if (sectionType.toLowerCase() === "playlist") {
+    if (sectionType.toLowerCase() === "playlist" && localStorage.getItem("session-token") !== null) {
       let iconSection = document.createElement("span");
       iconSection.setAttribute("class", "icon-section")
       sectionHeader.appendChild(iconSection);
@@ -363,7 +363,7 @@
     } else {
       let pText = document.createElement("p");
       pText.setAttribute("class", "no-data-found");
-      let noTextFound = `:( There are no ${ sectionType.toLowerCase() } yet, but you can start adding new ones now!`;
+      let noTextFound = `:( There are no ${ sectionType.toLowerCase() } yet!`;
       pText.innerHTML = noTextFound;
       homeSection.appendChild(pText);
     } 

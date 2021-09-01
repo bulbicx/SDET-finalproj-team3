@@ -2,6 +2,8 @@
   let main = document.querySelector("main");
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
+  let buttonsAddUpdate = document.querySelector(".buttons-add-update");
+  let userIdInput = document.querySelector("#new-user");
   let playlistId;
 
   const getAllPlaylists = () => {
@@ -132,6 +134,34 @@
     alert.innerText = msg;
   }
 
+  const loadUserId = () => {
+    if (localStorage.getItem("id") !== null) {
+      console.log(localStorage.getItem("id"));
+      userIdInput.value = localStorage.getItem("id");
+    }
+  }
+  loadUserId();
+
+  const checkUserIsLoggedIn = () => {
+    if (localStorage.getItem("session-token") !== null) {
+      let addLink = document.createElement("i");
+      addLink.setAttribute("class", "bi bi-plus-circle-fill mb-3 mx-3");
+      addLink.setAttribute("type" ,"button");
+      addLink.setAttribute("data-bs-toggle", "modal");
+      addLink.setAttribute("data-bs-target", "#add-playlist");
+      addLink.innerText = " Add new";
+      buttonsAddUpdate.appendChild(addLink);
+      let editLink = document.createElement("i");
+      editLink.setAttribute("class", "bi bi bi-pen-fill mb-3");
+      editLink.setAttribute("type" ,"button");
+      editLink.setAttribute("data-bs-toggle", "modal");
+      editLink.setAttribute("data-bs-target", "#update-playlist");
+      editLink.innerText = " Update";
+      buttonsAddUpdate.appendChild(editLink);
+    } 
+  }
+  checkUserIsLoggedIn();
+
   const retrieveUpdateFormDetails = () => {
     let playlistName = document.querySelector("#name").value;
     let artwork = document.querySelector("#artwork").value;
@@ -198,7 +228,11 @@
         card.appendChild(deleteIcon);
       }
     } else {
-      displayNoDataMsg(":( There are no playlists. But you can start adding new ones now!");
+      if (localStorage.getItem("session-token") !== null) {
+        displayNoDataMsg(":( There are no playlists. But you can start adding new ones now!");
+      } else {
+        displayNoDataMsg("You need to be an authenticated user to be able to use this page. Please Sign up or Login!");
+      }
       main.setAttribute("class", "row");
     } 
   }
