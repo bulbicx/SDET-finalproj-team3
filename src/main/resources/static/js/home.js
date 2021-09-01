@@ -18,24 +18,24 @@
 
   //This method is used to retrieve a single playlist
   //and output it on form data to edit it
-  const fetchPlaylistSingle = (id, action) => {
-    fetch(`http://localhost:8082/playlists/read/${id}`)
-      .then((response) => {
-          if (response.status !== 200) {
-              console.error(`status: ${reponse.status}`);
-              return;
-          }
-          return response.json() 
-      })
-      .then(data => {
-        if (action === "put") {
-          insertDataOnForm(data)
-        } else if (action === "delete") {
-          playlistId = id;
-        }
-      })
-      .catch((err) => console.error(`${ err }`));
-  }
+  // const fetchPlaylistSingle = (id, action) => {
+  //   fetch(`http://localhost:8082/playlists/read/${id}`)
+  //     .then((response) => {
+  //         if (response.status !== 200) {
+  //             console.error(`status: ${reponse.status}`);
+  //             return;
+  //         }
+  //         return response.json() 
+  //     })
+  //     .then(data => {
+  //       if (action === "put") {
+  //         insertDataOnForm(data)
+  //       } else if (action === "delete") {
+  //         playlistId = id;
+  //       }
+  //     })
+  //     .catch((err) => console.error(`${ err }`));
+  // }
 
   //this method is used to retrieve playlists and put them
   //into a dropdown when editing a playlist
@@ -157,8 +157,26 @@
 
   const goToPlaylistsPage = () => {
     fetch(`http://localhost:8082/playlist`)
-            .then(response => response.text())
-            .then(window.location = `playlists.html`);
+      .then(response => response.text())
+      .then(window.location = `playlists.html`);
+  }
+
+  const goToGenresPage = () => {
+    fetch(`http://localhost:8082/genres`)
+      .then(response => response.text())
+      .then(window.location = `genres.html`);
+  }
+
+  const goToAlbumsPage = () => {
+    fetch(`http://localhost:8082/albums`)
+      .then(response => response.text())
+      .then(window.location = `albums.html`);
+  }
+
+  const goToArtistsPage = () => {
+    fetch(`http://localhost:8082/artists`)
+      .then(response => response.text())
+      .then(window.location = `artists.html`);
   }
 
   // const retrieveAddFormDetails = () => {
@@ -298,16 +316,26 @@
     titleHomeSection.innerText = getSectionTitle(sectionType);
     sectionHeader.appendChild(titleHomeSection);
 
-    if (sectionType.toLowerCase() === "playlist" && localStorage.getItem("session-token") !== null) {
-      let iconSection = document.createElement("span");
-      iconSection.setAttribute("class", "icon-section")
-      sectionHeader.appendChild(iconSection);
-      let seeMoreIcon = document.createElement("i");
-      seeMoreIcon.setAttribute("class", "bi bi-eye-fill");
+    //&& localStorage.getItem("session-token") !== null
+    let iconSection = document.createElement("span");
+    iconSection.setAttribute("class", "icon-section")
+    sectionHeader.appendChild(iconSection);
+    let seeMoreIcon = document.createElement("i");
+    seeMoreIcon.setAttribute("class", "bi bi-eye-fill");
+    if (sectionType.toLowerCase() === "playlist") {
       seeMoreIcon.addEventListener("click", () => goToPlaylistsPage());
+    } else if (sectionType.toLowerCase() === "artists") {
+      seeMoreIcon.addEventListener("click", () => goToArtistsPage());
+    } else if (sectionType.toLowerCase() === "genres") {
+      seeMoreIcon.addEventListener("click", () => goToGenresPage());
+    } else if (sectionType.toLowerCase() === "albums") {
+      seeMoreIcon.addEventListener("click", () => goToAlbumsPage());
+    }
+    
+    if (sectionType.toLowerCase() !== "tracks") {
       iconSection.appendChild(seeMoreIcon);
     }
-
+    
     if (data.length > 0) {
       let cardGroup = document.createElement("div");
       cardGroup.setAttribute("class", "row");
