@@ -116,4 +116,8 @@ public class AlbumCRUDPage {
 	public void deleteAlbum() {
 		this.deleteIcon.click();
 	}
+
+	public void deleteTrack() {
+		this.deleteIcon.click();
+	}
 }

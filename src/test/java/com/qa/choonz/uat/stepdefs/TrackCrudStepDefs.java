@@ -140,6 +140,22 @@ public class TrackCrudStepDefs {
 		assertTrue(alertMsg.equals("Track updated!"));
 	}
 	
+	/**
+	 * Delete
+	 */
+	@When("I delete a track")
+	public void i_delete_a_track() {
+	    albumCrudPage.deleteTrack();
+	}
+	
+	@Then("the track is deleted")
+	public void the_track_is_deleted() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Track deleted!"));
+	}
+	
 	@AfterStep
 	public void takeScreenshotAfterStep(Scenario scenario) {
 		if (scenario.isFailed()) {
