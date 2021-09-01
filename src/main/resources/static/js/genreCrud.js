@@ -97,7 +97,7 @@
       body: JSON.stringify(genre)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("New Genre added!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -112,7 +112,7 @@
       body: JSON.stringify(genre)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Genre updated!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -126,9 +126,10 @@
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Genre deleted!"))
     .catch(error => console.error(error));
     
+    alert("Genre deleted!");
     location.reload();
   }
 

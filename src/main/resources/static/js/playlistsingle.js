@@ -15,6 +15,7 @@
     .then(data => console.log(data))
     .catch(error => console.error(error));
     
+    alert("Track deleted!");
     location.reload();
   }
 
@@ -137,7 +138,7 @@
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Track added!"))
     .catch(error => console.error(error));
     
     location.reload();

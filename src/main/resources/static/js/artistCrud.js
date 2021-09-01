@@ -89,7 +89,7 @@
       body: JSON.stringify(artist)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("New Artist added!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -105,23 +105,24 @@
       body: JSON.stringify(artist)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Artist updated!"))
     .catch(error => console.error(error));
     
     location.reload();
   }
 
-  const deleteArtist = (artistId) => {
-    fetch(`http://localhost:8082/artists/delete/${artistId}`, {
+  const deleteArtist = async(artistId) => {
+    await fetch(`http://localhost:8082/artists/delete/${artistId}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json"
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Artist deleted!"))
     .catch(error => console.error(error));
     
+    alert("Artist deleted!");
     location.reload();
   }
 
