@@ -10,7 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.PlaylistSinglePage;
 import com.qa.choonz.uat.pages.PlaylistsPage;
+import com.qa.choonz.utils.ScreenshotUtility;
 
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,15 +21,15 @@ import io.cucumber.java.en.When;
 public class PlaylistStepDefs {
 	
 	private WebDriver driver;
+	private ScreenshotUtility screenshotUtils;
 	private PlaylistsPage playlistsPage;
 	private PlaylistSinglePage singlePage;
 	
 	public PlaylistStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
+		screenshotUtils = new ScreenshotUtility();
 		this.playlistsPage = PageFactory.initElements(driver, PlaylistsPage.class);
 		this.singlePage = PageFactory.initElements(driver, PlaylistSinglePage.class);
-		this.driver.manage().window().maximize();
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	@Given("I am on the playlists page")
@@ -61,6 +64,12 @@ public class PlaylistStepDefs {
 		assertEquals("http://127.0.0.1:5500/track.html?id=1",this.driver.getCurrentUrl());
 	}
 
-	
+	@AfterStep
+	public void takeScreenshotAfterStep(Scenario scenario) {
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		if (scenario.isFailed()) {
+			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
+		}
+	}
 
 }

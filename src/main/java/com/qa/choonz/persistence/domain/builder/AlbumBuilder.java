@@ -5,6 +5,7 @@ import java.util.List;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Track;
 
 public class AlbumBuilder {
@@ -13,7 +14,7 @@ public class AlbumBuilder {
     private List<Track> tracks;
     private Artist artist;
     private Genre genre;
-    private String cover;
+    private Image cover;
 
 
 	public AlbumBuilder() {
@@ -48,7 +49,7 @@ public class AlbumBuilder {
 		return this;
 	}
 	
-	public AlbumBuilder cover(String cover) {
+	public AlbumBuilder cover(Image cover) {
 		this.cover = cover;
 		return this;
 	}
