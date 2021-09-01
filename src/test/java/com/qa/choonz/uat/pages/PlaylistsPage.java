@@ -55,17 +55,6 @@ public class PlaylistsPage {
 	@FindBy(xpath = "/html/body/section/main/div/span")
 	private WebElement firstPlaylistCard;
 	
-	@FindBy(className = "bi-track")
-	private WebElement addTrackIcon;
-	
-	@FindBy(className = "track-list-dropdown")
-	private WebElement trackList;
-	
-	private Select trackListSelect;
-	
-	@FindBy(className = "add")
-	private WebElement addTrackBtn;
-	
 	public void clickCard() {
 		firstCard.click();
 	}
@@ -123,18 +112,5 @@ public class PlaylistsPage {
 	
 	public void clickFirstCard() {
 		this.firstPlaylistCard.click();
-	}
-	
-	public void clickAddTrackIcon() {
-		this.addTrackIcon.click();
-	}
-
-	public void pickTrack(String trackName) {
-		this.trackListSelect = new Select(trackList);
-		this.trackListSelect.selectByVisibleText(trackName);	
-	}
-	
-	public void clickAddTrackBtn() {
-		this.addTrackBtn.click();
 	}
 }

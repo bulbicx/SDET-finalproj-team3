@@ -18,6 +18,7 @@ import com.qa.choonz.uat.pages.AlbumCRUDPage;
 import com.qa.choonz.uat.pages.ArtistCRUDPage;
 import com.qa.choonz.uat.pages.GenreCRUDPage;
 import com.qa.choonz.uat.pages.HomePage;
+import com.qa.choonz.uat.pages.PlaylistSinglePage;
 import com.qa.choonz.uat.pages.PlaylistsPage;
 import com.qa.choonz.uat.pages.SignUpPage;
 import com.qa.choonz.uat.pages.TrackCRUDPage;
@@ -35,6 +36,7 @@ public class PlaylistCrudStepDefs {
 	private GenreCRUDPage genreCrudPage;
 	private AlbumCRUDPage albumCrudPage;
 	private TrackCRUDPage trackCrudPage;
+	private PlaylistSinglePage playlistSinglePage;
 	private HomePage homePage;
 	
 	public PlaylistCrudStepDefs(SeleniumHooks hooks) {
@@ -46,6 +48,7 @@ public class PlaylistCrudStepDefs {
 		this.genreCrudPage = PageFactory.initElements(driver, GenreCRUDPage.class);
 		this.albumCrudPage = PageFactory.initElements(driver, AlbumCRUDPage.class);
 		this.trackCrudPage = PageFactory.initElements(driver, TrackCRUDPage.class);
+		this.playlistSinglePage = PageFactory.initElements(driver, PlaylistSinglePage.class);
 	}
 
 	@Given("I have an existing user")
@@ -207,14 +210,14 @@ public class PlaylistCrudStepDefs {
 
 	@When("I add a track to the playlist")
 	public void i_add_a_track_to_the_playlist() {
-	    playlistPage.clickAddTrackIcon();
+	    playlistSinglePage.clickAddTrackIcon();
 		WebElement select = this.driver.findElement(By.className("track-list-dropdown"));
 		Select trackListSelect = new Select(select);
 		Awaitility.await()
 		.atMost(5, TimeUnit.SECONDS)
 		.until(() -> trackListSelect.getOptions().size() > 0);
-	    playlistPage.pickTrack("Track 2");
-	    playlistPage.clickAddTrackBtn();
+	    playlistSinglePage.pickTrack("Track 2");
+	    playlistSinglePage.clickAddTrackBtn();
 	}
 
 	@Then("the playlist should contain the track")
@@ -223,5 +226,38 @@ public class PlaylistCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Track added!"));
+	}
+	
+	/**
+	 * Remove track
+	 */
+	@Given("I have a track into the playlist")
+	public void i_have_a_track_into_the_playlist() {
+	    this.driver.get("http://localhost:8082/playlists.html");
+	    playlistPage.clickFirstCard();
+	    playlistSinglePage.clickAddTrackIcon();
+		WebElement select = this.driver.findElement(By.className("track-list-dropdown"));
+		Select trackListSelect = new Select(select);
+		Awaitility.await()
+		.atMost(5, TimeUnit.SECONDS)
+		.until(() -> trackListSelect.getOptions().size() > 0);
+	    playlistSinglePage.pickTrack("Track 2");
+	    playlistSinglePage.clickAddTrackBtn();
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+
+	@When("I remove a track from the playlist")
+	public void i_remove_a_track_from_the_playlist() {
+	    playlistSinglePage.deleteTrack();
+	}
+
+	@Then("the track should be removed from the playlist")
+	public void the_track_should_be_removed_from_the_playlist() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Track deleted!"));
 	}
 }
