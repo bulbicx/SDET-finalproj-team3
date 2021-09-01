@@ -99,9 +99,6 @@ public class PlaylistCrudStepDefs {
 		Awaitility.await()
 		.atMost(5, TimeUnit.SECONDS)
 		.until(() -> playlistListSelect.getOptions().size() > 0);
-//	    WebDriverWait wait = new WebDriverWait(driver, 5);
-//	    wait.until(ExpectedConditions.sele);
-//	    Thread.sleep(2000);
 	    playlistPage.pickPlaylistToUpdate("Playlist 10");
 	}
 
@@ -121,5 +118,21 @@ public class PlaylistCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Playlist updated!"));
+	}
+	
+	/**
+	 * Delete
+	 */
+	@When("I delete a playlist")
+	public void i_delete_a_playlist() {
+	    playlistPage.deletePlaylist();
+	}
+
+	@Then("the playlist is deleted")
+	public void the_playlist_is_deleted() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Playlist deleted!"));
 	}
 }

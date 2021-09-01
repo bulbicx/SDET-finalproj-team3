@@ -14,6 +14,9 @@ public class PlaylistsPage {
 	@FindBy(className = "bi-pen-fill") 
 	private WebElement editIcon;
 	
+	@FindBy(className = "bi-trash-fill")
+	private WebElement deleteIcon;
+	
 	@FindBy(xpath="/html/body/section/main/div")
 	public WebElement firstCard;
 	
@@ -98,5 +101,9 @@ public class PlaylistsPage {
 	
 	public WebElement getSelectPlaylistElement() {
 		return this.playlistList;
+	}
+
+	public void deletePlaylist() {
+		this.deleteIcon.click();
 	}
 }
