@@ -49,8 +49,8 @@
       let coverTd = document.createElement("td");
       let img = document.createElement("img");
       img.setAttribute("class", "img-cover");
-      img.setAttribute("alt", data[i].name);
-      img.setAttribute("src", data[i].cover);
+      img.setAttribute("alt", data[i].cover.name);
+      img.setAttribute("src", "data:image/"+ data[i].cover.type + ";base64," + data[i].cover.picByte);
       coverTd.appendChild(img);
       tr.appendChild(coverTd);
       let genreTd = document.createElement("td");
@@ -116,24 +116,24 @@
 
   const getAllAlbums = () => {
     fetch(`http://localhost:8082/albums/read`)
-    .then(response => response.json())
-    .then(data => buildTable(data))
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => buildTable(data))
+      .catch(error => console.error(error));
   }
   getAllAlbums();
 
   const getAllGenres = (action) => {
     fetch(`http://localhost:8082/genres/read`)
-    .then(response => response.json())
-    .then(data => loadGenresDropdown(data, action))
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => loadGenresDropdown(data, action))
+      .catch(error => console.error(error));
   }
 
   const getAllArtists = (action) => {
     fetch(`http://localhost:8082/artists/read`)
-    .then(response => response.json())
-    .then(data => loadArtistsDropdown(data, action))
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => loadArtistsDropdown(data, action))
+      .catch(error => console.error(error));
   }
 
   const loadDropdowns = (action) => {
@@ -157,24 +157,25 @@
 
   const retrieveOneAlbum = (albumId) => {
     fetch(`http://localhost:8082/albums/read/${albumId}`)
-    .then(response => response.json())
-    .then(data => displayAlbumUpdate(data))
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => displayAlbumUpdate(data))
+      .catch(error => console.error(error));
   }
-  
-  const addAlbum = async (album, artistId, genreId) => {
-    await fetch(`http://localhost:8082/albums/create/${artistId}/${genreId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(album)
+
+  const addAlbum = async (artistId, genreId, formData) => {
+    await fetch(`http://localhost:8082/albums/create/artist/${artistId}/genre/${genreId}`, {
+      method: 'POST',
+      body: formData
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
-    
-    location.reload();
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.errors) {
+          alert(data.errors)
+        }
+        else {
+          console.log(data)
+        }
+      })
   }
 
   const updateAlbum = async (album, artistId, genreId) => {
@@ -185,10 +186,10 @@
       },
       body: JSON.stringify(album)
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
-    
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+
     location.reload();
   }
 
@@ -199,10 +200,10 @@
         "Content-type": "application/json"
       }
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
-    
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+
     location.reload();
   }
 
@@ -237,16 +238,18 @@
 
   const retrieveAddFormDetails = () => {
     let albumName = document.querySelector("#new-name").value;
-    let cover = document.querySelector("#new-cover").value;
+    let cover = document.querySelector("#new-cover").files[0];
     let artist = document.querySelector("#new-artist").value;
     let genre = document.querySelector("#new-genre").value;
-    
+
+
+
     if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
-      let album = {
-        name: albumName,
-        cover: cover
-      };
-      addAlbum(album, artist, genre);
+      let formData = new FormData();
+      formData.append('file', cover);
+      formData.append('name', albumName);
+
+      addAlbum(artist, genre, formData);
     } else {
       displayErrorMessage("All fields must be valid!");
     }
@@ -255,3 +258,32 @@
   addBtn.addEventListener("click", () => retrieveAddFormDetails());
   updateBtn.addEventListener("click", () => retrieveUpdateFormDetails());
 })();
+
+
+
+// const uploadImg = async (file) => {
+//   // const file = e.target.files[0];
+//   const formData = new FormData();
+//   formData.append("images", file);
+//   setUploading(true)
+//   try {
+//     const config = {
+//       headers: {
+//         "Content-Type": "multipart/form-data",              
+//       },
+//     };    
+//     const { data } = await axios.post(baseUrl + 'upload', formData, config)             
+
+//     imgSelected.push({
+//         picture: data
+//     })
+
+
+
+//     setUploading(false)
+
+//   } catch (error) {
+//     console.error(error);   
+//     setUploading(false)       
+//   }
+// };

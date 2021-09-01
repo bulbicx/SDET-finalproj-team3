@@ -16,10 +16,17 @@
             body: JSON.stringify(loginInfo)
         })
             .then(response => response.json())
+            .then(response => {
+                if(response.status == 404){
+                    alert("Wrong credential");
+                    return;
+                }
+            })
             .then(data => {
                 myStorage.setItem("session-token", data.token);
                 goToHomePage()
             })
+
             .catch(error => console.error(error));
     }
 

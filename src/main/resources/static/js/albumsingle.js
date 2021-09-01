@@ -70,6 +70,7 @@
             
             let albumImage = document.createElement("img");
             albumImage.setAttribute("class", "img-header");
+            
             albumImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
             albumImage.setAttribute("alt", "image");
             albumImage.setAttribute("width", 192);
