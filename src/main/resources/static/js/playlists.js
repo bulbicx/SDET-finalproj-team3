@@ -3,7 +3,8 @@
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
   let buttonsAddUpdate = document.querySelector(".buttons-add-update");
-  let userIdInput = document.querySelector("#new-user");
+  let deleteBtn = document.querySelector(".delete");
+  let userId;
   let playlistId;
 
   const getAllPlaylists = () => {
@@ -14,16 +15,23 @@
   }
   getAllPlaylists();
 
+  const loadUserId = () => {
+    if (localStorage.getItem("id") !== null) {
+      userId = localStorage.getItem("id");
+    } else {
+      userId = "1";
+    }
+  }
+  loadUserId();
+
   const insertDataOnForm = (data) => {
     let playlistName = document.querySelector("#name");
     let artwork = document.querySelector("#artwork");
     let description = document.querySelector("#description");
-    let user = document.querySelector("#user");
 
     playlistName.value = data.name;
     artwork.value = data.artwork;
     description.value = data.description;
-    user.value = data.user.id;
   }
 
   const fetchPlaylistSingle = (id) => {
@@ -39,22 +47,26 @@
       .catch((err) => console.error(`${ err }`));
   }
 
-  const getPlaylistIdDropdown = () => {
-    playlistId = document.querySelector(".playlist-list-update").value;
+  const getPlaylistIdDropdown = (action) => {
+    if (action === "update") {
+      playlistId = document.querySelector(".playlist-list-update").value;
+    } else if (action === "delete") {
+      playlistId = document.querySelector(".playlist-list-delete").value;
+    }
 
     if (playlistId !== "") {
       fetchPlaylistSingle(playlistId);
     } else {
-      insertDataOnForm({name: "", description: "", artwork: "", user: {id: ""}})
+      insertDataOnForm({ name: "", description: "", artwork: "" });
     }
   }
   
-  const loadPlaylist = () => {
+  const loadPlaylistUpdate = () => {
     fetch(`http://localhost:8082/playlists/read`)
     .then(response => response.json())
     .then(data => {
       let select = document.querySelector(".playlist-list-update");
-      select.addEventListener("change", () => getPlaylistIdDropdown())
+      select.addEventListener("change", () => getPlaylistIdDropdown("update"));
       
       for (let i = 0; i < data.length; i++) {
         let option = document.createElement("option");
@@ -64,8 +76,26 @@
       }
       })
       .catch(error => console.error(error));
-    }
-    loadPlaylist();
+  }
+  loadPlaylistUpdate();
+  
+  const loadDeletePlaylist = () => {
+    fetch(`http://localhost:8082/playlists/read`)
+    .then(response => response.json())
+    .then(data => {
+      let selectDelete = document.querySelector(".playlist-list-delete");
+      selectDelete.addEventListener("change", () => getPlaylistIdDropdown("delete"));
+      
+      for (let i = 0; i < data.length; i++) {
+        let option = document.createElement("option");
+        option.setAttribute("value", data[i].id);
+        option.innerHTML = data[i].name;
+        selectDelete.appendChild(option);
+      }
+      })
+      .catch(error => console.error(error));
+  }
+  loadDeletePlaylist();
     
   const goToPlaylistSinglePage = (data, playlistId) => {
     window.location = `${data}?id=${playlistId}`;
@@ -134,14 +164,6 @@
     alert.innerText = msg;
   }
 
-  const loadUserId = () => {
-    if (localStorage.getItem("id") !== null) {
-      console.log(localStorage.getItem("id"));
-      userIdInput.value = localStorage.getItem("id");
-    }
-  }
-  loadUserId();
-
   const checkUserIsLoggedIn = () => {
     if (localStorage.getItem("session-token") !== null) {
       let addLink = document.createElement("i");
@@ -158,6 +180,13 @@
       editLink.setAttribute("data-bs-target", "#update-playlist");
       editLink.innerText = " Update";
       buttonsAddUpdate.appendChild(editLink);
+      let removeLink = document.createElement("i");
+      removeLink.setAttribute("class", "bi bi-trash-fill mb-3 mx-3");
+      removeLink.setAttribute("type" ,"button");
+      removeLink.setAttribute("data-bs-toggle", "modal");
+      removeLink.setAttribute("data-bs-target", "#delete-playlist");
+      removeLink.innerText = " Delete";
+      buttonsAddUpdate.appendChild(removeLink);
     } 
   }
   checkUserIsLoggedIn();
@@ -166,9 +195,8 @@
     let playlistName = document.querySelector("#name").value;
     let artwork = document.querySelector("#artwork").value;
     let description = document.querySelector("#description").value;
-    let user = document.querySelector("#user").value;
 
-    if (playlistName !== "" && artwork !== "" && description !== "" && user !== "") {
+    if (playlistName !== "" && artwork !== "" && description !== "") {
       let playlist = {
         name: playlistName,
         artwork: artwork,
@@ -184,16 +212,14 @@
     let playlistName = document.querySelector("#new-name").value;
     let artwork = document.querySelector("#new-artwork").value;
     let description = document.querySelector("#new-description").value;
-    let user = document.querySelector("#new-user").value;
 
-
-    if (playlistName !== "" && artwork !== "" && description !== "" && user !== "") {
+    if (playlistName !== "" && artwork !== "" && description !== "") {
       let playlist = {
         name: playlistName,
         artwork: artwork,
         description: description
       };
-      addPlaylist(playlist, user);
+      addPlaylist(playlist, userId);
     } else {
       displayErrorMessage("All fields must be valid!");
     }
@@ -203,29 +229,22 @@
     if (data.length > 0) {
       main.setAttribute("class", "row main-section");
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
         let card = document.createElement("div");
         card.setAttribute("class", "card p-0");
         card.setAttribute("style", "width: 18rem");
-        main.appendChild(card);
-        
-        let span = document.createElement("span");
-        span.addEventListener("click", () => getPlaylistSinglePage(data[i].id));
+
         let img = document.createElement("img");
         img.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
         img.setAttribute("class", "card-img-top card-background");
         img.setAttribute("alt", data[i].name);
-        span.appendChild(img);
+        card.appendChild(img);
         
         let p = document.createElement("p");
         p.setAttribute("class", "card-text text");
         p.innerText = data[i].name;
-        span.appendChild(p);
-        card.appendChild(span);
-        let deleteIcon = document.createElement("i");
-        deleteIcon.setAttribute("class", "bi bi-trash-fill");
-        deleteIcon.addEventListener("click", () => deletePlaylist(data[i].id))
-        card.appendChild(deleteIcon);
+        card.appendChild(p);
+        card.addEventListener("click", () => getPlaylistSinglePage(data[i].id));
+        main.appendChild(card);
       }
     } else {
       if (localStorage.getItem("session-token") !== null) {
@@ -239,4 +258,5 @@
 
   addBtn.addEventListener("click", () => retrieveAddFormDetails());
   updateBtn.addEventListener("click", () => retrieveUpdateFormDetails());
+  deleteBtn.addEventListener("click", () => deletePlaylist(playlistId));
 })();

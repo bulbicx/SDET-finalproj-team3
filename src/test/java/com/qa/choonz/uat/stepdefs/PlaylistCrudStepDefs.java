@@ -52,13 +52,14 @@ public class PlaylistCrudStepDefs {
 	}
 
 	@Given("I have an existing user")
-	public void i_have_an_existing_user() {
+	public void i_have_an_existing_user() throws InterruptedException {
 	    this.driver.get(signupPage.URL);
 	    signupPage.clickSignUpLink();
 	    String name = "Charlie";
 	    String username = "charlie90";
 	    String password = "password123";
 	    signupPage.createUser(name, username, password);
+	    Thread.sleep(2000);
 	}
 
 	@When("I am in the playlist page")
@@ -69,6 +70,8 @@ public class PlaylistCrudStepDefs {
 
 	@When("I go to add a new playlist")
 	public void i_go_to_add_a_new_playlist() {
+	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("bi-plus-circle-fill")));
 	    playlistPage.clickPlusIcon();
 	}
 
@@ -77,8 +80,7 @@ public class PlaylistCrudStepDefs {
 		String name = "Playlist name";
 		String description = "Some description";
 		String artwork = "artwork image";
-		String user = "1";
-	    playlistPage.insertData(name, description, artwork, user);
+	    playlistPage.insertData(name, description, artwork);
 	}
 
 	@When("I press the add playlist button")
@@ -100,7 +102,7 @@ public class PlaylistCrudStepDefs {
 	@Given("I have a playlist")
 	public void i_have_a_playlist() {
 	    homePage.clickHeaderPlaylistsBtn();
-	    playlistPage.addPlaylist("Playlist 10", "A desc", "Image 10", "1");
+	    playlistPage.addPlaylist("Playlist 10", "A desc", "Image 10");
 	    WebDriverWait wait = new WebDriverWait(driver, 5);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
@@ -140,7 +142,15 @@ public class PlaylistCrudStepDefs {
 	 */
 	@When("I delete a playlist")
 	public void i_delete_a_playlist() {
-	    playlistPage.deletePlaylist();
+		WebElement select = this.driver.findElement(By.className("playlist-list-delete"));
+		Select playlistListSelect = new Select(select);
+		playlistPage.clickDeleteIcon();
+//		playlistPage.clickEditIcon();
+		Awaitility.await()
+		.atMost(5, TimeUnit.SECONDS)
+		.until(() -> playlistListSelect.getOptions().size() > 0);
+	    playlistPage.pickPlaylistToDelete("Playlist 10");
+	    playlistPage.clickDeleteBtn();
 	}
 
 	@Then("the playlist is deleted")
