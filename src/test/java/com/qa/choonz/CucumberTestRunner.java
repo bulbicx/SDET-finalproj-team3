@@ -17,7 +17,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 				"junit:target/cucumber-reports/cucumber-junit-report.xml"
 		},
 		monochrome = true,
-		tags = "@delete_album or @update_album or @create_album"
+		tags = "@create_track or @update_track"
 		)
 public class CucumberTestRunner {
 // many of the assert cases in the stepdefs have a sleep function to wait for the page to load. Implicit wait didn't fix it
