@@ -50,8 +50,6 @@ public class User {
     	super();
     }
 
-	
-	
 	public User(Long id, @NotNull @Size(max = 100) String username, @NotNull @Size(max = 100) String name,
 			@NotNull @Size(max = 100) String password) {
 		super();
