@@ -161,9 +161,9 @@
     .then(data => displayAlbumUpdate(data))
     .catch(error => console.error(error));
   }
-  
+
   const addAlbum = async (album, artistId, genreId) => {
-    await fetch(`http://localhost:8082/albums/create/${artistId}/${genreId}`, {
+    await fetch(`http://localhost:8082/albums/create/artist/${ artistId }/genre/${ genreId }`, {
       method: "POST",
       headers: {
         "Content-type": "application/json"
@@ -172,6 +172,7 @@
     })
     .then(response => response.json())
     .then(data => console.log(data))
+    .then(alert("New Album added!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -186,7 +187,7 @@
       body: JSON.stringify(album)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Album updated!"))
     .catch(error => console.error(error));
     
     location.reload();
@@ -200,9 +201,10 @@
       }
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => alert("Album deleted!"))
     .catch(error => console.error(error));
     
+    alert("Album deleted!");
     location.reload();
   }
 

@@ -10,7 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.GenreSinglePage;
 import com.qa.choonz.uat.pages.GenresPage;
+import com.qa.choonz.utils.ScreenshotUtility;
 
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,11 +21,13 @@ import io.cucumber.java.en.When;
 public class GenreStepDefs {
 	
 	private WebDriver driver;
+	private ScreenshotUtility screenshotUtils;
 	private GenresPage genresPage;
 	private GenreSinglePage genreSinglePage;
 	
 	public GenreStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
+		screenshotUtils = new ScreenshotUtility();
 		this.genresPage = PageFactory.initElements(driver, GenresPage.class);
 		this.genreSinglePage = PageFactory.initElements(driver, GenreSinglePage.class);
 		this.driver.manage().window().maximize();
@@ -73,4 +78,11 @@ public class GenreStepDefs {
 	    assertEquals("http://127.0.0.1:5500/artistsingle.html?id=1", this.driver.getCurrentUrl());
 	}
 
+	@AfterStep
+	public void takeScreenshotAfterStep(Scenario scenario) {
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		if (scenario.isFailed()) {
+			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
+		}
+	}
 }

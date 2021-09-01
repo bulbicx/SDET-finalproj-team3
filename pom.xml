@@ -73,12 +73,8 @@
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-spring</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>io.cucumber</groupId> <artifactId>cucumber-spring</artifactId> 
+			<version>${cucumber.version}</version> <scope>test</scope> </dependency> -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-picocontainer</artifactId>
@@ -93,6 +89,12 @@
 			<groupId>org.sonarsource.scanner.maven</groupId>
 			<artifactId>sonar-maven-plugin</artifactId>
 			<version>3.8.0.2131</version>
+		</dependency>
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>4.1.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
