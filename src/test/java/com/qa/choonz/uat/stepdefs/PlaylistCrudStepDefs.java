@@ -14,9 +14,13 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
+import com.qa.choonz.uat.pages.AlbumCRUDPage;
+import com.qa.choonz.uat.pages.ArtistCRUDPage;
+import com.qa.choonz.uat.pages.GenreCRUDPage;
 import com.qa.choonz.uat.pages.HomePage;
 import com.qa.choonz.uat.pages.PlaylistsPage;
 import com.qa.choonz.uat.pages.SignUpPage;
+import com.qa.choonz.uat.pages.TrackCRUDPage;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -27,6 +31,10 @@ public class PlaylistCrudStepDefs {
 	private WebDriver driver;
 	private PlaylistsPage playlistPage;
 	private SignUpPage signupPage;
+	private ArtistCRUDPage artistCrudPage;
+	private GenreCRUDPage genreCrudPage;
+	private AlbumCRUDPage albumCrudPage;
+	private TrackCRUDPage trackCrudPage;
 	private HomePage homePage;
 	
 	public PlaylistCrudStepDefs(SeleniumHooks hooks) {
@@ -34,6 +42,10 @@ public class PlaylistCrudStepDefs {
 		this.playlistPage = PageFactory.initElements(driver, PlaylistsPage.class);
 		this.signupPage = PageFactory.initElements(driver, SignUpPage.class);
 		this.homePage = PageFactory.initElements(driver, HomePage.class);
+		this.artistCrudPage = PageFactory.initElements(driver, ArtistCRUDPage.class);
+		this.genreCrudPage = PageFactory.initElements(driver, GenreCRUDPage.class);
+		this.albumCrudPage = PageFactory.initElements(driver, AlbumCRUDPage.class);
+		this.trackCrudPage = PageFactory.initElements(driver, TrackCRUDPage.class);
 	}
 
 	@Given("I have an existing user")
@@ -134,5 +146,82 @@ public class PlaylistCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Playlist deleted!"));
+	}
+	
+	/**
+	 * Add track
+	 */
+	@Given("I have already artist")
+	public void i_have_already_artist() {
+	    this.driver.get(artistCrudPage.URL);
+	    artistCrudPage.addNewArtist("Tupac 2");
+	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+	
+	@Given("I have an genre")
+	public void i_have_an_genre() {
+	    artistCrudPage.clickGenrePanel();
+	    genreCrudPage.addNewGenre("Rap 2", "Rap music 2");
+	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+
+	@Given("I have an available album")
+	public void i_have_an_available_album() {
+		genreCrudPage.clickAlbumPanel();
+		String name = "Album 3";
+		String cover = "Cover 3";
+		String genre = "Rap 2";
+		String artist = "Tupac 2";
+	    albumCrudPage.addNewAlbum(name, cover, genre, artist);
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+
+	@Given("I have an existing track")
+	public void i_have_an_existing_track() {
+	    albumCrudPage.clickTrackPanel();
+		String name = "Track 2";
+		String duration = "120";
+		String album = "Album 3";
+		String lyric = "po po po";
+		trackCrudPage.addNewTrack(name, duration, album, lyric);
+	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    wait.until(ExpectedConditions.alertIsPresent());
+	    this.driver.switchTo().alert().accept();
+	}
+	
+	@When("I go in the playlist page")
+	public void i_go_in_the_playlist_page() {
+		this.driver.get("http://localhost:8082/playlists.html");
+	}
+
+	@When("I go to a specific playlist")
+	public void i_go_to_a_specific_playlist() {
+	    playlistPage.clickFirstCard();
+	}
+
+	@When("I add a track to the playlist")
+	public void i_add_a_track_to_the_playlist() {
+	    playlistPage.clickAddTrackIcon();
+		WebElement select = this.driver.findElement(By.className("track-list-dropdown"));
+		Select trackListSelect = new Select(select);
+		Awaitility.await()
+		.atMost(5, TimeUnit.SECONDS)
+		.until(() -> trackListSelect.getOptions().size() > 0);
+	    playlistPage.pickTrack("Track 2");
+	    playlistPage.clickAddTrackBtn();
+	}
+
+	@Then("the playlist should contain the track")
+	public void the_playlist_should_contain_the_track() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.alertIsPresent());
+		String alertMsg = this.driver.switchTo().alert().getText();
+		assertTrue(alertMsg.equals("Track added!"));
 	}
 }
