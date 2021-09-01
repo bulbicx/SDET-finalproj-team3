@@ -53,7 +53,7 @@ public class AlbumControllerIntegrationTest {
 		
 		//Build mock request
 		RequestBuilder mockRequest =
-								post("/albums/create/1/1")
+								post("/albums/create/artist/1/genre/1")
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(albumAsJSON);
 		
