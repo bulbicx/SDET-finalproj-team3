@@ -2,6 +2,7 @@ package com.qa.choonz.uat.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 public class PlaylistsPage {
 	
@@ -30,6 +31,23 @@ public class PlaylistsPage {
 	
 	@FindBy(className = "add")
 	private WebElement addBtn;
+	
+	@FindBy(className = "update")
+	private WebElement updateBtn;
+	
+	@FindBy(className = "playlist-list-update")
+	private WebElement playlistList;
+	
+	private Select playlistListSelect;
+	
+	@FindBy(id = "name")
+	private WebElement updateName;
+	
+	@FindBy(id = "description")
+	private WebElement updateDescription;
+	
+	@FindBy(id = "artwork")
+	private WebElement updateArtwork;
 	
 	public void clickCard() {
 		firstCard.click();
@@ -61,5 +79,24 @@ public class PlaylistsPage {
 		this.newArtwork.sendKeys(artwork);
 		this.newUser.sendKeys(user);
 		this.addBtn.click();
+	}
+	
+	public void pickPlaylistToUpdate(String playlist) {
+		this.playlistListSelect = new Select(playlistList);
+		this.playlistListSelect.selectByVisibleText(playlist);		
+	}
+
+	public void updateData(String name, String desc, String artwork) {
+		this.updateName.sendKeys(name);
+		this.updateDescription.sendKeys(desc);
+		this.updateArtwork.sendKeys(artwork);
+	}
+	
+	public void clickUpdateBtn() {
+		this.updateBtn.click();
+	}
+	
+	public WebElement getSelectPlaylistElement() {
+		return this.playlistList;
 	}
 }
