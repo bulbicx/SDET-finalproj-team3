@@ -1,9 +1,9 @@
 (() => {
   let groupSection = document.querySelector(".group-section");
-  let addPlaylistBtn = document.querySelector(".add");
-  let updatePlaylistBtn = document.querySelector(".update");
-  let deletePlaylistBtn = document.querySelector(".delete");
-  let playlistId;
+  // let addPlaylistBtn = document.querySelector(".add");
+  // let updatePlaylistBtn = document.querySelector(".update");
+  // let deletePlaylistBtn = document.querySelector(".delete");
+  // let playlistId;
 
   //Build request to just limit query result on 5
 
@@ -39,12 +39,12 @@
 
   //this method is used to retrieve playlists and put them
   //into a dropdown when editing a playlist
-  const getListPlaylist = (action) => {
-    fetch(`http://localhost:8082/playlists/read`)
-    .then(response => response.json())
-    .then(data =>  loadPlaylistOnDropdown(data, action))
-    .catch(error => console.error(error));
-  }
+  // const getListPlaylist = (action) => {
+  //   fetch(`http://localhost:8082/playlists/read`)
+  //   .then(response => response.json())
+  //   .then(data =>  loadPlaylistOnDropdown(data, action))
+  //   .catch(error => console.error(error));
+  // }
 
   const goToPlaylistSinglePage = (data, playlistId) => {
     window.location = `${data}?id=${playlistId}`;
@@ -161,128 +161,128 @@
             .then(window.location = `playlists.html`);
   }
 
-  const retrieveAddFormDetails = () => {
-    let playlistName = document.querySelector("#new-name").value;
-    let description = document.querySelector("#new-description").value;
-    let userId = document.querySelector("#new-user").value;
-    let artworkImg = document.querySelector("#new-artwork").value;
-    let playlist = {
-      artwork: artworkImg,
-      description: description,
-      name: playlistName
-    }
+  // const retrieveAddFormDetails = () => {
+  //   let playlistName = document.querySelector("#new-name").value;
+  //   let description = document.querySelector("#new-description").value;
+  //   let userId = document.querySelector("#new-user").value;
+  //   let artworkImg = document.querySelector("#new-artwork").value;
+  //   let playlist = {
+  //     artwork: artworkImg,
+  //     description: description,
+  //     name: playlistName
+  //   }
     
-    postPlaylist(playlist, userId);
-  }
+  //   postPlaylist(playlist, userId);
+  // }
 
-  const retrieveEditFormDetails = () => {
-    let playlistName = document.querySelector("#name").value;
-    let description = document.querySelector("#description").value;
-    let artworkImg = document.querySelector("#artwork").value;
-    let playlistId = document.querySelector("#playlist-list-update").value;
+  // const retrieveEditFormDetails = () => {
+  //   let playlistName = document.querySelector("#name").value;
+  //   let description = document.querySelector("#description").value;
+  //   let artworkImg = document.querySelector("#artwork").value;
+  //   let playlistId = document.querySelector("#playlist-list-update").value;
 
-    let playlist = {
-      artwork: artworkImg,
-      description: description,
-      name: playlistName
-    }
+  //   let playlist = {
+  //     artwork: artworkImg,
+  //     description: description,
+  //     name: playlistName
+  //   }
     
-    updatePlaylist(playlist, playlistId);
-  }
+  //   updatePlaylist(playlist, playlistId);
+  // }
 
   
-  const getPlaylistIdDropdown = (action) => {
-    let id = document.querySelector("#playlist-list-update").value;
-    fetchPlaylistSingle(id, action);
-  }
+  // const getPlaylistIdDropdown = (action) => {
+  //   let id = document.querySelector("#playlist-list-update").value;
+  //   fetchPlaylistSingle(id, action);
+  // }
 
-  const getPlaylistIdDropdownDelete = (action) => {
-    let playlistId = document.querySelector("#playlist-list-delete").value;
-    fetchPlaylistSingle(playlistId, action);
-  }
+  // const getPlaylistIdDropdownDelete = (action) => {
+  //   let playlistId = document.querySelector("#playlist-list-delete").value;
+  //   fetchPlaylistSingle(playlistId, action);
+  // }
   
-  const insertDataOnForm = (data) => {
-    let name = document.querySelector("#name");
-    let description = document.querySelector("#description");
-    let artwork = document.querySelector("#artwork");
+  // const insertDataOnForm = (data) => {
+  //   let name = document.querySelector("#name");
+  //   let description = document.querySelector("#description");
+  //   let artwork = document.querySelector("#artwork");
 
-    name.value = data.name;
-    description.value = data.description;
-    artwork.value = data.artwork;
-  }
+  //   name.value = data.name;
+  //   description.value = data.description;
+  //   artwork.value = data.artwork;
+  // }
 
-  const loadPlaylistOnDropdown = (data, action) => {
-    let modalBody;
-    let select = document.createElement("select");
-    select.setAttribute("class", "form-select");
-    if (action === "put") {
-      modalBody = document.querySelector(".dropdown-list-update");
-      select.setAttribute("id", "playlist-list-update");
-      select.addEventListener("change", () => getPlaylistIdDropdown(action));
+  // const loadPlaylistOnDropdown = (data, action) => {
+  //   let modalBody;
+  //   let select = document.createElement("select");
+  //   select.setAttribute("class", "form-select");
+  //   if (action === "put") {
+  //     modalBody = document.querySelector(".dropdown-list-update");
+  //     select.setAttribute("id", "playlist-list-update");
+  //     select.addEventListener("change", () => getPlaylistIdDropdown(action));
 
-    } else if (action === "delete") {
-      modalBody = document.querySelector(".dropdown-list-delete");
-      select.setAttribute("id", "playlist-list-delete");
-      select.addEventListener("change", () => getPlaylistIdDropdownDelete(action));
-    }
+  //   } else if (action === "delete") {
+  //     modalBody = document.querySelector(".dropdown-list-delete");
+  //     select.setAttribute("id", "playlist-list-delete");
+  //     select.addEventListener("change", () => getPlaylistIdDropdownDelete(action));
+  //   }
     
-    modalBody.appendChild(select);
-    let option = document.createElement("option");
-    option.setAttribute("value", "");
-    option.innerHTML = "--Select an option--";
-    select.appendChild(option);
+  //   modalBody.appendChild(select);
+  //   let option = document.createElement("option");
+  //   option.setAttribute("value", "");
+  //   option.innerHTML = "--Select an option--";
+  //   select.appendChild(option);
 
-    for (let i = 0; i < data.length; i++) {
-      let option = document.createElement("option");
-      option.setAttribute("value", data[i].id);
-      option.innerHTML = data[i].name;
-      select.appendChild(option);
-    }
-  }
+  //   for (let i = 0; i < data.length; i++) {
+  //     let option = document.createElement("option");
+  //     option.setAttribute("value", data[i].id);
+  //     option.innerHTML = data[i].name;
+  //     select.appendChild(option);
+  //   }
+  // }
 
-  const deletePlaylist = async (playlistId) => {
+  // const deletePlaylist = async (playlistId) => {
     
-    await fetch(`http://localhost:8082/playlists/delete/${ playlistId }`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-    // window.location.reload(true);
-    location.reload();
-  }
+  //   await fetch(`http://localhost:8082/playlists/delete/${ playlistId }`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-type": "application/json"
+  //     }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  //     .catch(error => console.error(error));
+  //   // window.location.reload(true);
+  //   location.reload();
+  // }
 
-  const postPlaylist = async (playlist, userId) => {
-    await fetch(`http://localhost:8082/playlists/create/user/${ userId }`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(playlist)
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-    // window.location.reload(true);
-    location.reload();
-  }
+  // const postPlaylist = async (playlist, userId) => {
+  //   await fetch(`http://localhost:8082/playlists/create/user/${ userId }`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-type": "application/json"
+  //     },
+  //     body: JSON.stringify(playlist)
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  //     .catch(error => console.error(error));
+  //   // window.location.reload(true);
+  //   location.reload();
+  // }
 
-  const updatePlaylist = async (playlist, playlistId) => {
-    await fetch(`http://localhost:8082/playlists/update/${ playlistId }`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(playlist)
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-      location.reload();
-  }
+  // const updatePlaylist = async (playlist, playlistId) => {
+  //   await fetch(`http://localhost:8082/playlists/update/${ playlistId }`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-type": "application/json"
+  //     },
+  //     body: JSON.stringify(playlist)
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  //     .catch(error => console.error(error));
+  //     location.reload();
+  // }
 
   const displaySection = (data, sectionType) => {
     let homeSection = document.createElement("div");
@@ -302,29 +302,9 @@
       let iconSection = document.createElement("span");
       iconSection.setAttribute("class", "icon-section")
       sectionHeader.appendChild(iconSection);
-      let plusIcon = document.createElement("i");
-      plusIcon.setAttribute("class", "bi bi-plus-circle-fill");
-      plusIcon.setAttribute("type", "button");
-      plusIcon.setAttribute("data-bs-toggle", "modal");
-      plusIcon.setAttribute("data-bs-target", "#add-playlist");
-      let editIcon = document.createElement("i");
-      editIcon.setAttribute("class", "bi bi-pen-fill");
-      editIcon.setAttribute("type", "button");
-      editIcon.setAttribute("data-bs-toggle", "modal");
-      editIcon.setAttribute("data-bs-target", "#edit-playlist");
-      editIcon.addEventListener("click", () => getListPlaylist("put"));
-      let deleteIcon = document.createElement("i");
-      deleteIcon.setAttribute("class", "bi bi-trash-fill");
-      deleteIcon.setAttribute("type", "button");
-      deleteIcon.setAttribute("data-bs-toggle", "modal");
-      deleteIcon.setAttribute("data-bs-target", "#delete-playlist");
-      deleteIcon.addEventListener("click", () => getListPlaylist("delete"));
       let seeMoreIcon = document.createElement("i");
       seeMoreIcon.setAttribute("class", "bi bi-eye-fill");
       seeMoreIcon.addEventListener("click", () => goToPlaylistsPage());
-      iconSection.appendChild(plusIcon);
-      iconSection.appendChild(editIcon);
-      iconSection.appendChild(deleteIcon);
       iconSection.appendChild(seeMoreIcon);
     }
 
@@ -369,8 +349,8 @@
     } 
   }
 
-  addPlaylistBtn.addEventListener("click", () => retrieveAddFormDetails());
-  updatePlaylistBtn.addEventListener("click", () => retrieveEditFormDetails());
-  deletePlaylistBtn.addEventListener("click", () => deletePlaylist(playlistId));
+  // addPlaylistBtn.addEventListener("click", () => retrieveAddFormDetails());
+  // updatePlaylistBtn.addEventListener("click", () => retrieveEditFormDetails());
+  // deletePlaylistBtn.addEventListener("click", () => deletePlaylist(playlistId));
 
 })();
