@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `session`;
 DROP TABLE IF EXISTS `playlist_track`;
 DROP TABLE IF EXISTS `track`;
 DROP TABLE IF EXISTS `playlist`;
@@ -64,4 +65,12 @@ CREATE TABLE IF NOT EXISTS `playlist_track` (
     PRIMARY KEY (`playlist_id`, `track_id`),
 	CONSTRAINT fk_playlist_track_playlist FOREIGN KEY (playlist_id) REFERENCES playlist(id),
 	CONSTRAINT fk_playlist_track_track FOREIGN KEY (track_id) REFERENCES track(id)
+);
+
+CREATE TABLE IF NOT EXISTS `session` (
+	`id` BIGINT NOT NULL,
+	`user_id` BIGINT NOT NULL,
+	`token` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`),
+	CONSTRAINT fk_session_user FOREIGN KEY (user_id) REFERENCES user(id)
 );
