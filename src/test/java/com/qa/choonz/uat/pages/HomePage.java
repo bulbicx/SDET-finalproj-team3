@@ -22,6 +22,9 @@ public class HomePage {
 	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[5]/a")
 	public WebElement headerGenresBtn;
 	
+	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[7]/a")
+	public WebElement headerLoginBtn;
+	
 	@FindBy(xpath="/html/body/div[7]/footer/div[2]/a[1]")
 	public WebElement footerHomeBtn;
 	
@@ -95,6 +98,10 @@ public class HomePage {
 	
 	public void clickHeaderGenresBtn() {
 		headerGenresBtn.click();
+	}
+	
+	public void clickHeaderLoginBtn() {
+		headerLoginBtn.click();
 	}
 	
 	public void clickFooterHomeBtn() {
