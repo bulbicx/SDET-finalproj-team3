@@ -1,3 +1,4 @@
+@navpages
 Feature: Artists page
   I want to use this template for my feature file
 

@@ -1,4 +1,4 @@
-
+@navpages
 Feature: Albums page
   I want to use this template for my feature file
 

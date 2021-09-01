@@ -1,3 +1,4 @@
+@navpages
 Feature: playlists page
   I want to use this template for my feature file
 
