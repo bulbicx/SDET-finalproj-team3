@@ -31,12 +31,12 @@ public class UserService {
 	private UserDTO mapToDTO(User user) {
 		return this.mapper.map(user, UserDTO.class);
 	}
+	
 
-	public UserDTO create(User user) {
+	public User create(User user) {
 		char[] pass = user.getPassword().toCharArray();
-		user.setPassword(passwordAuth.hash(pass));
-		User created = this.repo.save(user);
-		return this.mapToDTO(created);
+		user.setPassword(passwordAuth.hash(pass)); 
+		return this.repo.save(user);
 	}
 
 	public List<UserDTO> read() {

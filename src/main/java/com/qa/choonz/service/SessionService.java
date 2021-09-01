@@ -41,18 +41,18 @@ public class SessionService {
 		char[] pass = user.getPassword().toCharArray();
 		// change exception
 		if (passwordAuth.authenticate(pass, userFromDB.getPassword())) {	
-			return this.mapToDTO(createSession(userFromDB));
+			return createSession(userFromDB);
 		} else {
 			throw new UserNotFoundException();
 		}
 	}
 	
-	public Session createSession(User userFromDB) {
+	public SessionDTO createSession(User userFromDB) {
 		String token = sessionToken.newSessionToken();
 		Session session = new Session();
 		session.setToken(token);
 		session.setUser(userFromDB);	
-		return this.sessionRepo.save(session);	
+		return this.mapToDTO(this.sessionRepo.save(session));	
 	}
 
 	public boolean delete(String token) {
