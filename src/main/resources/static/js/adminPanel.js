@@ -3,7 +3,7 @@
   let adminPanel = document.querySelector(".admin-panel");
   let panel = `
     <div class="section-link">
-      <a href="index.html" class="page-link artist-panel">Home</a>
+      <a href="index.html" class="page-link">Home</a>
     </div>
     <div class="section-link">
       <a href="artistCrud.html" class="page-link artist-panel">Artists</a>

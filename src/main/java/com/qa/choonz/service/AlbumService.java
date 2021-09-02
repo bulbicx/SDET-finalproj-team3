@@ -92,7 +92,7 @@ public class AlbumService {
 		Artist artistToUpdate = this.artistRepo.findById(artistId).orElseThrow(ArtistNotFoundException::new);
 		Genre genreToUpdate = this.genreRepo.findById(genreId).orElseThrow(GenreNotFoundException::new);
 		toUpdate.setName(album.getName());
-		toUpdate.setTracks(album.getTracks());
+//		toUpdate.setTracks(album.getTracks());
 		toUpdate.setArtist(artistToUpdate);
 		toUpdate.setGenre(genreToUpdate);
 //		toUpdate.setCover(album.getCover());
