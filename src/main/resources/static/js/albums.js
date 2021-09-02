@@ -1,7 +1,6 @@
 
 (() => {
     function getAlbumSinglePage(albumId) {
-        console.log(albumId);
         fetch(`http://localhost:8082/albumsingle`)
                 .then(response => response.text())
                 .then(data => goToAlbumSinglePage(data, albumId));
@@ -23,7 +22,6 @@
 
     function createAlbums(albums) {
         for (album in albums) {
-            console.log(albums[0]);
             createAlbumCard(albums[album]);
         }
     }
@@ -32,16 +30,15 @@
 
         let card = document.createElement("div");
         card.setAttribute("class", "card mb-3");
-        card.setAttribute("style", "width:12rem");
+        card.setAttribute("style", "width:12rem;");
         card.onclick = () => {
             getAlbumSinglePage(album.id);
         }
         cardGroup.appendChild(card);
-
         let cardImage = document.createElement("img");
         cardImage.setAttribute("class", "card-img-top");
-        cardImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
-        cardImage.setAttribute("alt", "Card image cap");
+        cardImage.setAttribute("src", "data:image/" + album.cover.type + ";base64," + album.cover.picByte);
+        cardImage.setAttribute("alt", album.cover.name);
         card.appendChild(cardImage);
 
         let cardBody = document.createElement("div");

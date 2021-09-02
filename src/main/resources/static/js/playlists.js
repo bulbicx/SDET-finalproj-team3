@@ -231,7 +231,7 @@
       for (let i = 0; i < data.length; i++) {
         let card = document.createElement("div");
         card.setAttribute("class", "card p-0");
-        card.setAttribute("style", "width: 18rem");
+        card.setAttribute("style", "width: 13rem");
 
         let img = document.createElement("img");
         img.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
