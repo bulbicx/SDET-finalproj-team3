@@ -96,22 +96,7 @@ body {
 #tracks-title {
   padding-left: 0.7em;
 }
-
-.bi-trash-fill {
-  /* position: absolute; 
-  right: 0; */
-  background-color: white;
-  width: 1.4em;
-  border-radius: 2em;
-  font-size: .7em;
-  margin: .35em;
-  color:red;
-}
-
-.bi-trash-fill:hover,
-.bi-trash-fill:focus {
-  background: linear-gradient(to right, red, orange);
-}
+/*  */
 
 .bi-track {
   margin-left: 1em;
