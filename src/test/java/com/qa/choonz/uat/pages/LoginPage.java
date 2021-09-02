@@ -34,6 +34,9 @@ public class LoginPage {
 	@FindBy(xpath="//*[@id=\"submitSignupForm\"]/div[5]/button")
 	public WebElement signupBtn;
 	
+	@FindBy(id="error-message")
+	public WebElement errorMessage;
+	
 	public void clickLoginBtn() {
 		loginBtn.click();
 	}
@@ -68,5 +71,9 @@ public class LoginPage {
 	
 	public void enterSignupConfirmPassword(String input) {
 		signupConfirmPasswordField.sendKeys(input);
+	}
+	
+	public String getErrorMessage() {
+		return errorMessage.getText();
 	}
 }

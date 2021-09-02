@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -96,6 +97,32 @@ public class LoginStepDefs {
 	@Then("I will be on the login page")
 	public void iWillBeOnTheLoginPage() {
 		assertEquals(page.url, this.driver.getCurrentUrl());
+	}
+	
+	@When("I enter the wrong password")
+	public void iEnterTheWrongPassword() {
+		page.passwordField.sendKeys("wrong password");
+	}
+
+	@Then("I am told I have the wrong credentials")
+	public void iAmToldIHaveTheWrongCredentials() {
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+	}
+
+	@When("I enter the wrong username")
+	public void iEnterTheWrongUsername() {
+		page.usernameField.sendKeys("wrong user name");
+	}
+
+	@When("I reenter the wrong password")
+	public void iReenterTheWrongPassword() {
+		page.signupConfirmPasswordField.sendKeys("wrong password reentry");
+	}
+
+	@Then("I am told the passwords do not match")
+	public void iAmToldThePasswordsDoNotMatch() {
+		assertEquals("Passwords do not match",page.getErrorMessage());
 	}
 
 }
