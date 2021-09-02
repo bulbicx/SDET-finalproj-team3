@@ -10,7 +10,7 @@ import com.qa.choonz.persistence.domain.PublicUser;
 
 public class UserDomainTest {
 	
-	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>());
 	
 	@Test
 	public void UserTest() {
