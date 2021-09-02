@@ -34,6 +34,8 @@ Image css
   border-radius: 50%;
   width:3rem;
   height:3rem;
+  padding: 0;
+  cursor: pointer;
 }
 
 #Search {
@@ -210,7 +212,8 @@ footer {
   margin-bottom: 0.4em;
 }
 
-.cards-container {
+.cards-container,
+.lyric-section {
   padding: 2em;
   border-radius: 2em;
   -moz-box-shadow:    inset 0 0 10px rgb(148, 148, 148);
@@ -224,14 +227,17 @@ footer {
 }
 
 .card:hover,
-.card:focus {
+.card:focus,
+.img-artist-mini:hover,
+.img-artist-mini:focus {
   cursor: pointer;
   box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
 }
 
 #artist-col,
 #album-col,
-#genre-col {
+#genre-col,
+#album-artist-col {
   display: flex;
   align-items: center;
 }
@@ -257,7 +263,6 @@ footer {
 .row-track:hover,
 .row-track:focus {
   cursor: pointer;
-  /* box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px; */
   -moz-box-shadow:    inset 0 0 10px rgb(148, 148, 148);
   -webkit-box-shadow: inset 0 0 10px rgb(148, 148, 148);
   box-shadow:         inset 0 0 10px rgb(148, 148, 148);
@@ -268,4 +273,14 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.track-info {
+  margin-top: 3em;
+  margin-bottom: 2em;
+  display: flex;
+}
+
+.artist-track-info {
+  margin-left: 1em;
 }

@@ -16,6 +16,7 @@ import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Session;
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.User;
 import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.builder.ArtistBuilder;
 import com.qa.choonz.persistence.domain.builder.PlaylistBuilder;
@@ -30,7 +31,7 @@ import com.qa.choonz.rest.dto.PlaylistDTO;
 public class PlaylistService {
 
 	private PlaylistRepository playlistRepo;
-	private PublicUserRepository userRepo;
+	private PublicUserRepository publicUserRepo;
 	private TrackRepository trackRepo;
 	private ImageRepository imageRepo;
 	private SessionRepository sessionRepo;
@@ -47,7 +48,7 @@ public class PlaylistService {
 		super();
 		this.playlistRepo = playlistRepo;
 		this.trackRepo = trackRepo;
-		this.userRepo = userRepo;
+		this.publicUserRepo = publicUserRepo;
 		this.imageRepo = imageRepo;
 		this.sessionRepo = sessionRepo;
 		this.mapper = mapper;
@@ -118,6 +119,19 @@ public class PlaylistService {
 	public boolean delete(Long id) {
 		this.playlistRepo.deleteById(id);
 		return !this.playlistRepo.existsById(id);
+	}
+	
+	public void authenticatePublic(String token) throws Exception {
+		Session session = sessionRepo.findByToken(token);
+		if(session == null) {
+			throw new Exception("Session not found");
+		}
+		User user = session.getUser();
+		if(publicUserRepo.existsById(user.getId())) {
+			return;
+		} else {
+			throw new Exception("User no longer exists");
+		}	
 	}
 
 }

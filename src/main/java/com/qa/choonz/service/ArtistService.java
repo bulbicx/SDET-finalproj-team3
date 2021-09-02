@@ -13,8 +13,10 @@ import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Session;
+import com.qa.choonz.persistence.domain.User;
 import com.qa.choonz.persistence.domain.builder.ArtistBuilder;
 import com.qa.choonz.persistence.domain.builder.GenreBuilder;
+import com.qa.choonz.persistence.repository.AdminUserRepository;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.persistence.repository.ImageRepository;
 import com.qa.choonz.persistence.repository.SessionRepository;
@@ -28,17 +30,20 @@ public class ArtistService {
     private ImageRepository imageRepo;
     private SessionRepository sessionRepo;
     private ModelMapper mapper;
+    private AdminUserRepository adminUserRepo;
 
     public ArtistService(
     		ArtistRepository repo, 
     		ModelMapper mapper, 
     		ImageRepository imageRepo,
-    		SessionRepository sessionRepo) {
+    		SessionRepository sessionRepo,
+    		AdminUserRepository adminUserRepo) {
         super();
         this.repo = repo;
         this.mapper = mapper;
         this.imageRepo = imageRepo;
         this.sessionRepo = sessionRepo;
+        this.adminUserRepo = adminUserRepo;
     }
 
     private ArtistDTO mapToDTO(Artist artist) {
@@ -46,7 +51,7 @@ public class ArtistService {
     }
 
     public ArtistDTO create(MultipartFile file, String name, String token) throws Exception {
-    	authenticate(token);
+    	authenticateAdmin(token);
     	Image image = new Image(file.getOriginalFilename(), file.getContentType(), file.getBytes());
 		Image savedImage = this.imageRepo.save(image);
         Artist artist = new ArtistBuilder()
@@ -79,11 +84,16 @@ public class ArtistService {
         return !this.repo.existsById(id);
     }
     
-    public void authenticate(String token) throws Exception {
-		if(sessionRepo.existsByToken(token)) {
+    public void authenticateAdmin(String token) throws Exception {
+		Session session = sessionRepo.findByToken(token);
+		if(session == null) {
+			throw new Exception("Session not found");
+		}
+		User user = session.getUser();
+		if(adminUserRepo.existsById(user.getId())) {
 			return;
 		} else {
-			throw new Exception("Session not found");
+			throw new Exception("User no longer exists");
 		}	
 	}
 }

@@ -1,4 +1,5 @@
 (() => {
+  let myStorage = window.localStorage;
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
   let albumId;
@@ -229,13 +230,13 @@
     let cover = document.querySelector("#new-cover").files[0];
     let artist = document.querySelector("#new-artist").value;
     let genre = document.querySelector("#new-genre").value;
+    
+      if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
+        let formData = new FormData();
+        formData.append('file', cover);
+        formData.append('name', albumName);
+        formData.append('token', myStorage.getItem("session-token"))
 
-
-
-    if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
-      let formData = new FormData();
-      formData.append('file', cover);
-      formData.append('name', albumName);
 
       addAlbum(artist, genre, formData);
     } else {
@@ -246,32 +247,3 @@
   addBtn.addEventListener("click", () => retrieveAddFormDetails());
   updateBtn.addEventListener("click", () => retrieveUpdateFormDetails());
   })();
-
-
-
-// const uploadImg = async (file) => {
-//   // const file = e.target.files[0];
-//   const formData = new FormData();
-//   formData.append("images", file);
-//   setUploading(true)
-//   try {
-//     const config = {
-//       headers: {
-//         "Content-Type": "multipart/form-data",              
-//       },
-//     };    
-//     const { data } = await axios.post(baseUrl + 'upload', formData, config)             
-
-//     imgSelected.push({
-//         picture: data
-//     })
-
-
-
-//     setUploading(false)
-
-//   } catch (error) {
-//     console.error(error);   
-//     setUploading(false)       
-//   }
-// };

@@ -1,4 +1,5 @@
 (() => {
+  let myStorage = window.localStorage;
   let adminPanel = document.querySelector(".admin-panel");
   let panel = `
     <div class="section-link">
@@ -17,7 +18,7 @@
       <a href="trackCrud.html" class="page-link track-panel">Tracks</a>
     </div>
     <div class="section-link">
-      <a href="trackCrud.html" class="page-link">Log out</a>
+      <a id="logout" class="page-link">Log out</a>
     </div>
   `;
 
@@ -28,6 +29,10 @@
   let genrePanel = document.querySelector(".genre-panel");
   let trackPanel = document.querySelector(".track-panel");
 
+  let logoutButton = document.querySelector("#logout");
+
+ 
+
   if (window.location.href.includes("artist")) {
     artistPanel.setAttribute("class", "page-link artist-panel panel-link-active");
   } else if (window.location.href.includes("album")) {
@@ -36,5 +41,27 @@
     genrePanel.setAttribute("class", "page-link genre-panel panel-link-active");
   } else if (window.location.href.includes("track")) {
     trackPanel.setAttribute("class", "page-link track-panel panel-link-active");
+  }
+
+  let deleteToken = async (token) => {
+    await fetch(`http://localhost:8082/sessions/delete/${token}`, {
+      method: 'delete'
+    })
+      .then(myStorage.removeItem("session-token"))
+      .catch((error) => {
+        console.log(`Request failed ${error}`);
+      });
+  }
+
+  const goToAdminLogin = () => {
+    fetch(`http://localhost:8082/adminlogin`)
+        .then(response => response.text())
+        .then(pagelink => window.location = `${pagelink}`);
+}
+
+  logoutButton.onclick = () => {
+    deleteToken(myStorage.getItem("session-token"));
+    myStorage.removeItem("id");
+    goToAdminLogin();
   }
 })();

@@ -1,4 +1,5 @@
 (() => {
+  let myStorage = window.localStorage;
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
   let artistId;
@@ -60,13 +61,13 @@
 
   const getAllArtists = () => {
     fetch(`http://localhost:8082/artists/read`)
-    .then(response => response.json())
-    .then(data => buildTable(data))
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => buildTable(data))
+      .catch(error => console.error(error));
   }
   getAllArtists();
 
-  
+
   const displayArtistUpdate = (data) => {
     let artistName = document.querySelector("#name");
     artistName.value = data.name;
@@ -75,25 +76,28 @@
 
   const retrieveOneArtist = (artistId) => {
     fetch(`http://localhost:8082/artists/read/${artistId}`)
-    .then(response => response.json())
-    .then(data => displayArtistUpdate(data))
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => displayArtistUpdate(data))
+      .catch(error => console.error(error));
   }
-  
-  const addArtist = async (artist) => {
+
+  const addArtist = async (formData) => {
     await fetch(`http://localhost:8082/artists/create`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(artist)
+      method: 'POST',
+      body: formData
     })
-    .then(response => response.json())
-    .then(data => alert("New Artist added!"))
-    .catch(error => console.error(error));
-    
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.errors) {
+        alert(data.errors)
+      }
+      else {
+        console.log(data)
+        alert("Artist added!");
+      }
+    })
     location.reload();
-    
+
   }
 
   const updateArtist = async (artist) => {
@@ -104,24 +108,24 @@
       },
       body: JSON.stringify(artist)
     })
-    .then(response => response.json())
-    .then(data => alert("Artist updated!"))
-    .catch(error => console.error(error));
-    
+      .then(response => response.json())
+      .then(data => alert("Artist updated!"))
+      .catch(error => console.error(error));
+
     location.reload();
   }
 
-  const deleteArtist = async(artistId) => {
+  const deleteArtist = async (artistId) => {
     await fetch(`http://localhost:8082/artists/delete/${artistId}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json"
       }
     })
-    .then(response => response.json())
-    .then(data => alert("Artist deleted!"))
-    .catch(error => console.error(error));
-    
+      .then(response => response.json())
+      .then(data => alert("Artist deleted!"))
+      .catch(error => console.error(error));
+
     alert("Artist deleted!");
     location.reload();
   }
@@ -137,7 +141,7 @@
     alert.setAttribute("class", "alert alert-warning");
     alert.innerText = msg;
   }
-  
+
   const retrieveUpdateFormDetails = () => {
     let artistUpdateName = document.querySelector("#name").value;
 
@@ -151,10 +155,15 @@
 
   const retrieveAddFormDetails = () => {
     let artistName = document.querySelector("#new-name").value;
-    
-    if (artistName !== "") {
-      let artist = { name: artistName };
-      addArtist(artist);
+    let image = document.querySelector("#new-image").files[0];
+
+    if (artistName !== "" && image !== "") {
+      let formData = new FormData();
+      formData.append('file', image);
+      formData.append('name', artistName);
+      formData.append('token', myStorage.getItem("session-token"));
+      
+      addArtist(formData);
     } else {
       displayErrorMessage("An artist name must be inserted!");
     }

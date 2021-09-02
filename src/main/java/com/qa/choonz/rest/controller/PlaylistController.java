@@ -37,10 +37,10 @@ public class PlaylistController {
 
 	@PostMapping("/create/user/{sessionId}")
 	public ResponseEntity<PlaylistDTO> create(
-			@PathVariable String token,
 			@RequestParam("file") MultipartFile file,
     		@RequestParam("name") String name,
-    		@RequestParam("description") String description) throws IOException{
+    		@RequestParam("description") String description,
+    		@RequestParam("token") String token) throws IOException{
 
 		return new ResponseEntity<PlaylistDTO>(this.service.create(token, file, name, description), HttpStatus.CREATED);
 	}

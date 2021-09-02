@@ -1,4 +1,5 @@
 (() => {
+  let myStorage = window.localStorage;
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
   let genreId;
@@ -88,18 +89,21 @@
     .catch(error => console.error(error));
   }
   
-  const addGenre = async (genre) => {
+  const addGenre = async (formData) => {
     await fetch(`http://localhost:8082/genres/create`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(genre)
+      method: 'POST',
+      body: formData
     })
-    .then(response => response.json())
-    .then(data => alert("New Genre added!"))
-    .catch(error => console.error(error));
-    
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.errors) {
+        alert(data.errors)
+      }
+      else {
+        console.log(data)
+        alert("Genre added!");
+      }
+    })
     location.reload();
   }
 
@@ -163,15 +167,18 @@
   const retrieveAddFormDetails = () => {
     let genreName = document.querySelector("#new-name").value;
     let genreDesc = document.querySelector("#new-description").value;
-    
-    if (genreName !== "" && genreDesc !== "") {
-      let genre = {
-        name: genreName,
-        description: genreDesc
-      };
-      addGenre(genre);
+    let image = document.querySelector("#new-image").files[0];
+
+    if (genreName !== "" && genreDesc !== "" && image !== "") {
+      let formData = new FormData();
+      formData.append('file', image);
+      formData.append('name', genreName);
+      formData.append('description', genreDesc);
+      formData.append('token', myStorage.getItem("session-token"));
+      
+      addGenre(formData);
     } else {
-      displayErrorMessage("All fields must be valid!");
+      displayErrorMessage("Please enter all fields!");
     }
 
   }

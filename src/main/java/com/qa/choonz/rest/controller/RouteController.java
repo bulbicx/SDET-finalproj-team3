@@ -71,6 +71,11 @@ public class RouteController {
         return "admindashboard.html";
     }
     
+    @GetMapping(value = "/adminlogin")
+    public String adminLogin() {
+        return "adminlogin.html";
+    }
+    
     @GetMapping(value = "/artistCrud")
     public String artistCrud() {
     	return "artistCrud.html";

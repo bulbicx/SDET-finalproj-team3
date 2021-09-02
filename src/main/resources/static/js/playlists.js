@@ -1,4 +1,5 @@
 (() => {
+  let myStorage = window.localStorage;
   let main = document.querySelector("main");
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
@@ -107,18 +108,21 @@
             .then(data => goToPlaylistSinglePage(data, playlistId));
   }
 
-  const addPlaylist = async (playlist, userId) => {
+  const addPlaylist = async (formData, userId) => {
     await fetch(`http://localhost:8082/playlists/create/user/${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(playlist)
+      method: 'POST',
+      body: formData
     })
-    .then(response => response.json())
-    .then(data => alert("Playlist added!"))
-    .catch(error => console.error(error));
-    
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.errors) {
+        alert(data.errors)
+      }
+      else {
+        console.log(data)
+        alert("Playlist added!");
+      }
+    })
     location.reload();
   }
 
@@ -210,16 +214,16 @@
 
   const retrieveAddFormDetails = () => {
     let playlistName = document.querySelector("#new-name").value;
-    let artwork = document.querySelector("#new-artwork").value;
     let description = document.querySelector("#new-description").value;
+    let artwork = document.querySelector("#new-image").files[0];
 
-    if (playlistName !== "" && artwork !== "" && description !== "") {
-      let playlist = {
-        name: playlistName,
-        artwork: artwork,
-        description: description
-      };
-      addPlaylist(playlist, userId);
+    if (playlistName !== "" && artwork !== "" && description !== "" && artwork !== "") {
+      let formData = new FormData();
+      formData.append('file', artwork);
+      formData.append('name', playlistName);
+      formData.append('description', description);
+      formData.append('token', myStorage.getItem("session-token"));
+      addPlaylist(formData, userId);
     } else {
       displayErrorMessage("All fields must be valid!");
     }
@@ -234,9 +238,9 @@
         card.setAttribute("style", "width: 13rem");
 
         let img = document.createElement("img");
-        img.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
+        img.setAttribute("alt", data[i].artwork.name);
+        img.setAttribute("src", "data:image/" + data[i].artwork.type + ";base64," + data[i].artwork.picByte);
         img.setAttribute("class", "card-img-top card-background");
-        img.setAttribute("alt", data[i].name);
         card.appendChild(img);
         
         let p = document.createElement("p");
