@@ -54,7 +54,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre,  image);
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
 
 		List<Playlist> playlists = new ArrayList<>();
@@ -96,7 +96,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
 
 		List<Playlist> playlists = new ArrayList<>();
@@ -136,7 +136,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
 
 		List<Playlist> playlists = new ArrayList<>();
@@ -160,7 +160,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);

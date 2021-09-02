@@ -44,7 +44,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	void testCreateUser() throws Exception {
 		//Create User object
-		PublicUser user = new PublicUser("Micheal90", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "Micheal90", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		
 		//Convert it to a JSON String
 		String userAsJSON = this.mapper.writeValueAsString(user);
@@ -56,7 +56,7 @@ public class UserControllerIntegrationTest {
 								.content(userAsJSON);
 		
 		//Create a User object resembling the one created in database
-		PublicUser userInDb = new PublicUser(2L, "Micheal90", "Micheal", "password123");
+		PublicUser userInDb = new PublicUser(2L, "Micheal90", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		
 		//Convert the user resembling the one in database as JSON
 		String userInDbAsJSON = this.mapper.writeValueAsString(userInDb);
@@ -77,7 +77,7 @@ public class UserControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/users/read");
 		
 		//Create user object that should resemble the existing one on database
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		
 		//Create a list and add the object
 		List<PublicUser> usersOnDb = new ArrayList<>();
@@ -102,7 +102,7 @@ public class UserControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/users/read/1");
 		
 		//Create the user object resembling the one existing on db
-		PublicUser userOnDb = new PublicUser(1L,"polkadot", "Micheal", "password123");
+		PublicUser userOnDb = new PublicUser(1L,"polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		
 		//Convert the object into JSON format
 		String userOnDbAsJSON = this.mapper.writeValueAsString(userOnDb);
@@ -120,7 +120,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	void testUpdateUser() throws Exception {
 		//Create user object with updated data
-		PublicUser updatedUser = new PublicUser("polkadotNew", "MichealNew", "password123New");
+		PublicUser updatedUser = new PublicUser(1L,"polkadotNew", "MichealNew", "password123New", new ArrayList<>(), new ArrayList<>());
 		
 		//Convert user into JSON format
 		String updatedUserAsJSON = this.mapper.writeValueAsString(updatedUser);
@@ -132,7 +132,7 @@ public class UserControllerIntegrationTest {
 								.content(updatedUserAsJSON);
 		
 		//Create user object which resemble the updated one on db
-		PublicUser updatedUserOnDb = new PublicUser(1L,"polkadotNew", "MichealNew", "password123New" );
+		PublicUser updatedUserOnDb = new PublicUser(1L,"polkadotNew", "MichealNew", "password123New", new ArrayList<>(), new ArrayList<>());
 		
 		//Convert user as JSON format
 		String updatedUserOnDbAsJSON = this.mapper.writeValueAsString(updatedUserOnDb); 

@@ -25,10 +25,10 @@ public class UserServiceTest {
 	@Autowired
 	private PublicUserService service;
 	
-	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>());
 	private PublicUserDTO userDTO = new PublicUserDTO(0L, "username", "real name",new ArrayList<>());
-	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password", new ArrayList<>()));
-	private PublicUser newUser = new PublicUser(0L, "username2", "real name2","password123", new ArrayList<>());
+	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>()));
+	private PublicUser newUser = new PublicUser(0L, "username2", "real name2","password123", new ArrayList<>(), new ArrayList<>());
 	private PublicUserDTO newUserDTO = new PublicUserDTO(0L, "username2", "real name2", new ArrayList<>());
 	
 	@Test
