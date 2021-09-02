@@ -35,7 +35,8 @@ public class UserService {
 
 	public User create(User user) {
 		char[] pass = user.getPassword().toCharArray();
-		user.setPassword(passwordAuth.hash(pass)); 
+		user.setPassword(passwordAuth.hash(pass));
+		System.out.println(user);
 		return this.repo.save(user);
 	}
 
@@ -56,7 +57,13 @@ public class UserService {
 		char[] pass = user.getPassword().toCharArray();
 		toUpdate.setPassword(hashPass.hash(pass));
 		toUpdate.setPlaylists(user.getPlaylists());
+		
+		System.out.println(toUpdate);
+		
 		User updated = this.repo.save(toUpdate);
+		
+		System.out.println(updated);
+		
 		return this.mapToDTO(updated);
 
 	}

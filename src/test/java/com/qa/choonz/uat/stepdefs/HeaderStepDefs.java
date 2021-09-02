@@ -85,6 +85,17 @@ public class HeaderStepDefs {
 	public void iAmTakenToTheGenresPage() {
 		assertEquals("http://127.0.0.1:5500/genres.html", this.driver.getCurrentUrl());
 	}
+	
+	@When("I click on the header login button")
+	public void iClickOnTheHeaderLoginButton() throws InterruptedException {
+		Thread.sleep(500);
+		page.clickHeaderLoginBtn();
+	}
+	
+	@Then("I am taken to the login page")
+	public void iAmTakenToTheLoginPage() {
+		assertEquals("http://127.0.0.1:5500/login.html", this.driver.getCurrentUrl());
+	}
 
 	@AfterStep
 	public void takeScreenshotAfterStep(Scenario scenario) {
