@@ -2,6 +2,7 @@ package com.qa.choonz.persistence.domain.builder;
 
 import java.util.List;
 
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.domain.User;
@@ -10,7 +11,7 @@ public class PlaylistBuilder {
 	private Long id;
 	private String name;
 	private String description;
-	private String artwork;
+	private Image artwork;
 	private List<Track> tracks;
 	private User user;
 
@@ -36,7 +37,7 @@ public class PlaylistBuilder {
 		return this;
 	}
 
-	public PlaylistBuilder artwork(String artwork) {
+	public PlaylistBuilder artwork(Image artwork) {
 		this.artwork = artwork;
 		return this;
 	}

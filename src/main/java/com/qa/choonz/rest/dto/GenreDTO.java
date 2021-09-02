@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Album;
+import com.qa.choonz.persistence.domain.Image;
 
 public class GenreDTO {
 
@@ -12,6 +13,7 @@ public class GenreDTO {
     private String name;
     private String description;
     private List<Album> albums;
+    private Image image;
 
     public GenreDTO() {
         super();

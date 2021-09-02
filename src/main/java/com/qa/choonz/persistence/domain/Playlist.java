@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,10 +37,9 @@ public class Playlist {
     @Column(unique = true)
     private String description;
 
-    @NotNull
-    @Size(max = 1000)
-    @Column(unique = true)
-    private String artwork;
+    @OneToOne
+    @JoinColumn(name="image_id")
+    private Image artwork;
 
     @JsonIgnore
     @ManyToMany(fetch=FetchType.LAZY,
@@ -55,51 +55,23 @@ public class Playlist {
     @JsonIgnore
     @ManyToOne
     private User user;
-    
+
     public Playlist() {
-        super();
-    }
+		super();
+	}
 
-    public Playlist(Long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 1000) String artwork, List<Track> tracks, User user) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.artwork = artwork;
-        this.tracks = tracks;
-        this.user = user;
-    }
-    
-    public Playlist(Long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 1000) String artwork, User user) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.artwork = artwork;
-        this.user = user;
-    }
-    
-    public Playlist(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 1000) String artwork, User user) {
-        super();
-        this.name = name;
-        this.description = description;
-        this.artwork = artwork;
-        this.user = user;
-    }
-    
-    public Playlist(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 1000) String artwork) {
-        super();
-        this.name = name;
-        this.description = description;
-        this.artwork = artwork;
-    }
+	public Playlist(Long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
+			Image artwork, List<Track> tracks, User user) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.artwork = artwork;
+		this.tracks = tracks;
+		this.user = user;
+	}
 
-
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -123,15 +95,15 @@ public class Playlist {
         this.description = description;
     }
 
-    public String getArtwork() {
-        return artwork;
-    }
+    public Image getArtwork() {
+		return artwork;
+	}
 
-    public void setArtwork(String artwork) {
-        this.artwork = artwork;
-    }
+	public void setArtwork(Image artwork) {
+		this.artwork = artwork;
+	}
 
-    public List<Track> getTracks() {
+	public List<Track> getTracks() {
         return tracks;
     }
 
@@ -148,31 +120,28 @@ public class Playlist {
     }
 
     @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Playlist [id=").append(id).append(", name=").append(name).append(", description=")
-                .append(description).append(", artwork=").append(artwork).append(", tracks=").append(tracks)
-                .append(", user=").append(user)
-                .append("]");
-        return builder.toString();
-    }
+	public String toString() {
+		return "Playlist [id=" + id + ", name=" + name + ", description=" + description + ", artwork=" + artwork
+				+ ", tracks=" + tracks + ", user=" + user + "]";
+	}
 
     @Override
-    public int hashCode() {
-        return Objects.hash(artwork, description, id, name, tracks, user);
-    }
+	public int hashCode() {
+		return Objects.hash(artwork, description, id, name, tracks, user);
+	}
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Playlist)) {
-            return false;
-        }
-        Playlist other = (Playlist) obj;
-        return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
-                && id == other.id && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks) && Objects.equals(user, other.user);
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Playlist other = (Playlist) obj;
+		return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(tracks, other.tracks) && Objects.equals(user, other.user);
+	}
 
 }
