@@ -35,10 +35,12 @@ public class User {
     
     @NotNull
     @Size(max = 100)
+    //This breaks integration tests if it's here, but also breaks them in a different way if it's gone :(
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
     
-    //potentially other elements e.g. email, age that don't matter as much
+    //Added JsonIgnore here, if stuff breaks this might be why
+    @JsonIgnore
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Playlist> playlists;
     
@@ -74,6 +76,25 @@ public class User {
 		this.username = username;
 		this.name = name;
 		this.password = password;
+		this.playlists = playlists;
+	}
+	
+	public User(@NotNull @Size(max = 100) String username, @NotNull @Size(max = 100) String name,
+			@NotNull @Size(max = 100) String password, List<Playlist> playlists) {
+		super();
+		this.username = username;
+		this.name = name;
+		this.password = password;
+		this.playlists = playlists;
+	}
+	
+	
+	public User(Long id, @NotNull @Size(max = 100) String username, @NotNull @Size(max = 100) String name,
+			 List<Playlist> playlists) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.name = name;
 		this.playlists = playlists;
 	}
 

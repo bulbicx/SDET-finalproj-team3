@@ -26,5 +26,10 @@ Feature: Header feature
     Given I am on the home page
 		When I click on the header genre button
 		Then I am taken to the genres page
+	
+	Scenario: Header Login Test
+	Given I am on the home page
+	When I click on the header login button
+	Then I am taken to the login page
 		
 #Also need test for login and profile, once those pages are implemented
