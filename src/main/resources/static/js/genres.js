@@ -38,8 +38,8 @@
 
         let cardImage = document.createElement("img");
         cardImage.setAttribute("class", "card-img-top");
-        cardImage.setAttribute("src", "https://www.superiorwallpapers.com/download/a-guitar-in-flames-rock-music-guitar-1920x1080.jpg");
-        cardImage.setAttribute("alt", "Rock image cap");
+        cardImage.setAttribute("alt", genre.image.name);
+        cardImage.setAttribute("src", "data:image/" + genre.image.type + ";base64," + genre.image.picByte);
         card.appendChild(cardImage);
 
         let cardBody = document.createElement("div");

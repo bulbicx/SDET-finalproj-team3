@@ -1,4 +1,5 @@
 (() => {
+  let myStorage = window.localStorage;
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
   let albumId;
@@ -229,14 +230,12 @@
     let cover = document.querySelector("#new-cover").files[0];
     let artist = document.querySelector("#new-artist").value;
     let genre = document.querySelector("#new-genre").value;
-
-
-
+    
       if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
         let formData = new FormData();
         formData.append('file', cover);
         formData.append('name', albumName);
-        formData.append('token', localStorage.getItem("session-token"))
+        formData.append('token', myStorage.getItem("session-token"))
 
 
       addAlbum(artist, genre, formData);
