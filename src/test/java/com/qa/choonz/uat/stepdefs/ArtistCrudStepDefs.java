@@ -52,7 +52,8 @@ public class ArtistCrudStepDefs {
 	@When("I add artist details")
 	public void i_add_artist_details() {
 		String name = "Madonna";
-	    artistCrudPage.insertDataOnNameField(name);
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    artistCrudPage.insertDataOnNameField(name, image);
 	}
 	
 	@When("I press the add artist button")
@@ -62,10 +63,10 @@ public class ArtistCrudStepDefs {
 	
 	@Then("a new artist is added")
 	public void a_new_artist_is_added() {
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
-		assertTrue(alertMsg.equals("New Artist added!"));
+		assertTrue(alertMsg.equals("Artist added!"));
 	}
 	
 	/**
@@ -74,8 +75,10 @@ public class ArtistCrudStepDefs {
 	@Given("I have an artist")
 	public void i_have_an_artist() {
 	    this.driver.get(artistCrudPage.URL);
-	    artistCrudPage.addNewArtist("Artist name");
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		String name = "Artist name";
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    artistCrudPage.addNewArtist(name, image);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
