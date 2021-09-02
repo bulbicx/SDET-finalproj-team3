@@ -1,18 +1,27 @@
 package com.qa.choonz.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.qa.choonz.exception.PlaylistNotFoundException;
 import com.qa.choonz.exception.TrackNotFoundException;
 import com.qa.choonz.exception.UserNotFoundException;
+import com.qa.choonz.persistence.domain.Artist;
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.persistence.domain.Session;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.builder.ArtistBuilder;
+import com.qa.choonz.persistence.domain.builder.PlaylistBuilder;
+import com.qa.choonz.persistence.repository.ImageRepository;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
+import com.qa.choonz.persistence.repository.SessionRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.persistence.repository.UserRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
@@ -23,14 +32,24 @@ public class PlaylistService {
 	private PlaylistRepository playlistRepo;
 	private UserRepository userRepo;
 	private TrackRepository trackRepo;
+	private ImageRepository imageRepo;
+	private SessionRepository sessionRepo;
 	private ModelMapper mapper;
 
 
-	public PlaylistService(PlaylistRepository playlistRepo, TrackRepository trackRepo, ModelMapper mapper, UserRepository userRepo) {
+	public PlaylistService(
+			PlaylistRepository playlistRepo, 
+			TrackRepository trackRepo, 
+			ModelMapper mapper,
+			UserRepository userRepo,
+			ImageRepository imageRepo,
+			SessionRepository sessionRepo) {
 		super();
 		this.playlistRepo = playlistRepo;
 		this.trackRepo = trackRepo;
 		this.userRepo = userRepo;
+		this.imageRepo = imageRepo;
+		this.sessionRepo = sessionRepo;
 		this.mapper = mapper;
 	}
 
@@ -38,11 +57,18 @@ public class PlaylistService {
 		return this.mapper.map(playlist, PlaylistDTO.class);
 	}
 
-	public PlaylistDTO create(Playlist playlist, Long userId) {
-		User userFound = this.userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
-		playlist.setUser(userFound);
-		Playlist created = this.playlistRepo.save(playlist);
-		return this.mapToDTO(created);
+	public PlaylistDTO create(String token, MultipartFile file, String name, String description) throws IOException {
+		Session session = this.sessionRepo.findByToken(token);
+		Image image = new Image(file.getOriginalFilename(), file.getContentType(), file.getBytes());
+		Image savedImage = this.imageRepo.save(image);
+        Playlist playlist = new PlaylistBuilder()
+        		.name(name)
+        		.description(description)
+        		.user(session.getUser())
+        		.artwork(savedImage)
+        		.build();
+        Playlist created = this.playlistRepo.save(playlist);
+        return this.mapToDTO(created);
 	}
 
 	public List<PlaylistDTO> read() {

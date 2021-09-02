@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,17 +32,24 @@ public class Artist {
 	@JsonIgnore
 	@OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
 	private List<Album> albums;
+	
+	@OneToOne
+    @JoinColumn(name="image_id")
+    private Image cover;
 
 	public Artist() {
 		super();
 	}
 
-	public Artist(Long id, @NotNull @Size(max = 100) String name, List<Album> albums) {
+	public Artist(Long id, @NotNull @Size(max = 100) String name, List<Album> albums, Image cover) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.albums = albums;
+		this.cover = cover;
 	}
+
+
 
 	public Artist(Long id, @NotNull @Size(max = 100) String name) {
 		super();
@@ -52,6 +61,8 @@ public class Artist {
 		super();
 		this.name = name;
 	}
+	
+	
 
 	public Long getId() {
 		return id;
@@ -77,29 +88,36 @@ public class Artist {
 		this.albums = albums;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Artist [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
-				.append("]");
-		return builder.toString();
+	public Image getCover() {
+		return cover;
+	}
+
+	public void setCover(Image cover) {
+		this.cover = cover;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(albums, id, name);
+		return Objects.hash(albums, cover, id, name);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!(obj instanceof Artist)) {
+		if (obj == null)
 			return false;
-		}
+		if (getClass() != obj.getClass())
+			return false;
 		Artist other = (Artist) obj;
-		return Objects.equals(albums, other.albums) && id == other.id && Objects.equals(name, other.name);
+		return Objects.equals(albums, other.albums) && Objects.equals(cover, other.cover)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
+	@Override
+	public String toString() {
+		return "Artist [id=" + id + ", name=" + name + ", albums=" + albums + ", cover=" + cover + "]";
+	}
+
+	
 }
