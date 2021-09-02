@@ -23,30 +23,17 @@ import com.qa.choonz.rest.dto.PublicUserDTO;
 @SpringBootTest
 public class DtoTests {
 	
-<<<<<<< HEAD
-	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>());
-	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
-	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
-	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
-	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
-	private GenreDTO genreDTO = new GenreDTO(0L, "genre name", "genre desc", new ArrayList<>());
-	private ArtistDTO artistDTO = new ArtistDTO(0L, "artist name", new ArrayList<>());
-	private PublicUserDTO userDTO = new PublicUserDTO(0L, "username", "real name", new ArrayList<>());
-	private AlbumDTO albumDTO = new AlbumDTO(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
-	private PlaylistDTO playlistDTO = new PlaylistDTO(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
-=======
 	private Image image = new Image(0L, "image name", "image type", null);
 	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>(), image);
 	private Artist artist = new Artist(0L, "artist name", new ArrayList<>(), image);
-	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>());
 	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, image);
 	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", image, new ArrayList<>(), user);
 	private GenreDTO genreDTO = new GenreDTO(0L, "genre name", "genre desc", new ArrayList<>());
 	private ArtistDTO artistDTO = new ArtistDTO(0L, "artist name", new ArrayList<>(), image);
-	private UserDTO userDTO = new UserDTO(0L, "username", "real name", new ArrayList<>());
+	private PublicUserDTO userDTO = new PublicUserDTO(0L, "username", "real name", new ArrayList<>());
 	private AlbumDTO albumDTO = new AlbumDTO(0L, "album name",  new ArrayList<>(), artist, genre, image);
 	private PlaylistDTO playlistDTO = new PlaylistDTO(0L, "playlist name", "playlist desc", image, new ArrayList<>(), user);
->>>>>>> 5a52af1a816c2c70d032b636638d139a1e5d0305
 	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
 	
 	//the only non standard elements in the domain are the ToStrings so we only need to test those

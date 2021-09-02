@@ -29,8 +29,8 @@ public class SessionServiceTest {
 	@Autowired
 	private SessionService service;
 	
-	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
-	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password", new ArrayList<>()));
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>());
+	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>()));
 	private Session session = new Session(0L, user, "token");
 	
 	@Test
