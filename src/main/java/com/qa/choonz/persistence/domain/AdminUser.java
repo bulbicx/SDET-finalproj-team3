@@ -27,7 +27,6 @@ public class AdminUser extends User {
 	public AdminUser(Long id, @NotNull @Size(max = 100) String username, @NotNull @Size(max = 100) String name,
 			@NotNull @Size(max = 100) String password, List<Session> sessions) {
 		super(id, username, name, password, sessions);
-		// TODO Auto-generated constructor stub
 	}
   
 }
