@@ -36,9 +36,6 @@
           <li class="nav-item">
             <a class="nav-link nav-genre" href="genres.html">Genres</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link nav-profile" href="#">Profile</a>
-          </li>
           <li id="nav-login" class="nav-item">
             <a class="nav-link nav-login" href="login.html">Login</a>
           </li>
@@ -71,7 +68,9 @@
   }
   navLogout.onclick = () => {
     deleteToken(myStorage.getItem("session-token"));
+    myStorage.removeItem("id");
     toggleLoginLogout();
+    location.reload();
   }
 
   if (window.location.href.includes("artists")) {

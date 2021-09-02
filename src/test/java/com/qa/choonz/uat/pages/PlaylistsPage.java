@@ -38,10 +38,18 @@ public class PlaylistsPage {
 	@FindBy(className = "update")
 	private WebElement updateBtn;
 	
+	@FindBy(className = "delete")
+	private WebElement deleteBtn;
+	
 	@FindBy(className = "playlist-list-update")
 	private WebElement playlistList;
 	
 	private Select playlistListSelect;
+	
+	@FindBy(className = "playlist-list-delete")
+	private WebElement playlistListDelete;
+	
+	private Select playlistListDeleteSelect;
 	
 	@FindBy(id = "name")
 	private WebElement updateName;
@@ -63,33 +71,48 @@ public class PlaylistsPage {
 		this.plusIcon.click();
 	}
 
+	public void clickDeleteIcon() {
+		this.deleteIcon.click();
+	}
+
 	public void clickEditIcon() {
 		this.editIcon.click();
 	}
 	
-	public void insertData(String name, String description, String artwork, String user) {
+	public void insertData(String name, String description, String artwork) {
 		this.newName.sendKeys(name);
 		this.newDescription.sendKeys(description);
 		this.newArtwork.sendKeys(artwork);
-		this.newUser.sendKeys(user);
 	}
 	
 	public void clickAddBtn() {
 		this.addBtn.click();
 	}
+	
+	public void clickUpdateBtn() {
+		this.updateBtn.click();
+	}
+	
+	public void clickDeleteBtn() {
+		this.deleteBtn.click();
+	}
 
-	public void addPlaylist(String name, String description, String artwork, String user) {
+	public void addPlaylist(String name, String description, String artwork) {
 		this.plusIcon.click();
 		this.newName.sendKeys(name);
 		this.newDescription.sendKeys(description);
 		this.newArtwork.sendKeys(artwork);
-		this.newUser.sendKeys(user);
 		this.addBtn.click();
 	}
 	
 	public void pickPlaylistToUpdate(String playlist) {
 		this.playlistListSelect = new Select(playlistList);
 		this.playlistListSelect.selectByVisibleText(playlist);		
+	}
+	
+	public void pickPlaylistToDelete(String playlist) {
+		this.playlistListDeleteSelect = new Select(playlistListDelete);
+		this.playlistListDeleteSelect.selectByVisibleText(playlist);		
 	}
 
 	public void updateData(String name, String desc, String artwork) {
@@ -98,16 +121,8 @@ public class PlaylistsPage {
 		this.updateArtwork.sendKeys(artwork);
 	}
 	
-	public void clickUpdateBtn() {
-		this.updateBtn.click();
-	}
-	
 	public WebElement getSelectPlaylistElement() {
 		return this.playlistList;
-	}
-
-	public void deletePlaylist() {
-		this.deleteIcon.click();
 	}
 	
 	public void clickFirstCard() {
