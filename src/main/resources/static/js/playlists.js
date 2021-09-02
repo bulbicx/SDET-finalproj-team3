@@ -17,8 +17,8 @@
   getAllPlaylists();
 
   const loadUserId = () => {
-    if (localStorage.getItem("id") !== null) {
-      userId = localStorage.getItem("id");
+    if (localStorage.getItem("session-token") !== null) {
+      userId = localStorage.getItem("session-token");
     } else {
       userId = "1";
     }
@@ -26,12 +26,11 @@
   loadUserId();
 
   const insertDataOnForm = (data) => {
+    console.log(data)
     let playlistName = document.querySelector("#name");
-    let artwork = document.querySelector("#artwork");
     let description = document.querySelector("#description");
 
     playlistName.value = data.name;
-    artwork.value = data.artwork;
     description.value = data.description;
   }
 
@@ -41,7 +40,7 @@
           if (response.status !== 200) {
               console.error(`status: ${reponse.status}`);
               return;
-          }
+        }
           return response.json() 
       })
       .then(data => insertDataOnForm(data))
@@ -197,13 +196,11 @@
 
   const retrieveUpdateFormDetails = () => {
     let playlistName = document.querySelector("#name").value;
-    let artwork = document.querySelector("#artwork").value;
     let description = document.querySelector("#description").value;
 
-    if (playlistName !== "" && artwork !== "" && description !== "") {
+    if (playlistName !== "" && description !== "") {
       let playlist = {
         name: playlistName,
-        artwork: artwork,
         description: description
       };
       updatePlaylist(playlist, playlistId);

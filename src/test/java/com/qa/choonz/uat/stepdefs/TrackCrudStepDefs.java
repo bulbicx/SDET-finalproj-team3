@@ -13,10 +13,7 @@ import com.qa.choonz.uat.pages.AlbumCRUDPage;
 import com.qa.choonz.uat.pages.ArtistCRUDPage;
 import com.qa.choonz.uat.pages.GenreCRUDPage;
 import com.qa.choonz.uat.pages.TrackCRUDPage;
-import com.qa.choonz.utils.ScreenshotUtility;
 
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,7 +21,6 @@ import io.cucumber.java.en.When;
 public class TrackCrudStepDefs {
 
 	private WebDriver driver;
-	private ScreenshotUtility screenshotUtils;
 	private AlbumCRUDPage albumCrudPage;
 	private ArtistCRUDPage artistCrudPage;
 	private GenreCRUDPage genreCrudPage;
@@ -32,7 +28,6 @@ public class TrackCrudStepDefs {
 	
 	public TrackCrudStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
-		screenshotUtils = new ScreenshotUtility();
 		this.albumCrudPage = PageFactory.initElements(driver, AlbumCRUDPage.class);
 		this.artistCrudPage = PageFactory.initElements(driver, ArtistCRUDPage.class);
 		this.genreCrudPage = PageFactory.initElements(driver, GenreCRUDPage.class);
@@ -42,8 +37,10 @@ public class TrackCrudStepDefs {
 	@Given("I have an existing artist")
 	public void i_have_an_existing_artist() {
 	    this.driver.get(artistCrudPage.URL);
-	    artistCrudPage.addNewArtist("Artist");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    String name = "Artist";
+	    String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    artistCrudPage.addNewArtist(name, image);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -51,8 +48,11 @@ public class TrackCrudStepDefs {
 	@Given("I have an existing genre")
 	public void i_have_an_existing_genre() {
 		artistCrudPage.clickGenrePanel();
-	    genreCrudPage.addNewGenre("Genre", "Genre music");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+		String name = "Genre";
+		String desc = "Genre music";
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    genreCrudPage.addNewGenre(name, desc ,image);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -60,8 +60,9 @@ public class TrackCrudStepDefs {
 	@Given("I have an existing album")
 	public void i_have_an_existing_album() {
 		genreCrudPage.clickAlbumPanel();
-	    albumCrudPage.addNewAlbum("Album 1", "Image cover", "Genre", "Artist");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    albumCrudPage.addNewAlbum("Album 1", image, "Genre", "Artist");
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -155,12 +156,5 @@ public class TrackCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Track deleted!"));
-	}
-	
-	@AfterStep
-	public void takeScreenshotAfterStep(Scenario scenario) {
-		if (scenario.isFailed()) {
-			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
-		}
 	}
 }

@@ -4,7 +4,8 @@ Feature: Delete track
   so that a track is no more available.
 
   Background: Add album & artist & genre & track
-		Given I have an existing artist
+  	Given I am logged in as admin
+		And I have an existing artist
 		And I have an existing genre
 		And I have an existing album
 		And I have a track

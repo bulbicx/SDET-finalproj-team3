@@ -79,7 +79,7 @@ public class PlaylistCrudStepDefs {
 	public void i_add_playlist_details() {
 		String name = "Playlist name";
 		String description = "Some description";
-		String artwork = "artwork image";
+		String artwork = "C:/Users/arkan/Downloads/Choonz.png";
 	    playlistPage.insertData(name, description, artwork);
 	}
 
@@ -90,7 +90,7 @@ public class PlaylistCrudStepDefs {
 
 	@Then("a new playlist is added")
 	public void a_new_playlist_is_added() {
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Playlist added!"));
@@ -102,8 +102,11 @@ public class PlaylistCrudStepDefs {
 	@Given("I have a playlist")
 	public void i_have_a_playlist() {
 	    homePage.clickHeaderPlaylistsBtn();
-	    playlistPage.addPlaylist("Playlist 10", "A desc", "Image 10");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+		String name = "Playlist 10";
+		String description = "A desc";
+		String artwork = "C:/Users/arkan/Downloads/Choonz.png";
+	    playlistPage.addPlaylist(name, description, artwork);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -145,7 +148,6 @@ public class PlaylistCrudStepDefs {
 		WebElement select = this.driver.findElement(By.className("playlist-list-delete"));
 		Select playlistListSelect = new Select(select);
 		playlistPage.clickDeleteIcon();
-//		playlistPage.clickEditIcon();
 		Awaitility.await()
 		.atMost(5, TimeUnit.SECONDS)
 		.until(() -> playlistListSelect.getOptions().size() > 0);
@@ -167,8 +169,10 @@ public class PlaylistCrudStepDefs {
 	@Given("I have already artist")
 	public void i_have_already_artist() {
 	    this.driver.get(artistCrudPage.URL);
-	    artistCrudPage.addNewArtist("Tupac 2");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    String name = "Tupac 2";
+	    String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    artistCrudPage.addNewArtist(name, image);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -176,8 +180,11 @@ public class PlaylistCrudStepDefs {
 	@Given("I have an genre")
 	public void i_have_an_genre() {
 	    artistCrudPage.clickGenrePanel();
-	    genreCrudPage.addNewGenre("Rap 2", "Rap music 2");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    String name = "Rap 2";
+	    String desc = "Rap music 2";
+	    String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    genreCrudPage.addNewGenre(name, desc ,image);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -186,11 +193,11 @@ public class PlaylistCrudStepDefs {
 	public void i_have_an_available_album() {
 		genreCrudPage.clickAlbumPanel();
 		String name = "Album 3";
-		String cover = "Cover 3";
+		String cover = "C:/Users/arkan/Downloads/Choonz.png";
 		String genre = "Rap 2";
 		String artist = "Tupac 2";
 	    albumCrudPage.addNewAlbum(name, cover, genre, artist);
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}

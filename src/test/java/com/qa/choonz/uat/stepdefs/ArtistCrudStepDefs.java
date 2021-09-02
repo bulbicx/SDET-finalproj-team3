@@ -12,11 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.ArtistCRUDPage;
-import com.qa.choonz.utils.ScreenshotUtility;
 
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.BeforeStep;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,12 +21,10 @@ import io.cucumber.java.en.When;
 public class ArtistCrudStepDefs {
 
 	private WebDriver driver;
-	private ScreenshotUtility screenshotUtils;
 	private ArtistCRUDPage artistCrudPage;
 	
 	public ArtistCrudStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
-		screenshotUtils = new ScreenshotUtility();
 		this.artistCrudPage = PageFactory.initElements(driver, ArtistCRUDPage.class);
 	}
 	
@@ -121,13 +116,5 @@ public class ArtistCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Artist deleted!"));
-	}
-	
-	@AfterStep
-	public void takeScreenshotAfterStep(Scenario scenario) {
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		if (scenario.isFailed()) {
-			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
-		}
 	}
 }

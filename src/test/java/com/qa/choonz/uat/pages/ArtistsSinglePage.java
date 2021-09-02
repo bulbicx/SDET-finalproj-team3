@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class ArtistsSinglePage {
 	
-	public final String url = "http://127.0.0.1:5500/artistsingle.html?id=1";
+	public final String url = "http://localhost:8082/artistsingle.html?id=1";
 	
 	@FindBy(xpath="//*[@id=\"album-table-body\"]/tr/td[1]/img")
 	public WebElement firstAlbumCover;

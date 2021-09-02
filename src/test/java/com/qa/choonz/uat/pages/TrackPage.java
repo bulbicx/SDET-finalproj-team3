@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class TrackPage {
 	
-	public final String url = "http://127.0.0.1:5500/track.html?id=1";
+	public final String url = "http://localhost:8082/track.html?id=1";
 	
 	@FindBy(xpath="/html/body/div[2]/div[1]/div[1]/img")
 	public WebElement albumCover;
