@@ -24,6 +24,7 @@ import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.persistence.repository.GenreRepository;
 import com.qa.choonz.persistence.repository.ImageRepository;
+import com.qa.choonz.persistence.repository.SessionRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.AlbumDTO;
 
@@ -35,6 +36,7 @@ public class AlbumService {
 	private GenreRepository genreRepo;
 	private TrackRepository trackRepo;
 	private ImageRepository imageRepo;
+	private SessionRepository sessionRepo;
 	private ModelMapper mapper;
 
 	public AlbumService(AlbumRepository albumRepo, ModelMapper mapper, ArtistRepository artistRepo,
@@ -52,7 +54,8 @@ public class AlbumService {
 		return this.mapper.map(album, AlbumDTO.class);
 	}
 
-	public AlbumDTO create(Long artistId, Long genreId, MultipartFile file, String name) throws IOException {
+	public AlbumDTO create(Long artistId, Long genreId, MultipartFile file, String name, String token) throws Exception {
+		authenticate(token);
 		Album album = new AlbumBuilder().name(name).build();
 		Optional<Artist> artistOpt = this.artistRepo.findById(artistId);
 		artistOpt.orElseThrow(() -> new ArtistNotFoundException());
@@ -117,6 +120,14 @@ public class AlbumService {
 	public boolean delete(long id) {
 		this.albumRepo.deleteById(id);
 		return !this.albumRepo.existsById(id);
+	}
+	
+	public void authenticate(String token) throws Exception {
+		if(sessionRepo.existsByToken(token)) {
+			return;
+		} else {
+			throw new Exception("Session not found");
+		}	
 	}
 
 }

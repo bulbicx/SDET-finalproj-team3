@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
@@ -33,11 +34,11 @@ public class TrackServiceTest {
 	@Autowired
 	private TrackService service;
 	
-	
-	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>());
-	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
-	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
-	private Optional<Album> optionalAlbum = Optional.of(new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover"));
+	private Image image = new Image(0L, "image name", "image type", null);
+	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>(), image);
+	private Artist artist = new Artist(0L, "artist name", new ArrayList<>(), image);
+	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, image);
+	private Optional<Album> optionalAlbum = Optional.of(new Album(0L, "album name",  new ArrayList<>(), artist, genre, image));
 	private Track track = new Track(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
 	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, new ArrayList<>(), 120, "lyrics");
 	private Optional<Track> optionalTrack = Optional.of(new Track(0L, "track name", album, new ArrayList<>(), 120, "lyrics"));

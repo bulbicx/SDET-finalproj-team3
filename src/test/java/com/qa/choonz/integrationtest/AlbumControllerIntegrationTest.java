@@ -27,6 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
+import com.qa.choonz.persistence.domain.builder.AlbumBuilder;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -44,9 +46,10 @@ public class AlbumControllerIntegrationTest {
 	void testCreateAlbum() throws Exception {
 		
 		//Create Album object
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album("Blackpool", artist, genre, "image");
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album album = new AlbumBuilder().name("Blackpool").artist(artist).genre(genre).cover(image).build();
 		
 		//Convert it to a JSON String
 		String albumAsJSON = this.mapper.writeValueAsString(album);
@@ -58,7 +61,7 @@ public class AlbumControllerIntegrationTest {
 								.content(albumAsJSON);
 		
 		//Create an album object resembling the one created in database
-		Album albumInDb = new Album(2L, "Blackpool", artist, genre, "image");
+		Album albumInDb = new AlbumBuilder().id(2L).name("Blackpool").artist(artist).genre(genre).cover(image).build();
 		
 		
 		//Convert the album in database as JSON
@@ -79,9 +82,10 @@ public class AlbumControllerIntegrationTest {
 		
 		RequestBuilder mockRequest = get("/albums/read");
 		
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album(1L, "Blackpool", artist, genre, "image");
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album album = new AlbumBuilder().id(1L).name("Blackpool").artist(artist).genre(genre).cover(image).build();
 		
 		List<Album> albumsOnDb = new ArrayList<>();
 		albumsOnDb.add(album);
@@ -101,9 +105,10 @@ public class AlbumControllerIntegrationTest {
 		
 		RequestBuilder mockRequest = get("/albums/read/1");
 		
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album(1L, "Blackpool", artist, genre, "image");
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album album = new AlbumBuilder().id(1L).name("Blackpool").artist(artist).genre(genre).cover(image).build();
 		
 		
 		String albumAsJSON = this.mapper.writeValueAsString(album);
@@ -119,9 +124,10 @@ public class AlbumControllerIntegrationTest {
 	@Test
 	void testUpdateAlbum() throws Exception {
 		//Create artist with updated data
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album updatedAlbum = new Album(1L, "Bluepool", artist, genre, "image2");
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album updatedAlbum = new AlbumBuilder().id(1L).name("Bluepool").artist(artist).genre(genre).cover(image).build();
 		
 		//Convert artist into JSON format
 		String updatedAlbumAsJSON = this.mapper.writeValueAsString(updatedAlbum);
@@ -133,7 +139,7 @@ public class AlbumControllerIntegrationTest {
 								.content(updatedAlbumAsJSON);
 		
 		//Create artist object which resemble the updated one on db
-		Album updatedAlbumOnDb = new Album(1L, "Bluepool", artist, genre, "image2");
+		Album updatedAlbumOnDb = new AlbumBuilder().id(1L).name("Bluepool").artist(artist).genre(genre).cover(image).build();
 		
 		//Convert artist as JSON format
 		String updatedAlbumOnDbAsJSON = this.mapper.writeValueAsString(updatedAlbumOnDb); 
