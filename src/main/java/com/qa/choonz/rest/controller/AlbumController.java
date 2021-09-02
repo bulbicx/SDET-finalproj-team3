@@ -40,11 +40,13 @@ public class AlbumController {
     }
 
     @PostMapping("/create/artist/{artistId}/genre/{genreId}")
-//    @RequestMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<AlbumDTO> create(@PathVariable Long artistId,
-    		@PathVariable Long genreId, @RequestParam("file") MultipartFile file,
-    		@RequestParam("name") String name)  throws IOException {
-        return new ResponseEntity<AlbumDTO>(this.service.create(artistId, genreId, file, name), HttpStatus.CREATED);
+    public ResponseEntity<AlbumDTO> create(
+    		@PathVariable Long artistId,
+    		@PathVariable Long genreId, 
+    		@RequestParam("file") MultipartFile file,
+    		@RequestParam("name") String name,
+    		@RequestParam("token") String token)  throws Exception {
+        return new ResponseEntity<AlbumDTO>(this.service.create(artistId, genreId, file, name, token), HttpStatus.CREATED);
     }
 
     @GetMapping("/read")

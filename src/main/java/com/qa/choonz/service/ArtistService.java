@@ -1,33 +1,58 @@
 package com.qa.choonz.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.qa.choonz.exception.ArtistNotFoundException;
 import com.qa.choonz.persistence.domain.Artist;
+import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
+import com.qa.choonz.persistence.domain.Session;
+import com.qa.choonz.persistence.domain.builder.ArtistBuilder;
+import com.qa.choonz.persistence.domain.builder.GenreBuilder;
 import com.qa.choonz.persistence.repository.ArtistRepository;
+import com.qa.choonz.persistence.repository.ImageRepository;
+import com.qa.choonz.persistence.repository.SessionRepository;
 import com.qa.choonz.rest.dto.ArtistDTO;
+import com.qa.choonz.rest.dto.GenreDTO;
 
 @Service
 public class ArtistService {
 
     private ArtistRepository repo;
+    private ImageRepository imageRepo;
+    private SessionRepository sessionRepo;
     private ModelMapper mapper;
 
-    public ArtistService(ArtistRepository repo, ModelMapper mapper) {
+    public ArtistService(
+    		ArtistRepository repo, 
+    		ModelMapper mapper, 
+    		ImageRepository imageRepo,
+    		SessionRepository sessionRepo) {
         super();
         this.repo = repo;
         this.mapper = mapper;
+        this.imageRepo = imageRepo;
+        this.sessionRepo = sessionRepo;
     }
 
     private ArtistDTO mapToDTO(Artist artist) {
         return this.mapper.map(artist, ArtistDTO.class);
     }
 
-    public ArtistDTO create(Artist artist) {
+    public ArtistDTO create(MultipartFile file, String name, String token) throws Exception {
+    	authenticate(token);
+    	Image image = new Image(file.getOriginalFilename(), file.getContentType(), file.getBytes());
+		Image savedImage = this.imageRepo.save(image);
+        Artist artist = new ArtistBuilder()
+        		.name(name)
+        		.image(savedImage)
+        		.build();
         Artist created = this.repo.save(artist);
         return this.mapToDTO(created);
     }
@@ -53,4 +78,12 @@ public class ArtistService {
         this.repo.deleteById(id);
         return !this.repo.existsById(id);
     }
+    
+    public void authenticate(String token) throws Exception {
+		if(sessionRepo.existsByToken(token)) {
+			return;
+		} else {
+			throw new Exception("Session not found");
+		}	
+	}
 }

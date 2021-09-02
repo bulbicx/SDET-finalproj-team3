@@ -1,5 +1,6 @@
 package com.qa.choonz.rest.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.rest.dto.ArtistDTO;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.service.PlaylistService;
 
@@ -30,10 +34,15 @@ public class PlaylistController {
 		this.service = service;
 	}
 
-	@PostMapping("/create/user/{userId}")
-	public ResponseEntity<PlaylistDTO> create(@RequestBody Playlist playlist, @PathVariable Long userId) {
 
-		return new ResponseEntity<PlaylistDTO>(this.service.create(playlist, userId), HttpStatus.CREATED);
+	@PostMapping("/create/user/{sessionId}")
+	public ResponseEntity<PlaylistDTO> create(
+			@PathVariable String token,
+			@RequestParam("file") MultipartFile file,
+    		@RequestParam("name") String name,
+    		@RequestParam("description") String description) throws IOException{
+
+		return new ResponseEntity<PlaylistDTO>(this.service.create(token, file, name, description), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/read")
