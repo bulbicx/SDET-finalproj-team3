@@ -59,31 +59,41 @@ public class GenreDTO {
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
+    
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("GenreDTO [id=").append(id).append(", name=").append(name).append(", description=")
-                .append(description).append(", albums=").append(albums).append("]");
-        return builder.toString();
-    }
+    public Image getImage() {
+		return image;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(albums, description, id, name);
-    }
+	public void setImage(Image image) {
+		this.image = image;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof GenreDTO)) {
-            return false;
-        }
-        GenreDTO other = (GenreDTO) obj;
-        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
-                && Objects.equals(name, other.name);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(albums, description, id, image, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GenreDTO other = (GenreDTO) obj;
+		return Objects.equals(albums, other.albums) && Objects.equals(description, other.description)
+				&& Objects.equals(id, other.id) && Objects.equals(image, other.image)
+				&& Objects.equals(name, other.name);
+	}
+
+	@Override
+	public String toString() {
+		return "GenreDTO [id=" + id + ", name=" + name + ", description=" + description + ", albums=" + albums
+				+ ", image=" + image + "]";
+	}
+
+	
 
 }

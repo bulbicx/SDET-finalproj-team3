@@ -2,6 +2,9 @@
   let adminPanel = document.querySelector(".admin-panel");
   let panel = `
     <div class="section-link">
+      <a href="index.html" class="page-link artist-panel">Home</a>
+    </div>
+    <div class="section-link">
       <a href="artistCrud.html" class="page-link artist-panel">Artists</a>
     </div>
     <div class="section-link">
@@ -19,7 +22,7 @@
   `;
 
   adminPanel.innerHTML = panel;
-    
+
   let artistPanel = document.querySelector(".artist-panel");
   let albumPanel = document.querySelector(".album-panel");
   let genrePanel = document.querySelector(".genre-panel");
@@ -33,5 +36,5 @@
     genrePanel.setAttribute("class", "page-link genre-panel panel-link-active");
   } else if (window.location.href.includes("track")) {
     trackPanel.setAttribute("class", "page-link track-panel panel-link-active");
-  } 
+  }
 })();

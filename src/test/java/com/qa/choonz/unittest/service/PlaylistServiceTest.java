@@ -19,10 +19,10 @@ import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
-import com.qa.choonz.persistence.repository.UserRepository;
+import com.qa.choonz.persistence.repository.PublicUserRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.service.PlaylistService;
 
@@ -34,7 +34,7 @@ public class PlaylistServiceTest {
 	private PlaylistRepository repo;
 	
 	@MockBean
-	private UserRepository userRepo;
+	private PublicUserRepository userRepo;
 	
 	@MockBean
 	private TrackRepository trackRepo;
@@ -42,8 +42,8 @@ public class PlaylistServiceTest {
 	@Autowired
 	private PlaylistService service;
 	
-	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
-	private Optional<User> optionalUser = Optional.of(new User(0L, "username", "real name", "password"));
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
+	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password"));
 	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	private PlaylistDTO playlistDTO = new PlaylistDTO(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	private Optional<Playlist> optionalPlaylist = Optional.of(new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user));

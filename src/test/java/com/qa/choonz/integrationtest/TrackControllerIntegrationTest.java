@@ -29,7 +29,7 @@ import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.builder.TrackBuilder;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -52,7 +52,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
 		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
@@ -91,7 +91,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
 		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
@@ -128,7 +128,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
 		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
@@ -150,7 +150,7 @@ public class TrackControllerIntegrationTest {
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
 		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);

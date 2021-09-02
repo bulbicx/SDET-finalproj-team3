@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 import com.qa.choonz.exception.UserNotFoundException;
 import com.qa.choonz.persistence.domain.Session;
 import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.AdminUser;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.repository.SessionRepository;
-import com.qa.choonz.persistence.repository.UserRepository;
+import com.qa.choonz.persistence.repository.AdminUserRepository;
+import com.qa.choonz.persistence.repository.PublicUserRepository;
 import com.qa.choonz.rest.dto.SessionDTO;
-import com.qa.choonz.rest.dto.UserDTO;
+import com.qa.choonz.rest.dto.PublicUserDTO;
 import com.qa.choonz.utils.PasswordAuthentication;
 import com.qa.choonz.utils.SessionTokens;
 
@@ -19,15 +22,22 @@ import com.qa.choonz.utils.SessionTokens;
 public class SessionService {
 	
 	private SessionRepository sessionRepo;
-	private UserRepository userRepo;
+	private PublicUserRepository publicUserRepo;
+	private AdminUserRepository adminUserRepo;
+	
 	private ModelMapper mapper;
 	private static final PasswordAuthentication passwordAuth = new PasswordAuthentication(10);
 	private static final SessionTokens sessionToken = new SessionTokens();
 
-	public SessionService(SessionRepository sessionRepo, UserRepository userRepo, ModelMapper mapper) {
+	public SessionService(
+			SessionRepository sessionRepo, 
+			PublicUserRepository publicUserRepo, 
+			ModelMapper mapper, 
+			AdminUserRepository adminUserRepo) {
 		super();
 		this.sessionRepo = sessionRepo;
-		this.userRepo = userRepo;
+		this.adminUserRepo = adminUserRepo;
+		this.publicUserRepo = publicUserRepo;
 		this.mapper = mapper;
 	}
 
@@ -36,8 +46,9 @@ public class SessionService {
 	}
 
 	
-	public SessionDTO authenticate(User user) {
-		User userFromDB = this.userRepo.findByUsername(user.getUsername()).orElseThrow(UserNotFoundException::new);
+	public SessionDTO authenticate(AdminUser user) {
+		
+		AdminUser userFromDB = this.adminUserRepo.findByUsername(user.getUsername()).orElseThrow(UserNotFoundException::new);
 		char[] pass = user.getPassword().toCharArray();
 		// change exception
 		if (passwordAuth.authenticate(pass, userFromDB.getPassword())) {	
@@ -47,7 +58,27 @@ public class SessionService {
 		}
 	}
 	
-	public SessionDTO createSession(User userFromDB) {
+	public SessionDTO authenticate(PublicUser user) {
+		
+		PublicUser userFromDB = this.publicUserRepo.findByUsername(user.getUsername()).orElseThrow(UserNotFoundException::new);
+		char[] pass = user.getPassword().toCharArray();
+		// change exception
+		if (passwordAuth.authenticate(pass, userFromDB.getPassword())) {	
+			return createSession(userFromDB);
+		} else {
+			throw new UserNotFoundException();
+		}
+	}
+	
+	public SessionDTO createSession(AdminUser userFromDB) {
+		String token = sessionToken.newSessionToken();
+		Session session = new Session();
+		session.setToken(token);
+		session.setUser(userFromDB);	
+		return this.mapToDTO(this.sessionRepo.save(session));	
+	}
+	
+	public SessionDTO createSession(PublicUser userFromDB) {
 		String token = sessionToken.newSessionToken();
 		Session session = new Session();
 		session.setToken(token);

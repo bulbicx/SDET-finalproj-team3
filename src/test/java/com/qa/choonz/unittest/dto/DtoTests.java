@@ -11,25 +11,25 @@ import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Playlist;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.rest.dto.AlbumDTO;
 import com.qa.choonz.rest.dto.ArtistDTO;
 import com.qa.choonz.rest.dto.GenreDTO;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.rest.dto.TrackDTO;
-import com.qa.choonz.rest.dto.UserDTO;
+import com.qa.choonz.rest.dto.PublicUserDTO;
 
 @SpringBootTest
 public class DtoTests {
 	
 	private Genre genre = new Genre(0L, "genre name", "genre desc", new ArrayList<>());
 	private Artist artist = new Artist(0L, "artist name", new ArrayList<>());
-	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
 	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
 	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	private GenreDTO genreDTO = new GenreDTO(0L, "genre name", "genre desc", new ArrayList<>());
 	private ArtistDTO artistDTO = new ArtistDTO(0L, "artist name", new ArrayList<>());
-	private UserDTO userDTO = new UserDTO(0L, "username", "real name", new ArrayList<>());
+	private PublicUserDTO userDTO = new PublicUserDTO(0L, "username", "real name", new ArrayList<>());
 	private AlbumDTO albumDTO = new AlbumDTO(0L, "album name",  new ArrayList<>(), artist, genre, "cover");
 	private PlaylistDTO playlistDTO = new PlaylistDTO(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	private TrackDTO trackDTO = new TrackDTO(0L, "track name", album, new ArrayList<>(), 120, "lyrics");

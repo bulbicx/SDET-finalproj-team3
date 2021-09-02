@@ -29,7 +29,7 @@ import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.builder.AlbumBuilder;
 import com.qa.choonz.persistence.domain.builder.PlaylistBuilder;
 import com.qa.choonz.persistence.domain.builder.TrackBuilder;
@@ -64,7 +64,7 @@ public class PlaylistControllerIntegrationTest {
 
 		// Create an playlist object resembling the one created in database
 		// Create user
-		User user = new User(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		Playlist playlistCreated = new PlaylistBuilder().id(2L).name("Summer").artwork("img/red")
 				.description("Summer bangers").user(user).build();
 
@@ -88,7 +88,7 @@ public class PlaylistControllerIntegrationTest {
 
 		// Playlist like playlist in db
 		// User
-		User user = new User(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -130,7 +130,7 @@ public class PlaylistControllerIntegrationTest {
 
 		// Playlist like playlist in db
 		// User
-		User user = new User(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -165,7 +165,7 @@ public class PlaylistControllerIntegrationTest {
 	void testUpdatePlaylist() throws Exception {
 		// Create playlist with updated data
 		// User
-		User user = new User(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -221,7 +221,7 @@ public class PlaylistControllerIntegrationTest {
 	@Test
 	void testPlaylistAddTrack() throws Exception {
 		// User
-		User user = new User(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -269,7 +269,7 @@ public class PlaylistControllerIntegrationTest {
 	void testDeleteTrackFromPlaylist() throws Exception {
 
 		// User
-		User user = new User(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre

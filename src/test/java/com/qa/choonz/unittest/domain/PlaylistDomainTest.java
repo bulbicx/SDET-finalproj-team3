@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import com.qa.choonz.persistence.domain.Playlist;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 
 public class PlaylistDomainTest {
 	
-	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
 	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", "artwork", new ArrayList<>(), user);
 	
 	@Test

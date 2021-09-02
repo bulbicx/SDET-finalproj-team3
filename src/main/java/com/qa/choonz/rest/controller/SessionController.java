@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.AdminUser;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 import com.qa.choonz.rest.dto.SessionDTO;
 import com.qa.choonz.service.SessionService;
@@ -27,8 +28,13 @@ public class SessionController {
 		this.service = service;
 	}
 	
-	 @PostMapping("/authenticate")
-	 public ResponseEntity<SessionDTO> authenticate(@RequestBody User user){
+	 @PostMapping("/authenticate/public")
+	 public ResponseEntity<SessionDTO> authenticate(@RequestBody PublicUser user){
+	    	return  new ResponseEntity<SessionDTO>(this.service.authenticate(user), HttpStatus.OK);
+	 }
+	 
+	 @PostMapping("/authenticate/admin")
+	 public ResponseEntity<SessionDTO> authenticate(@RequestBody AdminUser user){
 	    	return  new ResponseEntity<SessionDTO>(this.service.authenticate(user), HttpStatus.OK);
 	 }
 	 

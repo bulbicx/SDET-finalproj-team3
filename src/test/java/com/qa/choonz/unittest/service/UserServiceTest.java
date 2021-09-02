@@ -11,25 +11,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.qa.choonz.persistence.domain.User;
-import com.qa.choonz.persistence.repository.UserRepository;
-import com.qa.choonz.rest.dto.UserDTO;
-import com.qa.choonz.service.UserService;
+import com.qa.choonz.persistence.domain.PublicUser;
+import com.qa.choonz.persistence.repository.PublicUserRepository;
+import com.qa.choonz.rest.dto.PublicUserDTO;
+import com.qa.choonz.service.PublicUserService;
 
 @SpringBootTest
 public class UserServiceTest {
 	
 	@MockBean
-	private UserRepository repo;
+	private PublicUserRepository repo;
 	
 	@Autowired
-	private UserService service;
+	private PublicUserService service;
 	
-	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
-	private UserDTO userDTO = new UserDTO(0L, "username", "real name",new ArrayList<>());
-	private Optional<User> optionalUser = Optional.of(new User(0L, "username", "real name", "password", new ArrayList<>()));
-	private User newUser = new User(0L, "username2", "real name2","password123", new ArrayList<>());
-	private UserDTO newUserDTO = new UserDTO(0L, "username2", "real name2", new ArrayList<>());
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
+	private PublicUserDTO userDTO = new PublicUserDTO(0L, "username", "real name",new ArrayList<>());
+	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password", new ArrayList<>()));
+	private PublicUser newUser = new PublicUser(0L, "username2", "real name2","password123", new ArrayList<>());
+	private PublicUserDTO newUserDTO = new PublicUserDTO(0L, "username2", "real name2", new ArrayList<>());
 	
 	@Test
 	public void UserCreateTest() {

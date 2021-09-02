@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.qa.choonz.persistence.domain.Session;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.repository.SessionRepository;
-import com.qa.choonz.persistence.repository.UserRepository;
+import com.qa.choonz.persistence.repository.PublicUserRepository;
 import com.qa.choonz.service.SessionService;
 
 @SpringBootTest
@@ -24,13 +24,13 @@ public class SessionServiceTest {
 	private SessionRepository repo;
 	
 	@MockBean
-	private UserRepository userRepo;
+	private PublicUserRepository userRepo;
 	
 	@Autowired
 	private SessionService service;
 	
-	private User user = new User(0L, "username", "real name", "password", new ArrayList<>());
-	private Optional<User> optionalUser = Optional.of(new User(0L, "username", "real name", "password", new ArrayList<>()));
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
+	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password", new ArrayList<>()));
 	private Session session = new Session(0L, user, "token");
 	
 	@Test
