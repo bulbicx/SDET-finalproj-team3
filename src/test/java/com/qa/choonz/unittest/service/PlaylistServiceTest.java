@@ -44,8 +44,8 @@ public class PlaylistServiceTest {
 	private PlaylistService service;
 	
 	private Image image = new Image(0L, "image name", "image type", null);
-	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>());
-	private Optional<User> optionalUser = Optional.of(new User(0L, "username", "real name", "password"));
+	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>());
+	private Optional<PublicUser> optionalUser = Optional.of(new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>()));
 	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", image, new ArrayList<>(), user);
 	private PlaylistDTO playlistDTO = new PlaylistDTO(0L, "playlist name", "playlist desc", image, new ArrayList<>(), user);
 	private Optional<Playlist> optionalPlaylist = Optional.of(new Playlist(0L, "playlist name", "playlist desc", image, new ArrayList<>(), user));

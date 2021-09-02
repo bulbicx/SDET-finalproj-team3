@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,7 +40,7 @@ public class SessionControllerIntegrationTest {
 	@Test
 	void testAuthenticateSession() throws Exception {
 		
-		PublicUser user = new PublicUser("Micheal90", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "Micheal90", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		
 		//Convert it to a JSON String
 		String userAsJSON = this.mapper.writeValueAsString(user);
@@ -47,7 +49,7 @@ public class SessionControllerIntegrationTest {
 									.contentType(MediaType.APPLICATION_JSON)
 									.content(userAsJSON);
 		
-		PublicUser userInDb = new PublicUser(2L, "Micheal90", "Micheal", "password123");
+		PublicUser userInDb = new PublicUser(2L, "Micheal90", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		
 		//Convert the user resembling the one in database as JSON
 		String userInDbAsJSON = this.mapper.writeValueAsString(userInDb);
