@@ -37,17 +37,22 @@
             <stringProp name="Argument.value">8082</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="throughput" elementType="Argument">
+            <stringProp name="Argument.name">throughput</stringProp>
+            <stringProp name="Argument.value">100</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
       <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Ultimate Load Test" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
-          <collectionProp name="1515442336">
-            <stringProp name="1537214">2000</stringProp>
+          <collectionProp name="-1387960761">
+            <stringProp name="52469">500</stringProp>
             <stringProp name="48">0</stringProp>
-            <stringProp name="1629">30</stringProp>
-            <stringProp name="53430">600</stringProp>
-            <stringProp name="1629">30</stringProp>
+            <stringProp name="1567">10</stringProp>
+            <stringProp name="50547">300</stringProp>
+            <stringProp name="1567">10</stringProp>
           </collectionProp>
         </collectionProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -109,11 +114,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -153,11 +154,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -197,11 +194,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -250,11 +243,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -294,11 +283,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -357,11 +342,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -401,11 +382,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -445,11 +422,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -499,11 +472,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -543,11 +512,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -607,11 +572,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -651,11 +612,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -695,103 +652,9 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Update User" enabled="true">
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-    &quot;name&quot;: &quot;${__RandomString(5,qwertyuiopasdfghjklzxcvbnm,)}&quot;,&#xd;
-    &quot;username&quot;: &quot;${__RandomString(5,qwertyuiopasdfghjklzxcvbnm,)}&quot;,&#xd;
-    &quot;password&quot;: &quot;${__RandomString(5,qwertyuiopasdfghjklzxcvbnm,)}&quot;&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain">${localhost}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/users/update/${id}</stringProp>
-            <stringProp name="HTTPSampler.method">PUT</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49588">202</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">16</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer" enabled="true">
-              <stringProp name="ConstantTimer.delay">500</stringProp>
-              <stringProp name="RandomTimer.range">40000.0</stringProp>
-            </UniformRandomTimer>
-            <hashTree/>
-            <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
-              <intProp name="calcMode">0</intProp>
-            </ConstantThroughputTimer>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete User" enabled="false">
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain">${localhost}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/users/delete/${id}</stringProp>
-            <stringProp name="HTTPSampler.method">DELETE </stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49590">204</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">16</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer" enabled="true">
-              <stringProp name="ConstantTimer.delay">500</stringProp>
-              <stringProp name="RandomTimer.range">20000.0</stringProp>
-            </UniformRandomTimer>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -849,11 +712,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -893,11 +752,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -937,11 +792,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -992,11 +843,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
@@ -1036,11 +883,7 @@
             </UniformRandomTimer>
             <hashTree/>
             <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-              <doubleProp>
-                <name>throughput</name>
-                <value>200.0</value>
-                <savedValue>0.0</savedValue>
-              </doubleProp>
+              <stringProp name="throughput">${throughput}</stringProp>
               <intProp name="calcMode">0</intProp>
             </ConstantThroughputTimer>
             <hashTree/>
