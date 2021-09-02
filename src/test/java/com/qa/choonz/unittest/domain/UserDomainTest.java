@@ -14,7 +14,7 @@ public class UserDomainTest {
 	
 	@Test
 	public void UserTest() {
-		assertThat("User [id=0, username=username, name=real name, password=password, playlists=[], sessions=null]").isEqualTo(user.toString());
+		assertThat("PublicUser [playlists=[]]").isEqualTo(user.toString());
 		
 	}
 

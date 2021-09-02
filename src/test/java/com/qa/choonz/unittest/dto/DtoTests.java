@@ -11,7 +11,7 @@ import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Image;
-import com.qa.choonz.persistence.domain.Playlist;
+//import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.rest.dto.AlbumDTO;
 import com.qa.choonz.rest.dto.ArtistDTO;
@@ -28,7 +28,7 @@ public class DtoTests {
 	private Artist artist = new Artist(0L, "artist name", new ArrayList<>(), image);
 	private PublicUser user = new PublicUser(0L, "username", "real name", "password", new ArrayList<>(), new ArrayList<>());
 	private Album album = new Album(0L, "album name",  new ArrayList<>(), artist, genre, image);
-	private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", image, new ArrayList<>(), user);
+	//private Playlist playlist = new Playlist(0L, "playlist name", "playlist desc", image, new ArrayList<>(), user);
 	private GenreDTO genreDTO = new GenreDTO(0L, "genre name", "genre desc", new ArrayList<>());
 	private ArtistDTO artistDTO = new ArtistDTO(0L, "artist name", new ArrayList<>(), image);
 	private PublicUserDTO userDTO = new PublicUserDTO(0L, "username", "real name", new ArrayList<>());
@@ -41,7 +41,7 @@ public class DtoTests {
 	
 	@Test
 	public void GenreTest() {
-		assertThat("GenreDTO [id=0, name=genre name, description=genre desc, albums=[]]").isEqualTo(genreDTO.toString());
+		assertThat("GenreDTO [id=0, name=genre name, description=genre desc, albums=[], image=null]").isEqualTo(genreDTO.toString());
 		
 	}
 	
@@ -53,7 +53,7 @@ public class DtoTests {
 	
 	@Test
 	public void UserTest() {
-		assertThat("UserDTO [id=0, username=username, name=real name, playlists=[]]").isEqualTo(userDTO.toString());
+		assertThat("PublicUserDTO [playlists=[], getId()=0, getUsername()=username, getName()=real name]").isEqualTo(userDTO.toString());
 		
 	}
 	
