@@ -6,10 +6,21 @@ DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `album`;
 DROP TABLE IF EXISTS `genre`;
 DROP TABLE IF EXISTS `artist`;
+DROP TABLE IF EXISTS `image`;
+
+CREATE TABLE IF NOT EXISTS `image` (
+	`id` BIGINT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	`pic_byte` VARBINARY(MAX) NOT NULL,
+	`type` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+); 
 
 CREATE TABLE IF NOT EXISTS `artist` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
+    `image_id` BIGINT NOT NULL,
+    CONSTRAINT fk_artist_image FOREIGN KEY (image_id) REFERENCES image(id),
     PRIMARY KEY (`id`)
 );
 
@@ -17,6 +28,8 @@ CREATE TABLE IF NOT EXISTS `genre` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `description` VARCHAR(255) NOT NULL,
+    `image_id` BIGINT NOT NULL,
+    CONSTRAINT fk_genre_image FOREIGN KEY (image_id) REFERENCES image(id),
     PRIMARY KEY (`id`)
 );
 
@@ -26,13 +39,16 @@ CREATE TABLE IF NOT EXISTS `album` (
     `name` VARCHAR(255) NOT NULL,
 	`artist_id` BIGINT NOT NULL,
 	`genre_id` BIGINT NOT NULL,
+	`image_id` BIGINT NOT NULL,
     PRIMARY KEY (`id`),
 	CONSTRAINT fk_album_artist FOREIGN KEY (artist_id) REFERENCES artist(id),
-	CONSTRAINT fk_album_genre FOREIGN KEY (genre_id) REFERENCES genre(id)
+	CONSTRAINT fk_album_genre FOREIGN KEY (genre_id) REFERENCES genre(id),
+	CONSTRAINT fk_album_image FOREIGN KEY (image_id) REFERENCES image(id)
 );
 
 CREATE TABLE IF NOT EXISTS `user` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `dtype` VARCHAR(31) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
 	`username` VARCHAR(255) NOT NULL,
@@ -45,8 +61,10 @@ CREATE TABLE IF NOT EXISTS `playlist` (
 	`description` VARCHAR(255) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `user_id` BIGINT NOT NULL,
+    `image_id` BIGINT NOT NULL,
     PRIMARY KEY (`id`),
-	CONSTRAINT fk_playlist_user FOREIGN KEY (user_id) REFERENCES user(id)
+	CONSTRAINT fk_playlist_user FOREIGN KEY (user_id) REFERENCES user(id),
+	CONSTRAINT fk_playlist_image FOREIGN KEY (image_id) REFERENCES image(id)
 );
 
 CREATE TABLE IF NOT EXISTS `track` (
@@ -74,3 +92,4 @@ CREATE TABLE IF NOT EXISTS `session` (
     PRIMARY KEY (`id`),
 	CONSTRAINT fk_session_user FOREIGN KEY (user_id) REFERENCES user(id)
 );
+
