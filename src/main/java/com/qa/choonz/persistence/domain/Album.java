@@ -9,8 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -38,60 +40,22 @@ public class Album {
     @ManyToOne
     private Genre genre;
 
-    private String cover;
+    @OneToOne
+    @JoinColumn(name="image_id")
+    private Image cover;
 
     public Album() {
         super();
     }
 
     public Album(Long id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, Genre genre,
-            String cover) {
+            Image cover) {
         super();
         this.id = id;
         this.name = name;
         this.tracks = tracks;
         this.artist = artist;
         this.genre = genre;
-        this.cover = cover;
-    }
-    
-    public Album(@NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, Genre genre,
-            String cover) {
-        super();
-        this.name = name;
-        this.tracks = tracks;
-        this.artist = artist;
-        this.genre = genre;
-        this.cover = cover;
-    }
-    
-    public Album(Long id, @NotNull @Size(max = 100) String name, Artist artist, Genre genre, String cover) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.artist = artist;
-        this.genre = genre;
-        this.cover = cover;
-    }
-    
-    public Album(@NotNull @Size(max = 100) String name, Artist artist, Genre genre, String cover) {
-        super();
-        this.name = name;
-        this.artist = artist;
-        this.genre = genre;
-        this.cover = cover;
-    }
-    
-    public Album(Long id, @NotNull @Size(max = 100) String name, String cover) {
-        super();
-        this.id =id;
-        this.name = name;
-        this.cover = cover;
-    }
-    
-    public Album(@NotNull @Size(max = 100) String name, String cover) {
-        super();
-        this.name = name;
         this.cover = cover;
     }
 
@@ -135,11 +99,11 @@ public class Album {
         this.genre = genre;
     }
 
-    public String getCover() {
+    public Image getCover() {
         return cover;
     }
 
-    public void setCover(String cover) {
+    public void setCover(Image cover) {
         this.cover = cover;
     }
 

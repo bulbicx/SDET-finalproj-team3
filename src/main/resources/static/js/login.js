@@ -16,9 +16,16 @@
             body: JSON.stringify(loginInfo)
         })
             .then(response => response.json())
-            .then(data => {
-                myStorage.setItem("session-token", data.token);
-                goToHomePage()
+            .then(response => {
+                if(response.status == 404){
+                    alert("Wrong credential");
+                    return;
+                } else {
+                    myStorage.setItem("session-token", response.token);
+                    myStorage.setItem("id", response.user.id);
+                    goToHomePage()
+                    return;
+                }
             })
             .catch(error => console.error(error));
     }
@@ -34,6 +41,7 @@
             .then(response => response.json())
             .then(data => {
                 myStorage.setItem("session-token", data.token);
+                myStorage.setItem("id", data.user.id);
                 goToHomePage()
             })
             .catch(error => console.error(error));

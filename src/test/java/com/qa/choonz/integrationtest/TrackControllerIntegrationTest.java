@@ -56,7 +56,7 @@ public class TrackControllerIntegrationTest {
 		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
-		Track track = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
+		Track track = new Track(1L, "Parkour", album, new ArrayList<>(), 180, "la la la land");
 		
 		//Convert it to a JSON String
 		String trackAsJSON = this.mapper.writeValueAsString(track);
@@ -68,7 +68,7 @@ public class TrackControllerIntegrationTest {
 								.content(trackAsJSON);
 		
 		//Create an track object resembling the one created in database
-		Track trackInDb = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
+		Track trackInDb = new Track(1L, "Parkour", album, new ArrayList<>(), 180, "la la la land");
 		
 		//Convert the track in database as JSON
 		String trackInDbAsJSON = this.mapper.writeValueAsString(trackInDb);
