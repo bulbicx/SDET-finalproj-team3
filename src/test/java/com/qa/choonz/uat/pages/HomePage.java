@@ -22,7 +22,7 @@ public class HomePage {
 	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[5]/a")
 	public WebElement headerGenresBtn;
 	
-	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[7]/a")
+	@FindBy(xpath="//*[@id=\"collapsingNavbar\"]/ul/li[6]/a")
 	public WebElement headerLoginBtn;
 	
 	@FindBy(xpath="/html/body/div[7]/footer/div[2]/a[1]")

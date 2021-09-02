@@ -27,10 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.builder.AlbumBuilder;
+import com.qa.choonz.persistence.domain.builder.GenreBuilder;
 import com.qa.choonz.persistence.domain.builder.PlaylistBuilder;
 import com.qa.choonz.persistence.domain.builder.TrackBuilder;
 
@@ -50,7 +52,8 @@ public class PlaylistControllerIntegrationTest {
 	@Test
 	void testCreatePlaylist() throws Exception {
 		// Create Playlist object
-		Playlist playlist = new PlaylistBuilder().name("Summer").artwork("img/red").description("Summer bangers")
+		Image image = new Image(0L, "image name", "image type", null);
+		Playlist playlist = new PlaylistBuilder().name("Summer").artwork(image).description("Summer bangers")
 				.build();
 		// UserId
 		Long userId = 1L;
@@ -64,8 +67,9 @@ public class PlaylistControllerIntegrationTest {
 
 		// Create an playlist object resembling the one created in database
 		// Create user
+
 		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
-		Playlist playlistCreated = new PlaylistBuilder().id(2L).name("Summer").artwork("img/red")
+		Playlist playlistCreated = new PlaylistBuilder().id(2L).name("Summer").artwork(image)
 				.description("Summer bangers").user(user).build();
 
 		// Convert the artist in database as JSON
@@ -87,14 +91,15 @@ public class PlaylistControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/playlists/read");
 
 		// Playlist like playlist in db
+		Image image = new Image(0L, "image name", "image type", null);
 		// User
 		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre");
+		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
-		Album album = new AlbumBuilder().id(1L).cover("image").name("Blackpool").artist(artist).genre(genre).build();
+		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
 		// track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la
 		// land', 'Parkour', 1);
 		Track track = new TrackBuilder().duration(180).lyrics("la la la land").name("Parkour").album(album).build();
@@ -103,7 +108,7 @@ public class PlaylistControllerIntegrationTest {
 		tracklist.add(track);
 		album.setTracks(tracklist);
 
-		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork("image")
+		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork(image)
 				.description("The best playlist").user(user).tracks(tracklist).build();
 
 		// Create a list and add the object
@@ -129,14 +134,15 @@ public class PlaylistControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/playlists/read/1");
 
 		// Playlist like playlist in db
+		Image image = new Image(0L, "image name", "image type", null);
 		// User
 		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre");
+		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
-		Album album = new AlbumBuilder().id(1L).cover("image").name("Blackpool").artist(artist).genre(genre).build();
+		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
 		// track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la
 		// land', 'Parkour', 1);
 		Track track = new TrackBuilder().duration(180).lyrics("la la la land").name("Parkour").album(album).build();
@@ -145,7 +151,7 @@ public class PlaylistControllerIntegrationTest {
 		tracklist.add(track);
 		album.setTracks(tracklist);
 
-		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork("image")
+		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork(image)
 				.description("The best playlist").user(user).tracks(tracklist).build();
 
 		// Convert into JSON format
@@ -164,14 +170,15 @@ public class PlaylistControllerIntegrationTest {
 	@Test
 	void testUpdatePlaylist() throws Exception {
 		// Create playlist with updated data
+		Image image = new Image(0L, "image name", "image type", null);
 		// User
 		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre");
+		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
-		Album album = new AlbumBuilder().id(1L).cover("image").name("Blackpool").artist(artist).genre(genre).build();
+		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
 		// track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la
 		// land', 'Parkour', 1);
 		Track track = new TrackBuilder().duration(180).lyrics("la la la land").name("Parkour").album(album).build();
@@ -180,14 +187,14 @@ public class PlaylistControllerIntegrationTest {
 		tracklist.add(track);
 		album.setTracks(tracklist);
 
-		Playlist playlist = new PlaylistBuilder().id(1L).name("My updated playlist").artwork("image")
+		Playlist playlist = new PlaylistBuilder().id(1L).name("My updated playlist").artwork(image)
 				.description("The best playlist").user(user).tracks(tracklist).build();
 
 		// Convert artist into JSON format
 		String updatedPlaylistAsJSON = this.mapper.writeValueAsString(playlist);
 
 		// Playlist to send as JSON
-		Playlist playlistForPut = new PlaylistBuilder().id(1L).name("My updated playlist").artwork("image")
+		Playlist playlistForPut = new PlaylistBuilder().id(1L).name("My updated playlist").artwork(image)
 				.description("The best playlist").build();
 
 		String playlistForPutAsJSON = this.mapper.writeValueAsString(playlistForPut);
@@ -220,14 +227,15 @@ public class PlaylistControllerIntegrationTest {
 
 	@Test
 	void testPlaylistAddTrack() throws Exception {
+		Image image = new Image(0L, "image name", "image type", null);
 		// User
 		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre");
+		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
-		Album album = new AlbumBuilder().id(1L).cover("image").name("Blackpool").artist(artist).genre(genre).build();
+		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
 		// track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la
 		// land', 'Parkour', 1);
 		Track track = new TrackBuilder().id(1L).duration(180).lyrics("la la la land").name("Parkour").album(album)
@@ -240,7 +248,7 @@ public class PlaylistControllerIntegrationTest {
 		tracklist.add(track2);
 		album.setTracks(tracklist);
 
-		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork("image")
+		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork(image)
 				.description("The best playlist").user(user).tracks(tracklist).build();
 
 		// Convert playlist into JSON format
@@ -268,19 +276,20 @@ public class PlaylistControllerIntegrationTest {
 	@Test
 	void testDeleteTrackFromPlaylist() throws Exception {
 
+		Image image = new Image(0L, "image name", "image type", null);
 		// User
 		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre");
+		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
-		Album album = new AlbumBuilder().id(1L).cover("image").name("Blackpool").artist(artist).genre(genre).build();
+		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
 		// Add list of tracks to album
 		List<Track> tracklist = new ArrayList<Track>();
 		album.setTracks(tracklist);
 
-		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork("image")
+		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork(image)
 				.description("The best playlist").user(user).tracks(tracklist).build();
 
 		// Convert playlist into JSON format
