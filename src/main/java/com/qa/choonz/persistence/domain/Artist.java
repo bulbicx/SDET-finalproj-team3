@@ -49,19 +49,6 @@ public class Artist {
 		this.cover = cover;
 	}
 
-
-
-	public Artist(Long id, @NotNull @Size(max = 100) String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-
-	public Artist(@NotNull @Size(max = 100) String name) {
-		super();
-		this.name = name;
-	}
-	
 	
 
 	public Long getId() {

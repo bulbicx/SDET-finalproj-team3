@@ -35,11 +35,11 @@
         }
         cardGroup.appendChild(card);
 
-        let cardImage = document.createElement("img");
-        cardImage.setAttribute("class", "card-img-top");
-        cardImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
-        cardImage.setAttribute("alt", "Card image cap");
-        card.appendChild(cardImage);
+        // let cardImage = document.createElement("img");
+        // cardImage.setAttribute("class", "card-img-top");
+        // cardImage.setAttribute("alt", artist.image.name);
+        // cardImage.setAttribute("src", "data:image/" + artist.image.type + ";base64," + artist.image.picByte);
+        // card.appendChild(cardImage);
 
         let cardBody = document.createElement("div");
         cardBody.setAttribute("class", "card-body");

@@ -83,12 +83,14 @@
     }
 
     function createGenreHeader(genre) {
+        console.log(genre);
         let imgSection = document.querySelector(".img-section");
         let textSection = document.querySelector(".text-section");
         let genreImage = document.createElement("img");
         genreImage.setAttribute("class", "img-header");
-        genreImage.setAttribute("src", "https://www.superiorwallpapers.com/download/a-guitar-in-flames-rock-music-guitar-1920x1080.jpg");
-        genreImage.setAttribute("alt", "image");
+        genreImage.setAttribute("alt", genre.image.name);
+        genreImage.setAttribute("src", "data:image/" + genre.image.type + ";base64," + genre.image.picByte);
+        genreImage.setAttribute("class", "card-img-top card-background");
         genreImage.setAttribute("width", 100);
         genreImage.setAttribute("height", 100);
         imgSection.appendChild(genreImage);
