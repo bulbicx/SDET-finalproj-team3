@@ -72,10 +72,10 @@
     function createTrackPageHeader(track) {
         let albumArtistCol = document.querySelector("#album-artist-col");
         let trackCol = document.querySelector("#track-col");
-
+        console.log(track.album.cover)
         let albumImage = document.createElement("img");
-        albumImage.setAttribute("class", "img-header");
-        albumImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
+        albumImage.setAttribute("class", "img-header card");
+        albumImage.setAttribute("src", "data:image/" + track.album.cover.type + ";base64," + track.album.cover.picByte);
         albumImage.setAttribute("alt", "image");
         albumImage.onclick = () => {
             getAlbumPage(track.album.id);
@@ -84,10 +84,11 @@
 
         let albumName = document.createElement("h1");
         albumName.textContent = track.album.name;
+        albumName.setAttribute("class", "title-section-sgl-pg");
         albumArtistCol.appendChild(albumName);
 
         let trackAndArtistRow = document.createElement("div");
-        trackAndArtistRow.setAttribute("class", "row");
+        trackAndArtistRow.setAttribute("class", "track-info");
         trackCol.appendChild(trackAndArtistRow);
 
         let artistImage = document.createElement("img");
@@ -101,10 +102,12 @@
 
         let trackAndArtistName = document.createElement("h1");
         trackAndArtistName.textContent = track.album.artist.name + " - " + track.name;
+        trackAndArtistName.setAttribute("class", "artist-track-info");
         trackAndArtistRow.appendChild(trackAndArtistName);
 
         let trackLyrics = document.createElement("p");
         trackLyrics.textContent = track.lyrics;
+        trackLyrics.setAttribute("class", "lyric-section");
         trackCol.appendChild(trackLyrics);
     }
 })();

@@ -1,4 +1,5 @@
 (() => {
+  let myStorage = window.localStorage;
   let addBtn = document.querySelector(".add");
   let updateBtn = document.querySelector(".update");
   let albumId;
@@ -167,112 +168,82 @@
       method: 'POST',
       body: formData
     })
-      .then(resp => resp.json())
-      .then(data => {
-        if (data.errors) {
-          alert(data.errors)
-        }
-        else {
-          console.log(data)
-        }
-      })
-    }
-
-
-
-
-    const deleteAlbum = (albumId) => {
-      fetch(`http://localhost:8082/albums/delete/${albumId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json"
-        }
-      })
-        .then(response => response.json())
-        .then(data => alert("Album deleted!"))
-        .catch(error => console.error(error));
-
-      alert("Album deleted!");
-      location.reload();
-    }
-
-    const displayErrorMessage = (msg) => {
-      let alert = document.querySelector("#alert");
-      alert.setAttribute("class", "alert alert-danger");
-      alert.innerText = msg;
-    }
-
-    const displayNoDataMsg = (msg) => {
-      let alert = document.querySelector("#alert");
-      alert.setAttribute("class", "alert alert-warning");
-      alert.innerText = msg;
-    }
-
-    const retrieveUpdateFormDetails = () => {
-      let albumName = document.querySelector("#name").value;
-      let cover = document.querySelector("#cover").value;
-      let artist = document.querySelector("#artist").value;
-      let genre = document.querySelector("#genre").value;
-
-      if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
-        let album = {
-          name: albumName,
-          cover: cover
-        };
-        updateAlbum(album, artist, genre);
-      } else {
-        displayErrorMessage("All fields must be valid!");
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.errors) {
+        alert(data.errors)
       }
+      else {
+        console.log(data)
+        alert("Album added!");
+      }
+    })
+    location.reload();
+  }
+  
+  const deleteAlbum = (albumId) => {
+    fetch(`http://localhost:8082/albums/delete/${albumId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => alert("Album deleted!"))
+      .catch(error => console.error(error));
+
+    alert("Album deleted!");
+    location.reload();
+  }
+
+  const displayErrorMessage = (msg) => {
+    let alert = document.querySelector("#alert");
+    alert.setAttribute("class", "alert alert-danger");
+    alert.innerText = msg;
+  }
+
+  const displayNoDataMsg = (msg) => {
+    let alert = document.querySelector("#alert");
+    alert.setAttribute("class", "alert alert-warning");
+    alert.innerText = msg;
+  }
+
+  const retrieveUpdateFormDetails = () => {
+    let albumName = document.querySelector("#name").value;
+    let cover = document.querySelector("#cover").value;
+    let artist = document.querySelector("#artist").value;
+    let genre = document.querySelector("#genre").value;
+
+    if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
+      let album = {
+        name: albumName,
+        cover: cover
+      };
+      updateAlbum(album, artist, genre);
+    } else {
+      displayErrorMessage("All fields must be valid!");
     }
+  }
 
-    const retrieveAddFormDetails = () => {
-      let albumName = document.querySelector("#new-name").value;
-      let cover = document.querySelector("#new-cover").files[0];
-      let artist = document.querySelector("#new-artist").value;
-      let genre = document.querySelector("#new-genre").value;
-
-
-
+  const retrieveAddFormDetails = () => {
+    let albumName = document.querySelector("#new-name").value;
+    let cover = document.querySelector("#new-cover").files[0];
+    let artist = document.querySelector("#new-artist").value;
+    let genre = document.querySelector("#new-genre").value;
+    
       if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
         let formData = new FormData();
         formData.append('file', cover);
         formData.append('name', albumName);
+        formData.append('token', myStorage.getItem("session-token"))
 
-        addAlbum(artist, genre, formData);
-      } else {
-        displayErrorMessage("All fields must be valid!");
-      }
+
+      addAlbum(artist, genre, formData);
+    } else {
+      displayErrorMessage("All fields must be valid!");
     }
+  }
 
-    addBtn.addEventListener("click", () => retrieveAddFormDetails());
-    updateBtn.addEventListener("click", () => retrieveUpdateFormDetails());
+  addBtn.addEventListener("click", () => retrieveAddFormDetails());
+  updateBtn.addEventListener("click", () => retrieveUpdateFormDetails());
   })();
-
-
-
-// const uploadImg = async (file) => {
-//   // const file = e.target.files[0];
-//   const formData = new FormData();
-//   formData.append("images", file);
-//   setUploading(true)
-//   try {
-//     const config = {
-//       headers: {
-//         "Content-Type": "multipart/form-data",              
-//       },
-//     };    
-//     const { data } = await axios.post(baseUrl + 'upload', formData, config)             
-
-//     imgSelected.push({
-//         picture: data
-//     })
-
-
-
-//     setUploading(false)
-
-//   } catch (error) {
-//     console.error(error);   
-//     setUploading(false)       
-//   }
-// };

@@ -20,11 +20,12 @@ public class ArtistDTO {
         // TODO Auto-generated constructor stub
     }
 
-    public ArtistDTO(long id, String name, List<Album> albums) {
+    public ArtistDTO(long id, String name, List<Album> albums, Image image) {
         super();
         this.id = id;
         this.name = name;
         this.albums = albums;
+        this.image = image;
     }
 
 	public long getId() {

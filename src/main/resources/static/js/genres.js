@@ -1,13 +1,11 @@
 (() => {
     function getGenreSinglePage(genreId) {
-        console.log(genreId);
         fetch(`http://localhost:8082/genresingle`)
                 .then(response => response.text())
                 .then(data => goToGenreSinglePage(data, genreId));
     }
 
     function goToGenreSinglePage(data, genreId) {
-        console.log(genreId);
         window.location = `${data}?id=${genreId}`;
     }
 
@@ -22,15 +20,12 @@
         }).catch((err) => console.error(`${err}`));
 
     function createGenres(genres) {
-        console.log("create genres")
         for (genre in genres) {
-            console.log(genres[0]);
             createGenreCard(genres[genre]);
         }
     }
 
     function createGenreCard(genre) {
-        console.log("in here lies the genre card");
         let cardGroup = document.querySelector("#card-group");
 
         let card = document.createElement("div");
@@ -43,8 +38,8 @@
 
         let cardImage = document.createElement("img");
         cardImage.setAttribute("class", "card-img-top");
-        cardImage.setAttribute("src", "https://www.superiorwallpapers.com/download/a-guitar-in-flames-rock-music-guitar-1920x1080.jpg");
-        cardImage.setAttribute("alt", "Rock image cap");
+        cardImage.setAttribute("alt", genre.image.name);
+        cardImage.setAttribute("src", "data:image/" + genre.image.type + ";base64," + genre.image.picByte);
         card.appendChild(cardImage);
 
         let cardBody = document.createElement("div");

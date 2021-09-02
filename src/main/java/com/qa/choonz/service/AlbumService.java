@@ -14,12 +14,16 @@ import com.qa.choonz.exception.AlbumNotFoundException;
 import com.qa.choonz.exception.ArtistNotFoundException;
 import com.qa.choonz.exception.GenreNotFoundException;
 import com.qa.choonz.exception.TrackNotFoundException;
+import com.qa.choonz.persistence.domain.AdminUser;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Image;
+import com.qa.choonz.persistence.domain.Session;
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.User;
 import com.qa.choonz.persistence.domain.builder.AlbumBuilder;
+import com.qa.choonz.persistence.repository.AdminUserRepository;
 import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.persistence.repository.GenreRepository;
@@ -32,6 +36,7 @@ import com.qa.choonz.rest.dto.AlbumDTO;
 public class AlbumService {
 
 	private AlbumRepository albumRepo;
+	private AdminUserRepository adminUserRepo;
 	private ArtistRepository artistRepo;
 	private GenreRepository genreRepo;
 	private TrackRepository trackRepo;
@@ -40,7 +45,8 @@ public class AlbumService {
 	private ModelMapper mapper;
 
 	public AlbumService(AlbumRepository albumRepo, ModelMapper mapper, ArtistRepository artistRepo,
-			GenreRepository genreRepo, TrackRepository trackRepo, ImageRepository imageRepo) {
+			GenreRepository genreRepo, TrackRepository trackRepo, ImageRepository imageRepo,
+			AdminUserRepository adminUserRepo, SessionRepository sessionRepo) {
 		super();
 		this.albumRepo = albumRepo;
 		this.artistRepo = artistRepo;
@@ -48,6 +54,8 @@ public class AlbumService {
 		this.trackRepo = trackRepo;
 		this.imageRepo = imageRepo;
 		this.mapper = mapper;
+		this.adminUserRepo = adminUserRepo;
+		this.sessionRepo = sessionRepo;
 	}
 
 	private AlbumDTO mapToDTO(Album album) {
@@ -55,7 +63,7 @@ public class AlbumService {
 	}
 
 	public AlbumDTO create(Long artistId, Long genreId, MultipartFile file, String name, String token) throws Exception {
-		authenticate(token);
+		authenticateAdmin(token);
 		Album album = new AlbumBuilder().name(name).build();
 		Optional<Artist> artistOpt = this.artistRepo.findById(artistId);
 		artistOpt.orElseThrow(() -> new ArtistNotFoundException());
@@ -122,11 +130,16 @@ public class AlbumService {
 		return !this.albumRepo.existsById(id);
 	}
 	
-	public void authenticate(String token) throws Exception {
-		if(sessionRepo.existsByToken(token)) {
+	public void authenticateAdmin(String token) throws Exception {
+		Session session = sessionRepo.findByToken(token);
+		if(session == null) {
+			throw new Exception("Session not found");
+		}
+		User user = session.getUser();
+		if(adminUserRepo.existsById(user.getId())) {
 			return;
 		} else {
-			throw new Exception("Session not found");
+			throw new Exception("User no longer exists");
 		}	
 	}
 

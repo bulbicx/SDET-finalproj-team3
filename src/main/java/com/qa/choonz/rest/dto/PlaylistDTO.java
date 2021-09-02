@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Track;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 
 public class PlaylistDTO {
 
@@ -15,7 +15,7 @@ public class PlaylistDTO {
     private String description;
     private Image artwork;
     private List<Track> tracks;
-    private User user;
+    private PublicUser user;
 
     public PlaylistDTO() {
         super();
@@ -24,7 +24,7 @@ public class PlaylistDTO {
 
 
 
-    public PlaylistDTO(long id, String name, String description, Image artwork, List<Track> tracks, User user) {
+    public PlaylistDTO(long id, String name, String description, Image artwork, List<Track> tracks, PublicUser user) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -106,11 +106,11 @@ public class PlaylistDTO {
         this.tracks = tracks;
     }
     
-    public User getUser() {
+    public PublicUser getUser() {
     	return user;
     }
     
-    public void setUser(User user) {
+    public void setUser(PublicUser user) {
     	this.user=user;
     }
 

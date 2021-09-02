@@ -27,9 +27,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Track;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.builder.TrackBuilder;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -49,11 +50,13 @@ public class TrackControllerIntegrationTest {
 	void testCreateTrack() throws Exception {
 		
 		//Create track object
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
-		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre,  image);
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
+
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
 		Track track = new Track(1L, "Parkour", album, new ArrayList<>(), 180, "la la la land");
@@ -88,11 +91,14 @@ public class TrackControllerIntegrationTest {
 		
 		RequestBuilder mockRequest = get("/tracks/read");
 		
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
-		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
+
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
 		List<Playlist> playlistsEmpty = new ArrayList<>();
@@ -125,11 +131,14 @@ public class TrackControllerIntegrationTest {
 		
 		RequestBuilder mockRequest = get("/tracks/read/1");
 		
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
-		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
+
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
 		Track track = new Track(1L, "Parkour", album, playlists, 180, "la la la land");
@@ -147,11 +156,12 @@ public class TrackControllerIntegrationTest {
 	@Test
 	void testUpdateTrack() throws Exception {
 		//Create track with updated data
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>());
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>());
-		Album album = new Album(1L, "Blackpool", artist, genre, "image");
-		User user = new User(1L, "polkadot", "Micheal", "password123", new ArrayList<>());
-		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", "image", new ArrayList<>(), user);
+		Image image = new Image(0L, "image name", "image type", null);
+		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
+		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
+		Playlist playlist = new Playlist(1L, "My playlist", "The best playlist", image, new ArrayList<>(), user);
 		List<Playlist> playlists = new ArrayList<>();
 		playlists.add(playlist);
 		Track updateTrack = new Track(1L, "Parkourrr", album, playlists, 280, "la la la laaaaaa land");

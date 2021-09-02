@@ -25,6 +25,8 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Genre;
+import com.qa.choonz.persistence.domain.Image;
+import com.qa.choonz.persistence.domain.builder.GenreBuilder;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -41,7 +43,7 @@ public class GenreControllerIntegrationTest {
 	@Test
 	void testCreateGenre() throws Exception {
 		//Create Genre object
-		Genre genre = new Genre("hip hop", "hip hop genre");
+		Genre genre = new GenreBuilder().name("hip hop").description("hip hop genre").build();
 		
 		//Convert it to a JSON String
 		String genreAsJSON = this.mapper.writeValueAsString(genre);
@@ -53,7 +55,7 @@ public class GenreControllerIntegrationTest {
 								.content(genreAsJSON);
 		
 		//Create an Genre object resembling the one created in database
-		Genre genreInDb = new Genre(2L, "hip hop", "hip hop genre");
+		Genre genreInDb = new GenreBuilder().id(2L).name("hip hop").description("hip hop genre").build();
 		
 		//Convert the genre resembling the one in database as JSON
 		String genreInDbAsJSON = this.mapper.writeValueAsString(genreInDb);
@@ -74,7 +76,7 @@ public class GenreControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/genres/read");
 		
 		//Create genre object that should resemble the existing one on database
-		Genre genre = new Genre(1L, "Jazz", "Jazz genre");
+		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		
 		//Create a list and add the object
 		List<Genre> genresOnDb = new ArrayList<>();
@@ -99,7 +101,7 @@ public class GenreControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/genres/read/1");
 		
 		//Create the genre object resembling the one existing on db
-		Genre genreOnDb = new Genre(1L, "Jazz", "Jazz genre");
+		Genre genreOnDb = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		
 		//Convert the object into JSON format
 		String genreOnDbAsJSON = this.mapper.writeValueAsString(genreOnDb);
@@ -117,7 +119,7 @@ public class GenreControllerIntegrationTest {
 	@Test
 	void testUpdateGenre() throws Exception {
 		//Create genre object with updated data
-		Genre updatedGenre = new Genre("New Jazz", "New Jazz genre");
+		Genre updatedGenre = new GenreBuilder().name("new Jazz").description("new Jazz genre").build();
 		
 		//Convert genre into JSON format
 		String updatedGenreAsJSON = this.mapper.writeValueAsString(updatedGenre);
@@ -129,7 +131,7 @@ public class GenreControllerIntegrationTest {
 								.content(updatedGenreAsJSON);
 		
 		//Create genre object which resemble the updated one on db
-		Genre updatedGenreOnDb = new Genre(1L, "New Jazz", "New Jazz genre");
+		Genre updatedGenreOnDb = new GenreBuilder().name("new Jazz").description("new Jazz genre").build();
 		
 		//Convert genre as JSON format
 		String updatedGenreOnDbAsJSON = this.mapper.writeValueAsString(updatedGenreOnDb); 

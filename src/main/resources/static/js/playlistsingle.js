@@ -3,6 +3,8 @@
   const myParam = urlParams.get('id');
   let playlistContainer = document.querySelector(".playlist-container");
   let addBtn = document.querySelector(".add");
+  let deleteBtn = document.querySelector(".delete");
+  let trackId;
 
   const removeTrackFromPlaylist = async (trackId) => {
     await fetch(`http://localhost:8082/playlists/${myParam}/removeTrack/${trackId}`, {
@@ -17,6 +19,28 @@
     
     alert("Track deleted!");
     location.reload();
+  }
+
+  const loadDeleteTrack = async () => {
+    await fetch(`http://localhost:8082/tracks/read`)
+    .then(response => response.json())
+    .then(data => {
+      let selectDelete = document.querySelector(".track-list-dropdown-delete");
+      selectDelete.addEventListener("change", () => getPlaylistIdDropdown());
+      
+      for (let i = 0; i < data.length; i++) {
+        let option = document.createElement("option");
+        option.setAttribute("value", data[i].id);
+        option.innerHTML = data[i].name;
+        selectDelete.appendChild(option);
+      }
+      })
+      .catch(error => console.error(error));
+  }
+  loadDeleteTrack();
+
+  const getPlaylistIdDropdown = () => {
+    trackId = document.querySelector(".track-list-dropdown-delete").value;
   }
 
   const buildHeaderPage = (name, description) => {
@@ -53,6 +77,14 @@
     plusIcon.innerText = " Add track";
     header.appendChild(plusIcon);
 
+    let removeIcon = document.createElement("i");
+    removeIcon.setAttribute("class", "bi bi-trash-fill mx-3");
+    removeIcon.setAttribute("type" ,"button");
+    removeIcon.setAttribute("data-bs-toggle", "modal");
+    removeIcon.setAttribute("data-bs-target", "#delete-track");
+    removeIcon.innerText = " Delete track";
+    header.appendChild(removeIcon);
+
     let section = document.createElement("section");
     section.setAttribute("class", "row");
     trackList.appendChild(section);
@@ -60,7 +92,7 @@
     for (let i = 0; i < tracks.length; i++) {
       let card = document.createElement("div");
       card.setAttribute("class", "card p-0");
-      card.setAttribute("style", "width: 18rem");
+      card.setAttribute("style", "width: 13rem");
       section.appendChild(card);
   
       let span = document.createElement("span");
@@ -77,11 +109,6 @@
       p.innerText = tracks[i].name;
       span.appendChild(p);
       card.appendChild(span);
-
-      let deleteIcon = document.createElement("i");
-      deleteIcon.setAttribute("class", "bi bi-trash-fill");
-      deleteIcon.addEventListener("click", () => removeTrackFromPlaylist(tracks[i].id));
-      card.appendChild(deleteIcon);
     }
   }
 
@@ -161,5 +188,5 @@
   }
 
   addBtn.addEventListener("click", () => retrieveAddFormDetails());
-
+  deleteBtn.addEventListener("click", () => removeTrackFromPlaylist(trackId));
 })();
