@@ -44,13 +44,6 @@ public class GenreStepDefs {
 	    genresPage.clickCard();
 	}
 
-	
-// This function is identical to one in ArtistStepDef
-//	@Then("I am taken to the page for that genre")
-//	public void iAmTakenToThePageForThatGenre() {
-//	    assertEquals("http://127.0.0.1:5500/genresingle.html?id=1", this.driver.getCurrentUrl());
-//	}
-
 	@Given("I am on the genre single page")
 	public void iAmOnTheGenreSinglePage() {
 	    this.driver.get(genreSinglePage.url);

@@ -3,7 +3,9 @@ package com.qa.choonz.uat.stepdefs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -30,6 +32,20 @@ public class GenreCrudStepDefs {
 		this.genreCrudPage = PageFactory.initElements(this.driver, GenreCRUDPage.class);
 	}
 	
+	@Given("I am logged in as admin")
+	public void i_am_logged_in_as_admin() {
+		//Create admin before running those tests
+		String username = "admin";
+		String password = "password123";
+	    this.driver.get("http://localhost:8082/adminlogin.html");
+	    WebElement usernameInput = driver.findElement(By.id("username-login"));
+	    WebElement pwdInput = driver.findElement(By.id("password-login"));
+	    WebElement loginBtn = driver.findElement(By.className("btn-primary"));
+	    usernameInput.sendKeys(username);
+	    pwdInput.sendKeys(password);
+	    loginBtn.click();
+	}
+	
 	@Given("I am in the genre page")
 	public void i_am_in_the_genre_page() {
 	    this.driver.get(genreCrudPage.URL);
@@ -45,7 +61,8 @@ public class GenreCrudStepDefs {
 	public void i_add_genre_details() {
 	    String name = "Rock";
 	    String description = "Rock music";
-	    genreCrudPage.insertDataOnAddition(name, description);
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    genreCrudPage.insertDataOnAddition(name, description, image);
 	}
 
 	@When("I press the add genre button")
@@ -55,10 +72,10 @@ public class GenreCrudStepDefs {
 
 	@Then("a new genre is added")
 	public void a_new_genre_is_added() {
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
-		assertTrue(alertMsg.equals("New Genre added!"));
+		assertTrue(alertMsg.equals("Genre added!"));
 	}
 	
 	/**
@@ -67,8 +84,11 @@ public class GenreCrudStepDefs {
 	@Given("I have a genre")
 	public void i_have_a_genre() {
 	    this.driver.get(genreCrudPage.URL);
-	    genreCrudPage.addNewGenre("Hip", "Hip music");
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+	    String name = "Hip";
+	    String description = "Hip music";
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    genreCrudPage.addNewGenre(name, description, image);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
