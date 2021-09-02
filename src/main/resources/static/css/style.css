@@ -152,6 +152,14 @@ footer {
   padding: .1em .1em .1em .35em;
 }
 
+.admin-link {
+  text-decoration: none;
+  color: black;
+}
+
+.admin-link:hover {
+  color: rgb(230, 118, 54);
+}
 
 .nav-link-active,
 .nav-link:hover,
