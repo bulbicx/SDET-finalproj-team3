@@ -17,7 +17,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 				"junit:target/cucumber-reports/cucumber-junit-report.xml"
 		},
 		monochrome = true,
-		tags = "@create_playlist or @update_playlist or @delete_playlist"
+		tags = "@navpages"
 		)
 public class CucumberTestRunner {
 // many of the assert cases in the stepdefs have a sleep function to wait for the page to load. Implicit wait didn't fix it
