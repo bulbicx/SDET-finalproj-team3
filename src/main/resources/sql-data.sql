@@ -1,4 +1,4 @@
-INSERT INTO `image` (`name`, `pic_byte`, `type`) VALUES ('johnpng', '646464646464', 'png');
+INSERT INTO `image` (`name`, `pic_byte`, `type`) VALUES ('johnpng', '57', 'png');
 INSERT INTO `artist` (`name`, `image_id`) VALUES ('Jack Montano', 1);
 INSERT INTO `genre` (`name`, `description`, `image_id`) VALUES ('Jazz', 'Jazz genre', 1);
 INSERT INTO `album` (`cover`, `name`, `artist_id`, `genre_id`, `image_id`) VALUES ('image', 'Blackpool', 1, 1, 1);

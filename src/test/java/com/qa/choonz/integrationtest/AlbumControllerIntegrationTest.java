@@ -45,8 +45,10 @@ public class AlbumControllerIntegrationTest {
 	@Test
 	void testCreateAlbum() throws Exception {
 		
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 1;
 		//Create Album object
-		Image image = new Image(0L, "image name", "image type", null);
+		Image image = new Image(0L, "johnpng", "png", byteImage);
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new AlbumBuilder().name("Blackpool").artist(artist).genre(genre).cover(image).build();
@@ -82,7 +84,10 @@ public class AlbumControllerIntegrationTest {
 		
 		RequestBuilder mockRequest = get("/albums/read");
 		
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		//Create Album object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new AlbumBuilder().id(1L).name("Blackpool").artist(artist).genre(genre).cover(image).build();
