@@ -35,6 +35,9 @@
               <li><a class="social-link" href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a></li>
               <li><a class="social-link" href="https://twitter.com/?lang=en-gb"><i class="bi bi-twitter"></i></a></li>
           </ul>
+          <span>
+            <a href="adminlogin.html" class="admin-link">Admin login</a>
+          </span>
       </div>
       <div class="copyright-section">
           <p id="copyright">&copy; 2021 Choonz. All Rights Reserved.</p>
