@@ -200,9 +200,12 @@ footer {
 .header-section {
   text-align: center;
 }
-
 .title-section {
   font-size: 3rem;
+}
+
+.title-section,
+.title-section-sgl-pg {
   text-shadow: grey 1px 0 10px;
   margin-bottom: 0.4em;
 }
@@ -224,4 +227,45 @@ footer {
 .card:focus {
   cursor: pointer;
   box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
+}
+
+#artist-col,
+#album-col,
+#genre-col {
+  display: flex;
+  align-items: center;
+}
+
+
+.title-section-sgl-pg {
+  padding: .2em;
+}
+.title-section-sgl-genre,
+.title-section-sgl-pg {
+  font-size: 5.5rem;
+}
+
+.description-genre {
+  font-size: 1.1rem;
+  margin-left: .9em;
+}
+
+.artist-name {
+  font-size: 2rem;
+}
+
+.row-track:hover,
+.row-track:focus {
+  cursor: pointer;
+  /* box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px; */
+  -moz-box-shadow:    inset 0 0 10px rgb(148, 148, 148);
+  -webkit-box-shadow: inset 0 0 10px rgb(148, 148, 148);
+  box-shadow:         inset 0 0 10px rgb(148, 148, 148);
+}
+
+.text-section {
+  margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
