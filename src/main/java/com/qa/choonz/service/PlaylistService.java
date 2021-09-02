@@ -16,21 +16,21 @@ import com.qa.choonz.persistence.domain.Image;
 import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.Session;
 import com.qa.choonz.persistence.domain.Track;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.builder.ArtistBuilder;
 import com.qa.choonz.persistence.domain.builder.PlaylistBuilder;
 import com.qa.choonz.persistence.repository.ImageRepository;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
 import com.qa.choonz.persistence.repository.SessionRepository;
 import com.qa.choonz.persistence.repository.TrackRepository;
-import com.qa.choonz.persistence.repository.UserRepository;
+import com.qa.choonz.persistence.repository.PublicUserRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 
 @Service
 public class PlaylistService {
 
 	private PlaylistRepository playlistRepo;
-	private UserRepository userRepo;
+	private PublicUserRepository userRepo;
 	private TrackRepository trackRepo;
 	private ImageRepository imageRepo;
 	private SessionRepository sessionRepo;
@@ -41,7 +41,7 @@ public class PlaylistService {
 			PlaylistRepository playlistRepo, 
 			TrackRepository trackRepo, 
 			ModelMapper mapper,
-			UserRepository userRepo,
+			PublicUserRepository userRepo,
 			ImageRepository imageRepo,
 			SessionRepository sessionRepo) {
 		super();
@@ -61,10 +61,11 @@ public class PlaylistService {
 		Session session = this.sessionRepo.findByToken(token);
 		Image image = new Image(file.getOriginalFilename(), file.getContentType(), file.getBytes());
 		Image savedImage = this.imageRepo.save(image);
+		PublicUser user = (PublicUser) session.getUser();
         Playlist playlist = new PlaylistBuilder()
         		.name(name)
         		.description(description)
-        		.user(session.getUser())
+        		.user(user)
         		.artwork(savedImage)
         		.build();
         Playlist created = this.playlistRepo.save(playlist);

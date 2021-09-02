@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -44,7 +44,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	void testCreateUser() throws Exception {
 		//Create User object
-		User user = new User("Micheal90", "Micheal", "password123");
+		PublicUser user = new PublicUser("Micheal90", "Micheal", "password123");
 		
 		//Convert it to a JSON String
 		String userAsJSON = this.mapper.writeValueAsString(user);
@@ -56,7 +56,7 @@ public class UserControllerIntegrationTest {
 								.content(userAsJSON);
 		
 		//Create a User object resembling the one created in database
-		User userInDb = new User(2L, "Micheal90", "Micheal", "password123");
+		PublicUser userInDb = new PublicUser(2L, "Micheal90", "Micheal", "password123");
 		
 		//Convert the user resembling the one in database as JSON
 		String userInDbAsJSON = this.mapper.writeValueAsString(userInDb);
@@ -77,10 +77,10 @@ public class UserControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/users/read");
 		
 		//Create user object that should resemble the existing one on database
-		User user = new User(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
 		
 		//Create a list and add the object
-		List<User> usersOnDb = new ArrayList<>();
+		List<PublicUser> usersOnDb = new ArrayList<>();
 		usersOnDb.add(user);
 		
 		//Convert list into JSON format
@@ -102,7 +102,7 @@ public class UserControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/users/read/1");
 		
 		//Create the user object resembling the one existing on db
-		User userOnDb = new User(1L,"polkadot", "Micheal", "password123");
+		PublicUser userOnDb = new PublicUser(1L,"polkadot", "Micheal", "password123");
 		
 		//Convert the object into JSON format
 		String userOnDbAsJSON = this.mapper.writeValueAsString(userOnDb);
@@ -120,7 +120,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	void testUpdateUser() throws Exception {
 		//Create user object with updated data
-		User updatedUser = new User("polkadotNew", "MichealNew", "password123New");
+		PublicUser updatedUser = new PublicUser("polkadotNew", "MichealNew", "password123New");
 		
 		//Convert user into JSON format
 		String updatedUserAsJSON = this.mapper.writeValueAsString(updatedUser);
@@ -132,7 +132,7 @@ public class UserControllerIntegrationTest {
 								.content(updatedUserAsJSON);
 		
 		//Create user object which resemble the updated one on db
-		User updatedUserOnDb = new User(1L,"polkadotNew", "MichealNew", "password123New" );
+		PublicUser updatedUserOnDb = new PublicUser(1L,"polkadotNew", "MichealNew", "password123New" );
 		
 		//Convert user as JSON format
 		String updatedUserOnDbAsJSON = this.mapper.writeValueAsString(updatedUserOnDb); 

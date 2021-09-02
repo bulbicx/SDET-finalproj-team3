@@ -60,7 +60,7 @@
     for (let i = 0; i < tracks.length; i++) {
       let card = document.createElement("div");
       card.setAttribute("class", "card p-0");
-      card.setAttribute("style", "width: 18rem");
+      card.setAttribute("style", "width: 13rem");
       section.appendChild(card);
   
       let span = document.createElement("span");
