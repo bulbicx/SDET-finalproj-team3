@@ -68,7 +68,7 @@ public class PlaylistControllerIntegrationTest {
 		// Create an playlist object resembling the one created in database
 		// Create user
 
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		Playlist playlistCreated = new PlaylistBuilder().id(2L).name("Summer").artwork(image)
 				.description("Summer bangers").user(user).build();
 
@@ -93,7 +93,7 @@ public class PlaylistControllerIntegrationTest {
 		// Playlist like playlist in db
 		Image image = new Image(0L, "image name", "image type", null);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -136,7 +136,7 @@ public class PlaylistControllerIntegrationTest {
 		// Playlist like playlist in db
 		Image image = new Image(0L, "image name", "image type", null);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -172,7 +172,7 @@ public class PlaylistControllerIntegrationTest {
 		// Create playlist with updated data
 		Image image = new Image(0L, "image name", "image type", null);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -229,7 +229,7 @@ public class PlaylistControllerIntegrationTest {
 	void testPlaylistAddTrack() throws Exception {
 		Image image = new Image(0L, "image name", "image type", null);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
@@ -278,7 +278,7 @@ public class PlaylistControllerIntegrationTest {
 
 		Image image = new Image(0L, "image name", "image type", null);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
 		// Artist
 		Artist artist = new Artist(1L, "Jack Montano");
 		// Genre
