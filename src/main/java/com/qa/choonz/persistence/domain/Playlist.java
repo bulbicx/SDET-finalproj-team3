@@ -54,14 +54,14 @@ public class Playlist {
     
     @JsonIgnore
     @ManyToOne
-    private User user;
+    private PublicUser user;
 
     public Playlist() {
 		super();
 	}
 
 	public Playlist(Long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-			Image artwork, List<Track> tracks, User user) {
+			Image artwork, List<Track> tracks, PublicUser user) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -111,11 +111,11 @@ public class Playlist {
         this.tracks = tracks;
     }
     
-    public User getUser() {
+    public PublicUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(PublicUser user) {
         this.user = user;
     }
 

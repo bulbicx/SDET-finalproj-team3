@@ -8,7 +8,7 @@
     const pageHeader = document.querySelector("#header");
     let loginSignupForm = false;
     const loginUser = async (loginInfo) => {
-        await fetch(`http://localhost:8082/sessions/authenticate`, {
+        await fetch(`http://localhost:8082/sessions/authenticate/public`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -31,7 +31,7 @@
     }
 
     const registerUser = async (registerInfo) => {
-        await fetch(`http://localhost:8082/users/create`, {
+        await fetch(`http://localhost:8082/users/public/create`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"

@@ -14,51 +14,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.rest.dto.SessionDTO;
-import com.qa.choonz.rest.dto.UserDTO;
+import com.qa.choonz.rest.dto.PublicUserDTO;
 import com.qa.choonz.service.SessionService;
-import com.qa.choonz.service.UserService;
+import com.qa.choonz.service.PublicUserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/users/public")
 @CrossOrigin
-public class UserController {
+public class PublicUserController {
 	
-	private UserService service;
+	private PublicUserService service;
 	private SessionService sessionService;
 
-	public UserController(UserService service, SessionService sessionService) {
+	public PublicUserController(PublicUserService service, SessionService sessionService) {
 		super();
 		this.service = service;
 		this.sessionService = sessionService;
 	}
 	
     @PostMapping("/create")
-    public ResponseEntity<SessionDTO> create(@RequestBody User user) {
-    	User createdUser = this.service.create(user);
+    public ResponseEntity<SessionDTO> create(@RequestBody PublicUser user) {
+    	PublicUser createdUser = this.service.create(user);
         return new ResponseEntity<SessionDTO>(this.sessionService.createSession(createdUser), HttpStatus.CREATED);
     }
 
     @GetMapping("/read")
-    public ResponseEntity<List<UserDTO>> read() {
-        return new ResponseEntity<List<UserDTO>>(this.service.read(), HttpStatus.OK);
+    public ResponseEntity<List<PublicUserDTO>> read() {
+        return new ResponseEntity<List<PublicUserDTO>>(this.service.read(), HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<UserDTO> read(@PathVariable Long id) {
-        return new ResponseEntity<UserDTO>(this.service.read(id), HttpStatus.OK);
+    public ResponseEntity<PublicUserDTO> read(@PathVariable Long id) {
+        return new ResponseEntity<PublicUserDTO>(this.service.read(id), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserDTO> update(@RequestBody User user, @PathVariable long id) {
-        return new ResponseEntity<UserDTO>(this.service.update(user, id), HttpStatus.ACCEPTED);
+    public ResponseEntity<PublicUserDTO> update(@RequestBody PublicUser user, @PathVariable long id) {
+        return new ResponseEntity<PublicUserDTO>(this.service.update(user, id), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<UserDTO> delete(@PathVariable Long id) {
-        return this.service.delete(id) ? new ResponseEntity<UserDTO>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<UserDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<PublicUserDTO> delete(@PathVariable Long id) {
+        return this.service.delete(id) ? new ResponseEntity<PublicUserDTO>(HttpStatus.NO_CONTENT)
+                : new ResponseEntity<PublicUserDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 

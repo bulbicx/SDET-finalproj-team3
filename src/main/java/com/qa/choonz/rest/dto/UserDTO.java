@@ -7,23 +7,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Playlist;
 
 
-public class UserDTO {
+public abstract class UserDTO {
 	
 	private Long id;
 	private String username;
 	private String name;
-	private List<Playlist> playlists;
 	
 	public UserDTO() {
 		super();
 	}
 
-	public UserDTO(Long id, String username, String name, List<Playlist> playlists) {
+	public UserDTO(Long id, String username, String name) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.name = name;
-		this.playlists = playlists;
 	}
 
 	public long getId() {
@@ -49,26 +47,18 @@ public class UserDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public List<Playlist> getPlaylists() {
-		return playlists;
-	}
-
-	public void setPlaylists(List<Playlist> playlists) {
-		this.playlists = playlists;
-	}
 	
 	@Override
 	public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("UserDTO [id=").append(id).append(", username=").append(username).append(", name=")
-        		.append(name).append(", playlists=").append(playlists).append("]");
+        		.append(name).append("]");
         return builder.toString();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, playlists, username);
+		return Objects.hash(id, name, username);
 	}
 
 	@Override
@@ -80,10 +70,8 @@ public class UserDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		UserDTO other = (UserDTO) obj;
-		return id == other.id && Objects.equals(name, other.name) && Objects.equals(playlists, other.playlists)
+		return id == other.id && Objects.equals(name, other.name)
 				&& Objects.equals(username, other.username);
 	}
 	
-	
-
 }

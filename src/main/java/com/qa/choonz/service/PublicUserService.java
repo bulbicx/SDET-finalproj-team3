@@ -8,49 +8,49 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.UserNotFoundException;
-import com.qa.choonz.persistence.domain.User;
-import com.qa.choonz.persistence.repository.UserRepository;
-import com.qa.choonz.rest.dto.UserDTO;
+import com.qa.choonz.persistence.domain.PublicUser;
+import com.qa.choonz.persistence.repository.PublicUserRepository;
+import com.qa.choonz.rest.dto.PublicUserDTO;
 import com.qa.choonz.utils.PasswordAuthentication;
 
 import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
-public class UserService {
+public class PublicUserService {
 
-	private UserRepository repo;
+	private PublicUserRepository repo;
 	private ModelMapper mapper;
 	private static final PasswordAuthentication passwordAuth = new PasswordAuthentication(10);
 
-	public UserService(UserRepository repo, ModelMapper mapper) {
+	public PublicUserService(PublicUserRepository repo, ModelMapper mapper) {
 		super();
 		this.repo = repo;
 		this.mapper = mapper;
 	}
 
-	private UserDTO mapToDTO(User user) {
-		return this.mapper.map(user, UserDTO.class);
+	private PublicUserDTO mapToDTO(PublicUser user) {
+		return this.mapper.map(user, PublicUserDTO.class);
 	}
 	
 
-	public User create(User user) {
+	public PublicUser create(PublicUser user) {
 		char[] pass = user.getPassword().toCharArray();
 		user.setPassword(passwordAuth.hash(pass));
 		System.out.println(user);
 		return this.repo.save(user);
 	}
 
-	public List<UserDTO> read() {
+	public List<PublicUserDTO> read() {
 		return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
 
-	public UserDTO read(Long id) {
-		User found = this.repo.findById(id).orElseThrow(UserNotFoundException::new);
+	public PublicUserDTO read(Long id) {
+		PublicUser found = this.repo.findById(id).orElseThrow(UserNotFoundException::new);
 		return this.mapToDTO(found);
 	}
 
-	public UserDTO update(User user, Long id) {
-		User toUpdate = this.repo.findById(id).orElseThrow(UserNotFoundException::new);
+	public PublicUserDTO update(PublicUser user, Long id) {
+		PublicUser toUpdate = this.repo.findById(id).orElseThrow(UserNotFoundException::new);
 		toUpdate.setName(user.getName());
 		toUpdate.setUsername(user.getUsername());
 		PasswordAuthentication hashPass = new PasswordAuthentication();
@@ -60,7 +60,7 @@ public class UserService {
 		
 		System.out.println(toUpdate);
 		
-		User updated = this.repo.save(toUpdate);
+		PublicUser updated = this.repo.save(toUpdate);
 		
 		System.out.println(updated);
 		

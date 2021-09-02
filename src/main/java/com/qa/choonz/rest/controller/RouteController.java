@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RouteContoller {
+public class RouteController {
     @GetMapping(value = "/")
     public String index() {
         return "index.html";
@@ -14,6 +14,7 @@ public class RouteContoller {
     public String home() {
         return "index.html";
     }
+
 
     @GetMapping(value = "/tracks")
     public String tracks() {

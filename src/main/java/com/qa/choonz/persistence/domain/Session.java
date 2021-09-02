@@ -34,7 +34,7 @@ public class Session {
     	
     }
     
-	public Session(Long id, @NotNull User user,
+	public Session(Long id, @NotNull PublicUser user,
 			@NotNull @Size(max = 100) String token) {
 		super();
 		this.id = id;

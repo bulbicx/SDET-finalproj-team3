@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.choonz.persistence.domain.User;
+import com.qa.choonz.persistence.domain.PublicUser;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -38,7 +38,7 @@ public class SessionControllerIntegrationTest {
 	@Test
 	void testAuthenticateSession() throws Exception {
 		
-		User user = new User("Micheal90", "Micheal", "password123");
+		PublicUser user = new PublicUser("Micheal90", "Micheal", "password123");
 		
 		//Convert it to a JSON String
 		String userAsJSON = this.mapper.writeValueAsString(user);
@@ -47,7 +47,7 @@ public class SessionControllerIntegrationTest {
 									.contentType(MediaType.APPLICATION_JSON)
 									.content(userAsJSON);
 		
-		User userInDb = new User(2L, "Micheal90", "Micheal", "password123");
+		PublicUser userInDb = new PublicUser(2L, "Micheal90", "Micheal", "password123");
 		
 		//Convert the user resembling the one in database as JSON
 		String userInDbAsJSON = this.mapper.writeValueAsString(userInDb);

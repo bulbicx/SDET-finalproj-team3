@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.User;
 
 
@@ -26,8 +27,6 @@ public class SessionDTO {
 	public SessionDTO() {
 		super();
 	}
-
-	
 
 	public SessionDTO(Long id, User user, String token) {
 		super();
@@ -73,14 +72,10 @@ public class SessionDTO {
 		this.token = token;
 	}
 
-
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, token, user);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -94,13 +89,13 @@ public class SessionDTO {
 		return Objects.equals(id, other.id) && Objects.equals(token, other.token) && Objects.equals(user, other.user);
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "SessionDTO [id=" + id + ", user=" + user + ", token=" + token + "]";
 	}
-	
-	
+
+
+
+
 
 }
