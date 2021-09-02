@@ -1,13 +1,11 @@
 (() => {
     function getArtistSinglePage(artistId) {
-        console.log(artistId);
         fetch(`http://localhost:8082/artistsingle`)
                 .then(response => response.text())
                 .then(data => goToArtistSinglePage(data, artistId));
     }
 
     function goToArtistSinglePage(data, artistId) {
-        console.log(artistId);
         window.location = `${data}?id=${artistId}`;
     }
 
@@ -22,14 +20,11 @@
         }).catch((err) => console.error(`${err}`));
 
     function createArtists(artists) {
-        console.log("create artists")
         for (artist in artists) {
-            console.log(artists[0]);
             createArtistCard(artists[artist]);
         }
     }
     function createArtistCard(artist) {
-        console.log("in here alvbum card")
         let cardGroup = document.querySelector("#card-group");
 
         let card = document.createElement("div");

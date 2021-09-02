@@ -196,3 +196,32 @@ footer {
 .creator {
   font-size: .72rem;
 }
+
+.header-section {
+  text-align: center;
+}
+
+.title-section {
+  font-size: 3rem;
+  text-shadow: grey 1px 0 10px;
+  margin-bottom: 0.4em;
+}
+
+.cards-container {
+  padding: 2em;
+  border-radius: 2em;
+  -moz-box-shadow:    inset 0 0 10px rgb(148, 148, 148);
+  -webkit-box-shadow: inset 0 0 10px rgb(148, 148, 148);
+  box-shadow:         inset 0 0 10px rgb(148, 148, 148);
+}
+
+.card {
+  margin: 1em;
+  padding: 0;
+}
+
+.card:hover,
+.card:focus {
+  cursor: pointer;
+  box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
+}

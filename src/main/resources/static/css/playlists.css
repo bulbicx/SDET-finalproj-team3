@@ -4,13 +4,11 @@ body {
 
 /* Playlists page */
 .main-section {
-  margin: 1em;
   padding: 1em;
-  border: 2px transparent;
-  border-radius: 3em;
-  border-image-slice: 1;
-  border-image-source: linear-gradient(to left, rgb(230, 118, 54), red);
-  box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
+  border-radius: 2em;
+  -moz-box-shadow:    inset 0 0 10px rgb(148, 148, 148);
+  -webkit-box-shadow: inset 0 0 10px rgb(148, 148, 148);
+  box-shadow:         inset 0 0 10px rgb(148, 148, 148);
 }
 
 #title-page {
@@ -30,17 +28,15 @@ body {
   text-align: center;
   color: white;
   border: none;
-  box-shadow: 3px 3px 3px rgb(0 0 0 / 0.2);
+  /* box-shadow: 3px 3px 3px rgb(0 0 0 / 0.2); */
   font-size: 2.2rem;
   margin: 1em;
 }
 
 .card:hover,
 .card:focus {
-  box-shadow: 1px 2px 14px whitesmoke;
-  text-shadow: whitesmoke 1px 0 10px;
-  font-size: 2.23rem;
   cursor: pointer;
+  box-shadow: rgb(228, 101, 28) 13px 6px 40px -10px;
 }
 
 .card-text {
