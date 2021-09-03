@@ -1,0 +1,106 @@
+body {
+  padding: 0;
+}
+
+.admin-panel {
+  box-shadow: rgb(0 0 0 / 50%) 4px 0px 10px -4px;
+}
+
+.admin-panel {
+  padding: 0;
+  height: 44em;
+  background: whitesmoke;
+}
+
+.section-link {
+  text-align: center;
+}
+
+.page-link {
+  padding: 1em;
+  font-size: 1.3rem;
+  border: none;
+  color:rgb(230, 118, 54);
+  font-weight: 600;
+}
+
+.body-page {
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box-pages {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-page {
+  width: 6em;
+  height: 6em;
+  padding: 1em;
+  margin: .8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 700;
+  color:rgb(230, 118, 54);
+  box-shadow: rgb(0 0 0 / 50%) 4px 0px 10px -4px;
+}
+
+.page-link,
+.box-page {
+  background: whitesmoke;
+}
+
+.page-link:hover,
+.page-link:focus,
+.box-page:hover,
+.box-page:focus {
+  background: -webkit-linear-gradient(rgb(230, 118, 54), white);
+  color: white;
+  cursor: pointer;
+}
+
+.panel-link-active {
+  background: -webkit-linear-gradient(rgb(230, 118, 54), white);
+  color: white;
+}
+
+.bi {
+  font-size: 1.4rem;
+  padding: 0 .4em;
+  background: -webkit-linear-gradient(rgb(230, 118, 54), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bi:hover,
+.bi:focus {
+  cursor: pointer;
+  background: -webkit-linear-gradient(rgb(230, 118, 54), white)!important;
+  -webkit-background-clip: text!important;
+  -webkit-text-fill-color: transparent!important;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.bi-plus-circle-fill {
+  margin-left: .8em;
+}
+
+.img-cover {
+  width: 3em;
+}

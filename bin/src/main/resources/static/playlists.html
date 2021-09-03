@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/playlists.css">
+  <title>Playlists</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div id="nav-container"></div>
+  <!-- Navbar -->
+
+  <section class="m-5">
+    <header class="text-center">
+      <h1 id="title-page">Playlists</h1>
+      <p id="subtitle-page">The place where you can see all your playlists</p>
+    </header>
+    <div id="alert" role="alert"></div>
+    <div class="buttons-add-update">
+    </div>
+    <main class="row main-section">
+    </main>
+  </section>
+
+  <!-- Modal Add -->
+  <div class="modal fade" id="add-playlist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add new playlist</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="new-name" class="form-label">Playlist Name</label>
+            <input type="text" id="new-name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="new-description" class="form-label">Description</label>
+            <input type="text" id="new-description" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="new-artwork" class="form-label">Artwork</label>
+            <input type="text" id="new-artwork" class="form-control" required>
+          </div>
+          <!-- <div class="mb-3">
+            <label for="new-user" class="form-label">User</label>
+            <input type="text" id="new-user" class="form-control" disabled>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn add btn-primary" data-bs-dismiss="modal">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Add -->
+
+  <!-- Modal Update -->
+  <div class="modal fade" id="update-playlist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Update playlist</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="playlist-list" class="form-label">Playlist list</label>
+            <select class="playlist-list-update form-select" id="playlist-list">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Playlist Name</label>
+            <input type="text" id="name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" id="description" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="artwork" class="form-label">Artwork</label>
+            <input type="text" id="artwork" class="form-control" required>
+          </div>
+          <!-- <div class="mb-3">
+            <label for="user" class="form-label">User</label>
+            <input type="text" id="user" class="form-control" disabled>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn update btn-primary" data-bs-dismiss="modal">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Update -->
+
+
+  <!-- Modal Delete -->
+  <div class="modal fade" id="delete-playlist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete a playlist</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="playlist-list-delete" class="form-label">Playlist list</label>
+            <select class="playlist-list-delete form-select" id="playlist-list-delete">
+              <option value="">--Select a value--</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn delete btn-primary" data-bs-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Delete -->
+
+  <!-- Footer -->
+  <div class="footer-container"></div>
+  <!-- Footer -->
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+  <script src="./js/playlists.js"></script>
+  <script src="./js/navbar.js"></script>
+  <script src="./js/footer.js"></script>
+</body>
+
+</html>
