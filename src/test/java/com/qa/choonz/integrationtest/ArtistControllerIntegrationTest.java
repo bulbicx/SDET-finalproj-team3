@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,15 +19,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Artist;
+import com.qa.choonz.persistence.domain.Image;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -40,32 +46,34 @@ public class ArtistControllerIntegrationTest {
 	
 	@Test
 	void testCreateArtist() throws Exception {
-		//Create Artist object
-		Artist artist = new Artist("Jack Montano");
+		File file = new File("src/test/resources/images/testimage.png");
+		byte[] byteImage = readFileToByteArray(file);
+		// Create Image object
+		Image image = new Image(2L, "testimage.png", "image/png", byteImage);
+		//Create Artist object like in db
+		Artist artist = new Artist(2L, "Jack Montano 2", new ArrayList<>(), image);
 		
-		//Convert it to a JSON String
-		String artistAsJSON = this.mapper.writeValueAsString(artist);
-		
-		//Build mock request
-		RequestBuilder mockRequest =
-								post("/artists/create")
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(artistAsJSON);
-		
-		//Create an artist object resembling the one created in database
-		Artist artistInDb = new Artist(2L, "Jack Montano");
-		
-		//Convert the artist in database as JSON
-		String artistInDbAsJSON = this.mapper.writeValueAsString(artistInDb);
-		
-		//Get status created
+		// Convert it to a JSON String
+		String artistAsJson = this.mapper.writeValueAsString(artist);
+
+		// Get status created
 		ResultMatcher matchStatus = status().isCreated();
+
+		// Get body
+		ResultMatcher matchBody = content().json(artistAsJson);
+
+		String endpoint = "/artists/create";
+
 		
-		//Get body
-		ResultMatcher matchBody = content().json(artistInDbAsJSON);
-		
-		//Build the request and assert it is what we have created
-		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
+		MockMultipartFile firstFile = new MockMultipartFile("file", "testimage.png", MediaType.IMAGE_PNG_VALUE, byteImage);
+
+		this.mock.perform(MockMvcRequestBuilders.multipart(endpoint)
+				.file(firstFile)
+				.param("name", "Jack Montano 2")
+				.param("token", "$31$11$Zhi4PT548-kYfpgwiOM8aE0EkCLkyHOQuKyUI_S1Fb0")
+				)
+		.andExpect(matchBody)
+		.andExpect(matchStatus);	
 	}
 	
 	@Test
@@ -73,8 +81,12 @@ public class ArtistControllerIntegrationTest {
 		//Build mock request
 		RequestBuilder mockRequest = get("/artists/read");
 		
-		//Create artist object that should resemble the existing one on database
-		Artist artist = new Artist(1L, "Jack Montano");
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Artist object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
+		//Create Artist object like in db
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		
 		//Create a list and add the object
 		List<Artist> artistsOnDb = new ArrayList<>();
@@ -98,11 +110,15 @@ public class ArtistControllerIntegrationTest {
 		//Build mock request
 		RequestBuilder mockRequest = get("/artists/read/1");
 		
-		//Create the artist resembling the one existing on db
-		Artist artistOnDb = new Artist(1L, "Jack Montano");
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Album object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
+		//Create Artist object like in db
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		
 		//Convert the object into JSON format
-		String artistOnDbAsJSON = this.mapper.writeValueAsString(artistOnDb);
+		String artistOnDbAsJSON = this.mapper.writeValueAsString(artist);
 		
 		//Get status code
 		ResultMatcher matchStatus = status().isOk();
@@ -116,11 +132,15 @@ public class ArtistControllerIntegrationTest {
 	
 	@Test
 	void testUpdateArtist() throws Exception {
-		//Create artist with updated data
-		Artist updatedArtist = new Artist("Jack Borderson");
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Album object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
+		//Create Artist object like in db
+		Artist artist = new Artist(1L, "Jack Borderson", new ArrayList<>(), image);
 		
 		//Convert artist into JSON format
-		String updatedArtistAsJSON = this.mapper.writeValueAsString(updatedArtist);
+		String updatedArtistAsJSON = this.mapper.writeValueAsString(artist);
 		
 		//Build mock request
 		RequestBuilder mockRequest =
@@ -129,7 +149,7 @@ public class ArtistControllerIntegrationTest {
 								.content(updatedArtistAsJSON);
 		
 		//Create artist object which resemble the updated one on db
-		Artist updatedArtistOnDb = new Artist(1L, "Jack Borderson");
+		Artist updatedArtistOnDb = new Artist(1L, "Jack Borderson", new ArrayList<>(), image);
 		
 		//Convert artist as JSON format
 		String updatedArtistOnDbAsJSON = this.mapper.writeValueAsString(updatedArtistOnDb); 
@@ -156,4 +176,18 @@ public class ArtistControllerIntegrationTest {
 		this.mock.perform(mockRequest).andExpect(matchStatus);
 	}
 	
+	private static byte[] readFileToByteArray(File file) {
+		FileInputStream fis = null;
+		// Creating a byte array using the length of the file
+		// file.length returns long which is cast to int
+		byte[] bArray = new byte[(int) file.length()];
+		try {
+			fis = new FileInputStream(file);
+			fis.read(bArray);
+			fis.close();
+		} catch (IOException ioExp) {
+			ioExp.printStackTrace();
+		}
+		return bArray;
+	}
 }

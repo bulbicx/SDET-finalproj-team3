@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +19,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.Album;
@@ -51,53 +56,52 @@ public class PlaylistControllerIntegrationTest {
 
 	@Test
 	void testCreatePlaylist() throws Exception {
-		// Create Playlist object
-		Image image = new Image(0L, "image name", "image type", null);
-		Playlist playlist = new PlaylistBuilder().name("Summer").artwork(image).description("Summer bangers")
-				.build();
+		File file = new File("src/test/resources/images/testimage.png");
+		byte[] byteImage = readFileToByteArray(file);
+		// Create Image object
+		Image image = new Image(2L, "testimage.png", "image/png", byteImage);
+		Playlist playlist = new PlaylistBuilder().id(2L).name("Summer").artwork(image).description("Summer bangers").build();
 		// UserId
-		Long userId = 1L;
+		Long userId = 2L;
 
 		// Convert it to a JSON String
 		String playlistAsJSON = this.mapper.writeValueAsString(playlist);
-
-		// Build mock request
-		RequestBuilder mockRequest = post("/playlists/create/user/" + userId).contentType(MediaType.APPLICATION_JSON)
-				.content(playlistAsJSON);
-
-		// Create an playlist object resembling the one created in database
-		// Create user
-
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
-		Playlist playlistCreated = new PlaylistBuilder().id(2L).name("Summer").artwork(image)
-				.description("Summer bangers").user(user).build();
-
-		// Convert the artist in database as JSON
-		String playlistCreatedAsJSON = this.mapper.writeValueAsString(playlistCreated);
 
 		// Get status created
 		ResultMatcher matchStatus = status().isCreated();
 
 		// Get body
-		ResultMatcher matchBody = content().json(playlistCreatedAsJSON);
+		ResultMatcher matchBody = content().json(playlistAsJSON);
 
-		// Build the request and assert it is what we have created
-		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
+		String endpoint = "/playlists/create/user/" + userId;
+
+		MockMultipartFile firstFile = new MockMultipartFile("file", "testimage.png", MediaType.IMAGE_PNG_VALUE,
+				byteImage);
+
+		this.mock.perform(MockMvcRequestBuilders.multipart(endpoint)
+						.file(firstFile)
+						.param("name", "Summer")
+						.param("description","Summer bangers")
+						.param("token", "$31$11$eTW7By3kk0_UdPsmwrFWvyLLKwtEGDd-tVnSgrIJQ4Q"))
+				.andExpect(matchBody).andExpect(matchStatus);
 	}
 
 	@Test
 	void testReadAllPlaylists() throws Exception {
 		// Build mock request
 		RequestBuilder mockRequest = get("/playlists/read");
-
-		// Playlist like playlist in db
-		Image image = new Image(0L, "image name", "image type", null);
+		
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Playlist object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(),
+				new ArrayList<>());
 		// Artist
-		Artist artist = new Artist(1L, "Jack Montano");
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		// Genre
-		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
+		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").image(image).build();
 		// Album
 		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
 		// track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la
@@ -107,6 +111,9 @@ public class PlaylistControllerIntegrationTest {
 		List<Track> tracklist = new ArrayList<Track>();
 		tracklist.add(track);
 		album.setTracks(tracklist);
+		List<Album> albums = new ArrayList<Album>();
+		albums.add(album);
+		artist.setAlbums(albums);
 
 		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork(image)
 				.description("The best playlist").user(user).tracks(tracklist).build();
@@ -132,19 +139,19 @@ public class PlaylistControllerIntegrationTest {
 	void testReadOnePlaylist() throws Exception {
 		// Build mock request
 		RequestBuilder mockRequest = get("/playlists/read/1");
-
-		// Playlist like playlist in db
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Playlist object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
-		// Artist
-		Artist artist = new Artist(1L, "Jack Montano");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(),
+				new ArrayList<>());
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>() ,image);
 		// Genre
 		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
 		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
-		// track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la
-		// land', 'Parkour', 1);
+
 		Track track = new TrackBuilder().duration(180).lyrics("la la la land").name("Parkour").album(album).build();
 		// Add list of tracks to album
 		List<Track> tracklist = new ArrayList<Track>();
@@ -169,12 +176,15 @@ public class PlaylistControllerIntegrationTest {
 
 	@Test
 	void testUpdatePlaylist() throws Exception {
-		// Create playlist with updated data
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Playlist object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
-		// Artist
-		Artist artist = new Artist(1L, "Jack Montano");
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(),
+				new ArrayList<>());
+		//Artist
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>() ,image);
 		// Genre
 		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
@@ -194,7 +204,7 @@ public class PlaylistControllerIntegrationTest {
 		String updatedPlaylistAsJSON = this.mapper.writeValueAsString(playlist);
 
 		// Playlist to send as JSON
-		Playlist playlistForPut = new PlaylistBuilder().id(1L).name("My updated playlist").artwork(image)
+		Playlist playlistForPut = new PlaylistBuilder().id(1L).name("My updated playlist")
 				.description("The best playlist").build();
 
 		String playlistForPutAsJSON = this.mapper.writeValueAsString(playlistForPut);
@@ -214,7 +224,7 @@ public class PlaylistControllerIntegrationTest {
 	}
 
 	@Test
-	void testDeleteArtist() throws Exception {
+	void testDeletePlaylust() throws Exception {
 		// Build mock request
 		RequestBuilder mockRequest = delete("/playlists/delete/1");
 
@@ -227,11 +237,15 @@ public class PlaylistControllerIntegrationTest {
 
 	@Test
 	void testPlaylistAddTrack() throws Exception {
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Playlist object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(),
+				new ArrayList<>());
 		// Artist
-		Artist artist = new Artist(1L, "Jack Montano");
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		// Genre
 		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
@@ -276,11 +290,15 @@ public class PlaylistControllerIntegrationTest {
 	@Test
 	void testDeleteTrackFromPlaylist() throws Exception {
 
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Playlist object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		// User
-		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
+		PublicUser user = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(),
+				new ArrayList<>());
 		// Artist
-		Artist artist = new Artist(1L, "Jack Montano");
+		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		// Genre
 		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").build();
 		// Album
@@ -311,4 +329,18 @@ public class PlaylistControllerIntegrationTest {
 		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
 	}
 
+	private static byte[] readFileToByteArray(File file) {
+		FileInputStream fis = null;
+		// Creating a byte array using the length of the file
+		// file.length returns long which is cast to int
+		byte[] bArray = new byte[(int) file.length()];
+		try {
+			fis = new FileInputStream(file);
+			fis.read(bArray);
+			fis.close();
+		} catch (IOException ioExp) {
+			ioExp.printStackTrace();
+		}
+		return bArray;
+	}
 }

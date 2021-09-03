@@ -49,8 +49,10 @@ public class TrackControllerIntegrationTest {
 	@Test
 	void testCreateTrack() throws Exception {
 		
-		//Create track object
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Album object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre,  image);
@@ -91,8 +93,10 @@ public class TrackControllerIntegrationTest {
 		
 		RequestBuilder mockRequest = get("/tracks/read");
 		
-
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Album object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
@@ -132,7 +136,10 @@ public class TrackControllerIntegrationTest {
 		RequestBuilder mockRequest = get("/tracks/read/1");
 		
 
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Album object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);
@@ -155,8 +162,10 @@ public class TrackControllerIntegrationTest {
 	
 	@Test
 	void testUpdateTrack() throws Exception {
-		//Create track with updated data
-		Image image = new Image(0L, "image name", "image type", null);
+		byte[] byteImage = new byte[1];
+		byteImage[0] = 'W';
+		// Create Album object
+		Image image = new Image(1L, "johnpng", "png", byteImage);
 		Genre genre = new Genre(1L, "Jazz", "Jazz genre", new ArrayList<>(), image);
 		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
 		Album album = new Album(1L, "Blackpool", new ArrayList<>(), artist, genre, image);

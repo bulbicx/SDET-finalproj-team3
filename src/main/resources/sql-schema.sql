@@ -57,7 +57,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 CREATE TABLE IF NOT EXISTS `playlist` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-	`artwork` VARCHAR(255) NOT NULL,
 	`description` VARCHAR(255) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `user_id` BIGINT NOT NULL,
@@ -86,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `playlist_track` (
 );
 
 CREATE TABLE IF NOT EXISTS `session` (
-	`id` BIGINT NOT NULL,
+	`id` BIGINT NOT NULL AUTO_INCREMENT,
 	`user_id` BIGINT NOT NULL,
 	`token` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`),
