@@ -60,11 +60,9 @@ public class AdminUserService {
 		char[] pass = user.getPassword().toCharArray();
 		toUpdate.setPassword(hashPass.hash(pass));
 		
-		System.out.println(toUpdate);
-		
 		AdminUser updated = this.repo.save(toUpdate);
 		
-		System.out.println(updated);
+
 		
 		return this.mapToDTO(updated);
 

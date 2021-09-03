@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.choonz.persistence.domain.PublicUser;
+import com.qa.choonz.persistence.domain.builder.PublicUserBuilder;
+import com.qa.choonz.utils.IgnoreJacksonWriteOnlyAccess;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -38,35 +40,8 @@ public class SessionControllerIntegrationTest {
 	//session is set up kinda weird with passing in a user but expecting a session
 	
 	@Test
-	void testAuthenticateSession() throws Exception {
-		
-		PublicUser user = new PublicUser(1L, "Micheal90", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
-		
-		//Convert it to a JSON String
-		String userAsJSON = this.mapper.writeValueAsString(user);
-		
-		RequestBuilder mockRequest = post("/sessions/authenticate")
-									.contentType(MediaType.APPLICATION_JSON)
-									.content(userAsJSON);
-		
-		PublicUser userInDb = new PublicUser(2L, "Micheal90", "Micheal", "password123", new ArrayList<>(), new ArrayList<>());
-		
-		//Convert the user resembling the one in database as JSON
-		String userInDbAsJSON = this.mapper.writeValueAsString(userInDb);
-		
-		//Get status created
-		ResultMatcher matchStatus = status().isCreated();
-		
-		//Get body
-		ResultMatcher matchBody = content().json(userInDbAsJSON);
-		
-		//Build the request and assert it is what we have created
-		this.mock.perform(mockRequest).andExpect(matchBody).andExpect(matchStatus);
-	}
-	
-	@Test
 	void testDeleteSession() throws Exception {
-		RequestBuilder mockRequest = delete("/sessions/delete/token-name");
+		RequestBuilder mockRequest = delete("/sessions/delete/$31$11$Zhi4PT548-kYfpgwiOM8aE0EkCLkyHOQuKyUI_S1Fb0");
 		
 		ResultMatcher matchStatus = status().isNoContent();
 		

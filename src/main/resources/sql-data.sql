@@ -3,6 +3,7 @@ INSERT INTO `artist` (`name`, `image_id`) VALUES ('Jack Montano', 1);
 INSERT INTO `genre` (`name`, `description`, `image_id`) VALUES ('Jazz', 'Jazz genre', 1);
 INSERT INTO `album` (`cover`, `name`, `artist_id`, `genre_id`, `image_id`) VALUES ('image', 'Blackpool', 1, 1, 1);
 INSERT INTO `user` (`dtype`, `name`, `password`, `username`) VALUES ('PublicUser', 'Micheal', 'password123', 'polkadot');
+INSERT INTO `user` (`dtype`, `name`, `password`, `username`) VALUES ('PublicUser', 'Micheal', 'password123', 'polkadot');
 INSERT INTO `user` (`dtype`, `name`, `password`, `username`) VALUES ('AdminUser', 'John', 'password123', 'polkaot');
 INSERT INTO `playlist` (`description`, `name`, `user_id`, `image_id`) VALUES ('The best playlist', 'My playlist', 1, 1);
 INSERT INTO `track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la land', 'Parkour', 1);

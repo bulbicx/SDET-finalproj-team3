@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qa.choonz.persistence.domain.AdminUser;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
@@ -33,6 +34,7 @@ import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.PublicUser;
 import com.qa.choonz.persistence.domain.Session;
 import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.persistence.domain.builder.AdminUserBuilder;
 import com.qa.choonz.persistence.domain.builder.AlbumBuilder;
 import com.qa.choonz.persistence.domain.builder.GenreBuilder;
 import com.qa.choonz.persistence.domain.builder.PlaylistBuilder;
@@ -45,7 +47,7 @@ import com.qa.choonz.utils.IgnoreJacksonWriteOnlyAccess;
 @ActiveProfiles("test")
 @Sql(scripts = { "classpath:sql-schema.sql",
 		"classpath:sql-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class PublicUserControllerIntegrationTest {
+public class AdminUserControllerIntegrationTest {
 
 	@Autowired
 	private MockMvc mock;
@@ -53,50 +55,16 @@ public class PublicUserControllerIntegrationTest {
 	@Autowired
 	private ObjectMapper mapper;// Convert to JSON
 
-
 	@Test
 	void testReadAllUsers() throws Exception {
 		// Build mock request
-		RequestBuilder mockRequest = get("/users/public/read");
-		
-
-		byte[] byteImage = new byte[1];
-		byteImage[0] = 'W';
-		// Create Playlist object
-		Image image = new Image(1L, "johnpng", "png", byteImage);
+		RequestBuilder mockRequest = get("/users/admin/read");
 		// User
 		// Create User object
-		PublicUser user = new PublicUserBuilder().id(1L).name("Micheal").username("polkadot")
-						.build();
-		// Artist
-		Artist artist = new Artist(1L, "Jack Montano", new ArrayList<>(), image);
-		// Genre
-		Genre genre = new GenreBuilder().id(1L).name("Jazz").description("Jazz genre").image(image).build();
-		// Album
-		Album album = new AlbumBuilder().id(1L).cover(image).name("Blackpool").artist(artist).genre(genre).build();
-		// track` (`duration`, `lyrics`, `name`, `album_id`) VALUES (180, 'la la la
-		// land', 'Parkour', 1);
-		Track track = new TrackBuilder().duration(180).lyrics("la la la land").name("Parkour").album(album).build();
-		// Add list of tracks to album
-		List<Track> tracklist = new ArrayList<Track>();
-		tracklist.add(track);
-		album.setTracks(tracklist);
-		List<Album> albums = new ArrayList<Album>();
-		albums.add(album);
-		artist.setAlbums(albums);
-
-		Playlist playlist = new PlaylistBuilder().id(1L).name("My playlist").artwork(image)
-				.description("The best playlist").user(user).tracks(tracklist).build();
-
+		AdminUser user = new AdminUserBuilder().id(2L).name("John").username("polkaot").build();
+		//
 		// Create a list and add the object
-		List<Playlist> playlistsOnDb = new ArrayList<>();
-		playlistsOnDb.add(playlist);
-
-		//Add playlist to user
-		user.setPlaylists(playlistsOnDb);
-		
-		// Create a list and add the object
-		List<PublicUser> usersOnDb = new ArrayList<>();
+		List<AdminUser> usersOnDb = new ArrayList<>();
 		usersOnDb.add(user);
 
 		// Convert list into JSON format
@@ -115,11 +83,10 @@ public class PublicUserControllerIntegrationTest {
 	@Test
 	void testReadOneUser() throws Exception {
 		// Build mock request
-		RequestBuilder mockRequest = get("/users/public/read/1");
+		RequestBuilder mockRequest = get("/users/admin/read/2");
 
-		// Create the user object resembling the one existing on db
-		PublicUser userOnDb = new PublicUser(1L, "polkadot", "Micheal", "password123", new ArrayList<>(),
-				new ArrayList<>());
+		// Create User object
+		AdminUser userOnDb = new AdminUserBuilder().id(2L).name("John").username("polkaot").build();
 
 		// Convert the object into JSON format
 		String userOnDbAsJSON = this.mapper.writeValueAsString(userOnDb);
@@ -137,7 +104,7 @@ public class PublicUserControllerIntegrationTest {
 	@Test
 	void testDeleteUser() throws Exception {
 		// Build mock request
-		RequestBuilder mockRequest = delete("/users/public/delete/1");
+		RequestBuilder mockRequest = delete("/users/admin/delete/2");
 
 		// Check status code(204)
 		ResultMatcher matchStatus = status().isNoContent();
@@ -145,11 +112,12 @@ public class PublicUserControllerIntegrationTest {
 		// Build the mock request
 		this.mock.perform(mockRequest).andExpect(matchStatus);
 	}
+
 	@Test
 	void testCreateUser() throws Exception {
 		// Create User object
-		PublicUser user = new PublicUserBuilder().name("Micheal90").username("Michaels").password("password123")
-				.playlists(new ArrayList<>()).build();
+		AdminUser user = new AdminUserBuilder().name("Micheal90").username("Michaelss").password("password123")
+				.build();
 
 //		// Convert it to a JSON String
 		ObjectMapper mapper = new ObjectMapper();
@@ -157,7 +125,7 @@ public class PublicUserControllerIntegrationTest {
 		String userAsJSON = mapper.writeValueAsString(user);
 
 		// Build mock request
-		RequestBuilder mockRequest = post("/users/public/create").contentType(MediaType.APPLICATION_JSON)
+		RequestBuilder mockRequest = post("/users/admin/create").contentType(MediaType.APPLICATION_JSON)
 				.content(userAsJSON);
 
 		// Get status created
@@ -166,12 +134,12 @@ public class PublicUserControllerIntegrationTest {
 		// Build the request and assert it is what we have created
 		this.mock.perform(mockRequest).andExpect(matchStatus);
 	}
-	
+
 	@Test
 	void testUpdateUser() throws Exception {
 		// Create User object
-		PublicUser user = new PublicUserBuilder().name("Micheal90").username("Michaels").password("password123")
-				.playlists(new ArrayList<>()).build();
+		AdminUser user = new AdminUserBuilder().name("Micheal90").username("polkaot").password("password123")
+				.build();
 
 		// Convert it to a JSON String
 		ObjectMapper mapper = new ObjectMapper();
@@ -179,7 +147,7 @@ public class PublicUserControllerIntegrationTest {
 		String updatedUserAsJSON = mapper.writeValueAsString(user);
 
 		// Build mock request
-		RequestBuilder mockRequest = put("/users/public/update/1").contentType(MediaType.APPLICATION_JSON)
+		RequestBuilder mockRequest = put("/users/admin/update/2").contentType(MediaType.APPLICATION_JSON)
 				.content(updatedUserAsJSON);
 
 		// Get status created
