@@ -146,11 +146,9 @@
 
   const displayAlbumUpdate = (data) => {
     let albumName = document.querySelector("#name");
-    let cover = document.querySelector("#cover");
     let artist = document.querySelector("#artist");
     let genre = document.querySelector("#genre");
     albumName.value = data.name;
-    cover.value = data.cover;
     artist.value = data.artist.id;
     genre.value = data.genre.id;
     albumId = data.id;
@@ -176,6 +174,23 @@
       else {
         console.log(data)
         alert("Album added!");
+      }
+    })
+    location.reload();
+  }
+
+  const updateAlbum = async (album, artistId, genreId) => {
+    await fetch(`http://localhost:8082/albums/update/${albumId}/${artistId}/${genreId}`, {
+      method: 'PUT',
+      body: album
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.errors) {
+        alert(data.errors)
+      }
+      else {
+        alert("Album updated!");
       }
     })
     location.reload();
@@ -210,14 +225,12 @@
 
   const retrieveUpdateFormDetails = () => {
     let albumName = document.querySelector("#name").value;
-    let cover = document.querySelector("#cover").value;
     let artist = document.querySelector("#artist").value;
     let genre = document.querySelector("#genre").value;
 
-    if (albumName !== "" && cover !== "" && artist !== "" && genre !== "") {
+    if (albumName !== "" && artist !== "" && genre !== "") {
       let album = {
-        name: albumName,
-        cover: cover
+        name: albumName
       };
       updateAlbum(album, artist, genre);
     } else {
@@ -236,7 +249,6 @@
         formData.append('file', cover);
         formData.append('name', albumName);
         formData.append('token', myStorage.getItem("session-token"))
-
 
       addAlbum(artist, genre, formData);
     } else {

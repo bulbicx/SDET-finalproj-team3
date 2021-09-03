@@ -51,7 +51,7 @@ public class PublicUserDTO extends UserDTO{
 	@Override
 	public String toString() {
 		return "PublicUserDTO [playlists=" + playlists + ", getId()=" + getId() + ", getUsername()=" + getUsername()
-				+ ", getName()=" + getName() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+				+ ", getName()=" + getName() + "]";
 	}
 
 	
