@@ -3,10 +3,15 @@ package com.qa.choonz.uat.stepdefs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
+import org.awaitility.Awaitility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
@@ -98,6 +103,19 @@ public class AlbumCrudStepDefs {
 	@Given("I have an album")
 	public void i_have_an_album() {
 		genreCrudPage.clickAlbumPanel();
+		
+		WebElement select = this.driver.findElement(By.className("genre-list-add"));
+		Select genreListSelect = new Select(select);
+		Awaitility.await()
+		.atMost(5, TimeUnit.SECONDS)
+		.until(() -> genreListSelect.getOptions().size() > 0);
+		
+		WebElement selectArt = this.driver.findElement(By.className("artist-list-add"));
+		Select artistListSelect = new Select(selectArt);
+		Awaitility.await()
+		.atMost(5, TimeUnit.SECONDS)
+		.until(() -> artistListSelect.getOptions().size() > 0);
+		
 		String name = "Album 2";
 		String cover = "C:/Users/arkan/Downloads/Choonz.png";
 		String genre = "Rap";

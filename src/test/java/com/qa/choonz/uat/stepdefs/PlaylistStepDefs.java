@@ -34,7 +34,7 @@ public class PlaylistStepDefs {
 	
 	@Given("I am on the playlists page")
 	public void iAmOnThePlaylistsPage() {
-		this.driver.get("http://127.0.0.1:5500/playlists.html");
+		this.driver.get("http://localhost:8082/playlists.html");
 	}
 
 	@When("I click on the card to the first playlist")
@@ -45,12 +45,12 @@ public class PlaylistStepDefs {
 	@Then("I am taken to the page for that playlist")
 	public void iAmTakenToThePageForThatPlaylist() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/playlistsingle.html?id=1",this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/playlistsingle.html?id=1",this.driver.getCurrentUrl());
 	}
 
 	@Given("I am on the playlist page with id {int}")
 	public void iAmOnThePlaylistPageWithId(Integer int1) {
-		this.driver.get("http://127.0.0.1:5500/playlistsingle.html?id=1");
+		this.driver.get("http://localhost:8082/playlistsingle.html?id=1");
 	}
 
 	@When("I click on the playlist image of the first track")
@@ -61,7 +61,7 @@ public class PlaylistStepDefs {
 	@Then("I am taken to the page for that track from the playlist page")
 	public void iAmTakenToThePageForThatTrackFromThePlaylistPage() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/track.html?id=1",this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/track.html?id=1",this.driver.getCurrentUrl());
 	}
 
 	@AfterStep
