@@ -86,7 +86,6 @@ public class PlaylistService {
 		Playlist toUpdate = this.playlistRepo.findById(id).orElseThrow(PlaylistNotFoundException::new);
 		toUpdate.setName(playlist.getName());
 		toUpdate.setDescription(playlist.getDescription());
-		toUpdate.setArtwork(playlist.getArtwork());
 		Playlist updated = this.playlistRepo.save(toUpdate);
 		return this.mapToDTO(updated);
 	}

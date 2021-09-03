@@ -35,18 +35,18 @@ public class Artist {
 	
 	@OneToOne
     @JoinColumn(name="image_id")
-    private Image cover;
+    private Image image;
 
 	public Artist() {
 		super();
 	}
 
-	public Artist(Long id, @NotNull @Size(max = 100) String name, List<Album> albums, Image cover) {
+	public Artist(Long id, @NotNull @Size(max = 100) String name, List<Album> albums, Image image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.albums = albums;
-		this.cover = cover;
+		this.image = image;
 	}
 
 	
@@ -75,17 +75,17 @@ public class Artist {
 		this.albums = albums;
 	}
 
-	public Image getCover() {
-		return cover;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setCover(Image cover) {
-		this.cover = cover;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(albums, cover, id, name);
+		return Objects.hash(albums, image, id, name);
 	}
 
 	@Override
@@ -97,13 +97,13 @@ public class Artist {
 		if (getClass() != obj.getClass())
 			return false;
 		Artist other = (Artist) obj;
-		return Objects.equals(albums, other.albums) && Objects.equals(cover, other.cover)
+		return Objects.equals(albums, other.albums) && Objects.equals(image, other.image)
 				&& Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
 	@Override
 	public String toString() {
-		return "Artist [id=" + id + ", name=" + name + ", albums=" + albums + ", cover=" + cover + "]";
+		return "Artist [id=" + id + ", name=" + name + ", albums=" + albums + ", image=" + image + "]";
 	}
 
 	
