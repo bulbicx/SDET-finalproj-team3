@@ -35,9 +35,6 @@ public class AlbumCRUDPage {
 	@FindBy(id = "name")
 	private WebElement updateNameField;
 	
-	@FindBy(id = "cover")
-	private WebElement updateCoverField;
-	
 	@FindBy(className = "add")
 	private WebElement addBtn;
 	
@@ -108,9 +105,8 @@ public class AlbumCRUDPage {
 		this.addBtn.click();
 	}
 	
-	public void updateData(String name, String cover) {
+	public void updateData(String name) {
 		updateNameField.sendKeys(name);
-		updateCoverField.sendKeys(cover);
 	}
 	
 	public void deleteAlbum() {

@@ -25,13 +25,6 @@ public class SeleniumHooks {
 		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
-//  Is this needed? Not sure how the home page is set up but if that's also needed we could do it manually? sync issues
-//	@Before("@navpages")
-//	public void dataSetup() {
-//		//code here to insert dummy data for the navigation tests
-//	}
-//	
-	
 	private byte[] takeScreenshot() {
 		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}

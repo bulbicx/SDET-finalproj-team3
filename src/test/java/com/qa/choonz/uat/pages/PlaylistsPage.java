@@ -26,7 +26,7 @@ public class PlaylistsPage {
 	@FindBy(id = "new-description")
 	private WebElement newDescription;
 	
-	@FindBy(id = "new-artwork")
+	@FindBy(id = "new-image")
 	private WebElement newArtwork;
 	
 	@FindBy(id = "new-user")

@@ -50,7 +50,7 @@ public class LoginStepDefs {
 	@Then("I become logged in")
 	public void iBecomeLoggedIn() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/index.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/index.html", this.driver.getCurrentUrl());
 	}
 
 	@When("I click the sign up link")
@@ -86,7 +86,7 @@ public class LoginStepDefs {
 	@Then("I become signed up")
 	public void iBecomeSignedUp() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/index.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/index.html", this.driver.getCurrentUrl());
 	}
 
 	@When("I click the log in link")

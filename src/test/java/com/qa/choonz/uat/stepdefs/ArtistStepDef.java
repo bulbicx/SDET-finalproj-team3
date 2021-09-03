@@ -33,7 +33,7 @@ public class ArtistStepDef {
 	
 	@Given("I am on the artists page")
 	public void iAmOnTheArtistsPage() {
-		this.driver.get("http://127.0.0.1:5500/artists.html");
+		this.driver.get("http://localhost:8082/artists.html");
 	}
 
 	@When("I click on the card to the first artist")
@@ -44,12 +44,12 @@ public class ArtistStepDef {
 	@Then("I am taken to the page for that artist")
 	public void iAmTakenToThePageForThatArtist() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/artistsingle.html?id=1",this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/artistsingle.html?id=1",this.driver.getCurrentUrl());
 	}
 
 	@Given("I am on the artist page with id {int}")
 	public void iAmOnTheArtistPageWithId(Integer int1) {
-		this.driver.get("http://127.0.0.1:5500/artistsingle.html?id=1");
+		this.driver.get("http://localhost:8082/artistsingle.html?id=1");
 	}
 
 	@When("I click on the name of the first album")
@@ -71,7 +71,7 @@ public class ArtistStepDef {
 	@Then("I am taken to the page for that genre")
 	public void iAmTakenToThePageForThatGenre() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/genresingle.html?id=1",this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/genresingle.html?id=1",this.driver.getCurrentUrl());
 	}
 
 	@AfterStep

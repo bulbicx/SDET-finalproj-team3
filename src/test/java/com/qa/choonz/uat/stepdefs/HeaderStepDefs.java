@@ -31,7 +31,7 @@ public class HeaderStepDefs {
 	
 	@Given("I am on the home page")
 	public void iAmOnTheHomePage() {
-		this.driver.get("http://127.0.0.1:5500/index.html");
+		this.driver.get("http://localhost:8082/index.html");
 
 	}
 
@@ -42,7 +42,7 @@ public class HeaderStepDefs {
 
 	@Then("I am taken to the home page")
 	public void iAmTakenToTheHomePage() {
-		assertEquals("http://127.0.0.1:5500/index.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/index.html", this.driver.getCurrentUrl());
 	}
 
 	@When("I click on the header artist button")
@@ -52,7 +52,7 @@ public class HeaderStepDefs {
 
 	@Then("I am taken to the artists page")
 	public void iAmTakenToTheArtistsPage() {
-		assertEquals("http://127.0.0.1:5500/artists.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/artists.html", this.driver.getCurrentUrl());
 	}
 
 	@When("I click on the header album button")
@@ -62,7 +62,7 @@ public class HeaderStepDefs {
 
 	@Then("I am taken to the albums page")
 	public void iAmTakenToTheAlbumsPage() {
-		assertEquals("http://127.0.0.1:5500/albums.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/albums.html", this.driver.getCurrentUrl());
 	}
 
 	@When("I click on the header playlist button")
@@ -72,7 +72,7 @@ public class HeaderStepDefs {
 	
 	@Then("I am taken to the playlists page")
 	public void iAmTakenToThePlaylistsPage() {
-		assertEquals("http://127.0.0.1:5500/playlists.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/playlists.html", this.driver.getCurrentUrl());
 	}
 
 
@@ -83,7 +83,7 @@ public class HeaderStepDefs {
 
 	@Then("I am taken to the genres page")
 	public void iAmTakenToTheGenresPage() {
-		assertEquals("http://127.0.0.1:5500/genres.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/genres.html", this.driver.getCurrentUrl());
 	}
 	
 	@When("I click on the header login button")
@@ -94,7 +94,7 @@ public class HeaderStepDefs {
 	
 	@Then("I am taken to the login page")
 	public void iAmTakenToTheLoginPage() {
-		assertEquals("http://127.0.0.1:5500/login.html", this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/login.html", this.driver.getCurrentUrl());
 	}
 
 	@AfterStep

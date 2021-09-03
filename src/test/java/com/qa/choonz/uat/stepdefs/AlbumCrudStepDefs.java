@@ -3,9 +3,15 @@ package com.qa.choonz.uat.stepdefs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
+import org.awaitility.Awaitility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
@@ -39,8 +45,10 @@ public class AlbumCrudStepDefs {
 	@Given("I have an available artist")
 	public void i_have_an_available_artist() {
 	    this.driver.get(artistCrudPage.URL);
-	    artistCrudPage.addNewArtist("Tupac");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+	    String name = "Tupac";
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    artistCrudPage.addNewArtist(name, image);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -48,8 +56,11 @@ public class AlbumCrudStepDefs {
 	@Given("I have an available genre")
 	public void i_have_an_available_genre() {
 		artistCrudPage.clickGenrePanel();
-	    genreCrudPage.addNewGenre("Rap", "Rap music");
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
+		String name = "Rap";
+		String desc = "Rap music";
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    genreCrudPage.addNewGenre(name, desc, image);
+	    WebDriverWait wait = new WebDriverWait(driver, 10);
 	    wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -68,7 +79,7 @@ public class AlbumCrudStepDefs {
 	@When("I add album details")
 	public void i_add_album_details() {
 		String name = "Album name";
-		String cover = "Image";
+		String cover = "C:/Users/arkan/Downloads/Choonz.png";
 		String genre = "Rap";
 		String artist = "Tupac";
 	    albumCrudPage.insertData(name, cover, genre, artist);
@@ -81,10 +92,10 @@ public class AlbumCrudStepDefs {
 
 	@Then("a new album is added")
 	public void a_new_album_is_added() {
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
-		assertTrue(alertMsg.equals("New Album added!"));
+		assertTrue(alertMsg.equals("Album added!"));
 	    this.driver.switchTo().alert().accept();
 
 	}
@@ -92,26 +103,40 @@ public class AlbumCrudStepDefs {
 	@Given("I have an album")
 	public void i_have_an_album() {
 		genreCrudPage.clickAlbumPanel();
+		
+		WebElement select = this.driver.findElement(By.className("genre-list-add"));
+		Select genreListSelect = new Select(select);
+		Awaitility.await()
+		.atMost(5, TimeUnit.SECONDS)
+		.until(() -> genreListSelect.getOptions().size() > 0);
+		
+		WebElement selectArt = this.driver.findElement(By.className("artist-list-add"));
+		Select artistListSelect = new Select(selectArt);
+		Awaitility.await()
+		.atMost(5, TimeUnit.SECONDS)
+		.until(() -> artistListSelect.getOptions().size() > 0);
+		
 		String name = "Album 2";
-		String cover = "Cover 2";
+		String cover = "C:/Users/arkan/Downloads/Choonz.png";
 		String genre = "Rap";
 		String artist = "Tupac";
 	    albumCrudPage.addNewAlbum(name, cover, genre, artist);
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
 
 	@When("I go to update an album")
-	public void i_go_to_update_an_album() {
+	public void i_go_to_update_an_album(){
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(By.className("bi-pen-fill")));
 	    albumCrudPage.clickEditIcon();
 	}
 
 	@When("I update album details")
 	public void i_update_album_details() {
 		String newName = "Updated album";
-		String newCover = "Updated cover";
-	    albumCrudPage.updateData(newName, newCover);
+	    albumCrudPage.updateData(newName);
 	}
 
 	@When("I press the update album button")

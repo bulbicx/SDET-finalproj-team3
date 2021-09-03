@@ -4,6 +4,7 @@ Feature: Update album
   so that I can update the details.
 
   Background: Add album & artist & genre
+  	Given I am logged in as admin
 		Given I have an available artist
 		And I have an available genre
   	And I have an album

@@ -4,7 +4,8 @@ Feature: Create track
   so that I can add it to an album.
 
   Background: Create artist & genre & album
-		Given I have an existing artist
+  	Given I am logged in as admin
+		And I have an existing artist
 		And I have an existing genre
 		And I have an existing album
 
