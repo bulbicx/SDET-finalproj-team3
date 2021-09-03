@@ -36,7 +36,7 @@ public class AlbumStepDefs {
 	
 	@Given("I am on the albums page")
 	public void iAmOnTheAlbumsPage() {
-		this.driver.get("http://127.0.0.1:5500/albums.html");
+		this.driver.get("http://localhost:8082/albums.html");
 
 	}
 
@@ -48,12 +48,12 @@ public class AlbumStepDefs {
 	@Then("I am taken to the page for that album")
 	public void iAmTakenToThePageForThatAlbum() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/albumsingle.html?id=1",this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/albumsingle.html?id=1",this.driver.getCurrentUrl());
 	}
 
 	@Given("I am on the album page with id {int}")
 	public void iAmOnTheAlbumPageWithId(Integer int1) {
-		this.driver.get("http://127.0.0.1:5500/albumsingle.html?id=1");
+		this.driver.get("http://localhost:8082/albumsingle.html?id=1");
 	}
 
 	@When("I click on the name of the first track")
@@ -64,7 +64,7 @@ public class AlbumStepDefs {
 	@Then("I am taken to the page for that track")
 	public void iAmTakenToThePageForThatTrack() throws InterruptedException {
 		Thread.sleep(500);
-		assertEquals("http://127.0.0.1:5500/track.html?id=1",this.driver.getCurrentUrl());
+		assertEquals("http://localhost:8082/track.html?id=1",this.driver.getCurrentUrl());
 	}
 
 	@When("I click on the duration of the first track")
