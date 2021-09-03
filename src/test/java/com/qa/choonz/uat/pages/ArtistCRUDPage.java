@@ -40,6 +40,9 @@ public class ArtistCRUDPage {
 	@FindBy(className = "album-panel")
 	private WebElement albumPanel;
 	
+	@FindBy(id = "new-image")
+	private WebElement image;
+	
 	public void clickPlusIcon() {
 		plusIcon.click();
 	}
@@ -48,8 +51,9 @@ public class ArtistCRUDPage {
 		editIcon.click();
 	}
 	
-	public void insertDataOnNameField(String name) {
+	public void insertDataOnNameField(String name, String img) {
 		newNameField.sendKeys(name);
+		image.sendKeys(img);
 	}
 	
 	public void clickAddBtn() {
@@ -60,9 +64,10 @@ public class ArtistCRUDPage {
 		updateBtn.click();
 	}
 	
-	public void addNewArtist(String name) {
+	public void addNewArtist(String name, String img) {
 		this.plusIcon.click();
 		newNameField.sendKeys(name);
+		image.sendKeys(img);
 		addBtn.click();
 	}
 	

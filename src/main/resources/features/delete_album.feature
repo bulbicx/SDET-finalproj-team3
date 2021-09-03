@@ -5,6 +5,7 @@ Feature: Delete album
   so that an album is not available anymore.
 	
   Background: Add genre & artist & album
+  	Given I am logged in as admin
 		Given I have an available artist
 		And I have an available genre
   	And I have an album

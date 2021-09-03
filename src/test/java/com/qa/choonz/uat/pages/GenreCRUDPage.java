@@ -25,6 +25,9 @@ public class GenreCRUDPage {
 	@FindBy(id = "name")
 	private WebElement updateNameField;
 	
+	@FindBy(id = "new-image")
+	private WebElement image;
+	
 	@FindBy(id = "description")
 	private WebElement updateDescriptionField;
 	
@@ -54,9 +57,10 @@ public class GenreCRUDPage {
 		editIcon.click();
 	}
 	
-	public void insertDataOnAddition(String name, String description) {
+	public void insertDataOnAddition(String name, String description, String img) {
 		newNameField.sendKeys(name);
 		newDescriptionField.sendKeys(description);
+		image.sendKeys(img);
 	}
 	
 	public void clickAddBtn() {
@@ -67,10 +71,11 @@ public class GenreCRUDPage {
 		updateBtn.click();
 	}
 	
-	public void addNewGenre(String name, String description) {
+	public void addNewGenre(String name, String description, String img) {
 		plusIcon.click();
 		newNameField.sendKeys(name);
 		newDescriptionField.sendKeys(description);
+		image.sendKeys(img);
 		addBtn.click();
 	}
 	

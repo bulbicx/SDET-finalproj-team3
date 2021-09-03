@@ -4,12 +4,13 @@ Feature: Add track to playlist
  	so that I can personalize the playlist
 
   Background: Create data
-		Given I have an existing user
-		And I have a playlist
+  	Given I am logged in as admin
 		And I have already artist
 		And I have an genre
   	And I have an available album
   	And I have an existing track
+		And I have an existing user
+		And I have a playlist
 
 	  Scenario: Add track to playlist
 	  	When I go in the playlist page
