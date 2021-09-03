@@ -77,7 +77,7 @@ Non-functional testing is covered in the src/test/resouces/jmeter. The .jmx file
 
 ## Test Coverage
 
-TBD
+![TestCoverage](https://user-images.githubusercontent.com/85874648/132004138-bbb20be7-4b2a-40fe-ba08-ce216a66623a.PNG)
 
 ## Authors
 
