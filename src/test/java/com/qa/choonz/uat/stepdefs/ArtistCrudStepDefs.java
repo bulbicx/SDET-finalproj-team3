@@ -12,11 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.choonz.uat.hooks.SeleniumHooks;
 import com.qa.choonz.uat.pages.ArtistCRUDPage;
-import com.qa.choonz.utils.ScreenshotUtility;
 
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.BeforeStep;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,12 +21,10 @@ import io.cucumber.java.en.When;
 public class ArtistCrudStepDefs {
 
 	private WebDriver driver;
-	private ScreenshotUtility screenshotUtils;
 	private ArtistCRUDPage artistCrudPage;
 	
 	public ArtistCrudStepDefs(SeleniumHooks hooks) {
 		this.driver = hooks.getDriver();
-		screenshotUtils = new ScreenshotUtility();
 		this.artistCrudPage = PageFactory.initElements(driver, ArtistCRUDPage.class);
 	}
 	
@@ -52,7 +47,8 @@ public class ArtistCrudStepDefs {
 	@When("I add artist details")
 	public void i_add_artist_details() {
 		String name = "Madonna";
-	    artistCrudPage.insertDataOnNameField(name);
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    artistCrudPage.insertDataOnNameField(name, image);
 	}
 	
 	@When("I press the add artist button")
@@ -62,10 +58,10 @@ public class ArtistCrudStepDefs {
 	
 	@Then("a new artist is added")
 	public void a_new_artist_is_added() {
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
-		assertTrue(alertMsg.equals("New Artist added!"));
+		assertTrue(alertMsg.equals("Artist added!"));
 	}
 	
 	/**
@@ -74,8 +70,10 @@ public class ArtistCrudStepDefs {
 	@Given("I have an artist")
 	public void i_have_an_artist() {
 	    this.driver.get(artistCrudPage.URL);
-	    artistCrudPage.addNewArtist("Artist name");
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+		String name = "Artist name";
+		String image = "C:/Users/arkan/Downloads/Choonz.png";
+	    artistCrudPage.addNewArtist(name, image);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.alertIsPresent());
 	    this.driver.switchTo().alert().accept();
 	}
@@ -118,13 +116,5 @@ public class ArtistCrudStepDefs {
 		wait.until(ExpectedConditions.alertIsPresent());
 		String alertMsg = this.driver.switchTo().alert().getText();
 		assertTrue(alertMsg.equals("Artist deleted!"));
-	}
-	
-	@AfterStep
-	public void takeScreenshotAfterStep(Scenario scenario) {
-		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		if (scenario.isFailed()) {
-			scenario.attach(screenshotUtils.takeScreenshot(driver), "image/png", scenario.getName());
-		}
 	}
 }

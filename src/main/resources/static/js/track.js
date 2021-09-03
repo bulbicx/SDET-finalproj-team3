@@ -93,7 +93,7 @@
 
         let artistImage = document.createElement("img");
         artistImage.setAttribute("class", "img-artist-mini");
-        artistImage.setAttribute("src", "https://www.superiorwallpapers.com/download/relaxing-place-for-a-special-summer-holiday-tropical-island-4028x2835.jpg");
+        artistImage.setAttribute("src", "https://media.gq-magazine.co.uk/photos/5e830b92013fff000829dd01/master/w_1920,h_1280,c_limit/20200331-new-music-09.jpg");
         artistImage.setAttribute("alt", "artist-image");
         artistImage.onclick = () => {
             getArtistPage(track.album.artist.id);

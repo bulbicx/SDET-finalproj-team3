@@ -16,8 +16,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 				"html:target/cucumber-reports/cucumber-html-reports.html",
 				"junit:target/cucumber-reports/cucumber-junit-report.xml"
 		},
-		monochrome = true,
-		tags = "@navpages"
+		monochrome = true
 		)
 public class CucumberTestRunner {
 // many of the assert cases in the stepdefs have a sleep function to wait for the page to load. Implicit wait didn't fix it

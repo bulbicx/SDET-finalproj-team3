@@ -44,13 +44,6 @@ public class GenreStepDefs {
 	    genresPage.clickCard();
 	}
 
-	
-// This function is identical to one in ArtistStepDef
-//	@Then("I am taken to the page for that genre")
-//	public void iAmTakenToThePageForThatGenre() {
-//	    assertEquals("http://127.0.0.1:5500/genresingle.html?id=1", this.driver.getCurrentUrl());
-//	}
-
 	@Given("I am on the genre single page")
 	public void iAmOnTheGenreSinglePage() {
 	    this.driver.get(genreSinglePage.url);
@@ -64,7 +57,7 @@ public class GenreStepDefs {
 	@Then("I am taken to the page of that album")
 	public void iAmTakenToThePageOfThatAlbum() throws InterruptedException {
 		Thread.sleep(500);
-	    assertEquals("http://127.0.0.1:5500/albumsingle.html?id=1", this.driver.getCurrentUrl());
+	    assertEquals("http://localhost:8082/albumsingle.html?id=1", this.driver.getCurrentUrl());
 	}
 
 	@When("I click on the name of the artist")
@@ -75,7 +68,7 @@ public class GenreStepDefs {
 	@Then("I am taken to the page of that artist")
 	public void iAmTakenToThePageOfThatArtist() throws InterruptedException {
 		Thread.sleep(500);
-	    assertEquals("http://127.0.0.1:5500/artistsingle.html?id=1", this.driver.getCurrentUrl());
+	    assertEquals("http://localhost:8082/artistsingle.html?id=1", this.driver.getCurrentUrl());
 	}
 
 	@AfterStep

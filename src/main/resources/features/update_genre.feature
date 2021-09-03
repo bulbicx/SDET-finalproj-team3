@@ -3,7 +3,8 @@ Feature: Update genre
   As a logged in admin, I want to be able to update a genre, 
   so that I a new change is applied.
 
-  Background: Add genre
+  Background: Login and add genre
+  	Given I am logged in as admin
   	Given I have a genre
   	
 	  Scenario: Update a genre

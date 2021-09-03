@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class PlaylistSinglePage {
 	
-	public final String url = "http://127.0.0.1:5500/playlistsingle.html?id=1";
+	public final String url = "http://localhost:8082/playlistsingle.html?id=1";
 	
 	@FindBy(xpath="/html/body/section/section/section/div")
 	public WebElement firstTrackCard;
